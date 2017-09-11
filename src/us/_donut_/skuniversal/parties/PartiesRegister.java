@@ -22,11 +22,11 @@ public class PartiesRegister {
 
             //Expressions
             Skript.registerExpression(ExprLeader.class, OfflinePlayer.class, ExpressionType.SIMPLE, "[the] leader of [the] party [(named|with name)] %string%");
-            Skript.registerExpression(ExprPartyOfPlayer.class,String.class, ExpressionType.PROPERTY, "[the] party [name] of %offlineplayer%", "%offlineplayer%'s party [name]");
-            Skript.registerExpression(ExprMembers.class, OfflinePlayer.class, ExpressionType.PROPERTY, "[the] members of [the] party [(named|with name)] %string%", "[the] party [(named|with name)] %string%'s members");
-            Skript.registerExpression(ExprOnlineMembers.class, Player.class, ExpressionType.PROPERTY, "[the] online members of [the] party [(named|with name)] %string%", "[the] party [(named|with name)] %string%'s online members");
-            Skript.registerExpression(ExprKills.class, Number.class, ExpressionType.PROPERTY, "[the] [(number|amount of)] kills of [the] party [(named|with name)] %string%", "[the] party [(named|with name)] %string%'s [(number|amount of)] kills");
-            Skript.registerExpression(ExprHome.class, Location.class, ExpressionType.PROPERTY, "[the] home [loc[ation]] of [the] party [(named|with name)] %string%", "[the] party [(named|with name)] %string%'s home [loc[ation]]");
+            Skript.registerExpression(ExprPartyOfPlayer.class,String.class, ExpressionType.COMBINED, "[the] party [name] of %offlineplayer%", "%offlineplayer%'s party [name]");
+            Skript.registerExpression(ExprMembers.class, OfflinePlayer.class, ExpressionType.COMBINED, "[the] members of [the] party [(named|with name)] %string%", "[the] party [(named|with name)] %string%'s members");
+            Skript.registerExpression(ExprOnlineMembers.class, Player.class, ExpressionType.COMBINED, "[the] online members of [the] party [(named|with name)] %string%", "[the] party [(named|with name)] %string%'s online members");
+            Skript.registerExpression(ExprKills.class, Number.class, ExpressionType.COMBINED, "[the] [(number|amount of)] kills of [the] party [(named|with name)] %string%", "[the] party [(named|with name)] %string%'s [(number|amount of)] kills");
+            Skript.registerExpression(ExprHome.class, Location.class, ExpressionType.COMBINED, "[the] home [loc[ation]] of [the] party [(named|with name)] %string%", "[the] party [(named|with name)] %string%'s home [loc[ation]]");
         }
     }
 }

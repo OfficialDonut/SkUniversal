@@ -15,9 +15,9 @@ public class MinePacksRegister {
             Skript.registerEffect(EffRemoveItem.class, "(remove|delete) %itemstack% from [the] (back|mine)pack of %player%", "(remove|delete) %itemstack% from %player%'s (back|mine)pack");
 
             //Expressions
-            Skript.registerExpression(ExprBackpackItems.class, ItemStack.class, ExpressionType.PROPERTY, "[the] (items in|contents of) [the] (back|mine)pack of %player%", "[the] (items in|contents of) %player%'s (back|mine)pack");
-            Skript.registerExpression(ExprBackpackSize.class, Number.class, ExpressionType.PROPERTY, "[the] size of [the] (back|mine)pack of %player%", "[the] size of %player%'s (back|mine)pack");
-            Skript.registerExpression(ExprSlotItem.class, ItemStack.class, ExpressionType.PROPERTY, "[[the ]item in] slot %integer% of [the] (back|mine)pack of %player%", "[[the ] item in] slot %integer% of %player%'s (back|mine)pack");
+            Skript.registerExpression(ExprBackpackItems.class, ItemStack.class, ExpressionType.COMBINED, "[the] (items in|contents of) [the] (back|mine)pack of %player%", "[the] (items in|contents of) %player%'s (back|mine)pack");
+            Skript.registerExpression(ExprBackpackSize.class, Number.class, ExpressionType.COMBINED, "[the] size of [the] (back|mine)pack of %player%", "[the] size of %player%'s (back|mine)pack");
+            Skript.registerExpression(ExprSlotItem.class, ItemStack.class, ExpressionType.COMBINED, "[[the ]item in] slot %integer% of [the] (back|mine)pack of %player%", "[[the ]item in] slot %integer% of %player%'s (back|mine)pack");
         }
     }
 }
