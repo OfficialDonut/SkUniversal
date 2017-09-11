@@ -14,7 +14,7 @@ public class LocketteRegister {
             Skript.registerCondition(CondOwner.class, "%player% is [the] [Lockette] owner of %block%", "%block%'s [Lockette] owner is %player%");
 
             //Expressions
-            Skript.registerExpression(ExprOwner.class, Player.class, ExpressionType.PROPERTY, "[Lockette] owner of %block%", "%block%'s [Lockette] owner");
+            Skript.registerExpression(ExprOwner.class, Player.class, ExpressionType.COMBINED, "[Lockette] owner of %block%", "%block%'s [Lockette] owner");
         }
     }
 }
