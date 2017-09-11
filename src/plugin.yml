@@ -3,4 +3,4 @@ version: 1.0
 author: _Donut_
 main: us._donut_.skuniversal.SkUniversal
 depend: [Skript]
-softdepend: [AdvancedSurvivalGames, Autorank, Bedwars, ClearLag, CombatLog, Lockette, MinePacks, Parties, PvPLevels, Shopkeepers, SkyWars]
+softdepend: [AdvancedBan, AdvancedSurvivalGames, Autorank, Bedwars, ClearLag, CombatLog, Lockette, LockettePro, LWC, MinePacks, Parties, PvPLevels, Shopkeepers, SkyWars]
