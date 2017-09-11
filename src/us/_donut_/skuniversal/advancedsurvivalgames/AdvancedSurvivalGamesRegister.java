@@ -25,8 +25,8 @@ public class AdvancedSurvivalGamesRegister {
             Skript.registerExpression(ExprAlivePlayers.class, Player.class, ExpressionType.SIMPLE, "[the] [advanced] (survival games|sg) alive players");
             Skript.registerExpression(ExprSpectators.class, Player.class, ExpressionType.SIMPLE, "[the] [advanced] (survival games|sg) spectators");
             Skript.registerExpression(ExprTopPlayers.class, String.class, ExpressionType.SIMPLE, "[the] [advanced] (survival games|sg) top players");
-            Skript.registerExpression(ExprTeammate.class, Player.class, ExpressionType.PROPERTY, "[the] [advanced] (survival games|sg) teammate of %offlineplayer%", "%offlineplayer%'s [advanced] (survival games|sg) teammate");
-            Skript.registerExpression(ExprBounty.class, Number.class, ExpressionType.PROPERTY, "[the] [advanced] (survival games|sg) bounty of %offlineplayer%", "%offlineplayer%'s [advanced] (survival games|sg) bounty");
+            Skript.registerExpression(ExprTeammate.class, Player.class, ExpressionType.COMBINED, "[the] [advanced] (survival games|sg) teammate of %offlineplayer%", "%offlineplayer%'s [advanced] (survival games|sg) teammate");
+            Skript.registerExpression(ExprBounty.class, Number.class, ExpressionType.COMBINED, "[the] [advanced] (survival games|sg) bounty of %offlineplayer%", "%offlineplayer%'s [advanced] (survival games|sg) bounty");
             Skript.registerExpression(ExprStage.class, String.class, ExpressionType.SIMPLE, "[the] [advanced] (survival games|sg) [current] stage");
 
             //Events
