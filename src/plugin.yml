@@ -1,9 +1,9 @@
 name: SkUniversal
-version: 1.2.5
+version: 1.3
 author: _Donut_
 main: us._donut_.skuniversal.SkUniversal
 depend: [Skript]
-softdepend: [AdvancedBan, AdvancedSurvivalGames, Autorank, Bedwars, ClearLag, CombatLog, Lockette, LockettePro, LWC, MinePacks, Parties, PvPLevels, Shopkeepers, SkyWars]
+softdepend: [AdvancedBan, AdvancedSurvivalGames, Autorank, Bedwars, ClearLag, CombatLog, Lockette, LockettePro, LWC, MinePacks, Parties, PlotSquared, PrisonMines, PvPLevels, Shopkeepers, SkyWars]
 commands:
   skuniversal:
     description: The main SkUniversal command.
