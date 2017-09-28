@@ -33,12 +33,17 @@ public class ExprMuteReason extends SimpleExpression<String> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "the mute reason of player";
+        return "the mute reason of player " + player.getSingle(e);
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-        return new String[]{PunishmentManager.get().getMute(UUIDManager.get().getUUID(player.getSingle(e).getName())).getReason()};
+        if(player.getSingle(e)!=null){
+            return new String[]{PunishmentManager.get().getMute(UUIDManager.get().getUUID(player.getSingle(e).getName())).getReason()};
+        }else{
+            Skript.error("Must provide a player, please refer to the syntax");
+            return null;
+        }
     }
 }

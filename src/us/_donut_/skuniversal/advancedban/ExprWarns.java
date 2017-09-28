@@ -33,12 +33,17 @@ public class ExprWarns extends SimpleExpression<Number> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "the warns of player";
+        return "the warns of player " + player.getSingle(e);
     }
 
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        return new Number[]{PunishmentManager.get().getCurrentWarns(UUIDManager.get().getUUID(player.getSingle(e).getName()))};
+        if(player.getSingle(e)!=null){
+            return new Number[]{PunishmentManager.get().getCurrentWarns(UUIDManager.get().getUUID(player.getSingle(e).getName()))};
+        }else{
+            Skript.error("Must provide a player, please refer to the syntax");
+            return null;
+        }
     }
 }
