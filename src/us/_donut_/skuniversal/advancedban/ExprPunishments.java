@@ -38,37 +38,42 @@ public class ExprPunishments extends SimpleExpression<String> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "the punishments of player";
+        return "the punishments of player " + player.getSingle(e);
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-        List<String> punishments = new ArrayList<>();
-        for (Punishment p : PunishmentManager.get().getPunishments(UUIDManager.get().getUUID(player.getSingle(e).getName()), PunishmentType.BAN, true)) {
-            punishments.add(p.getType().getName());
+        if(player.getSingle(e)!=null){
+            List<String> punishments = new ArrayList<>();
+            for (Punishment p : PunishmentManager.get().getPunishments(UUIDManager.get().getUUID(player.getSingle(e).getName()), PunishmentType.BAN, true)) {
+                punishments.add(p.getType().getName());
+            }
+            for (Punishment p : PunishmentManager.get().getPunishments(UUIDManager.get().getUUID(player.getSingle(e).getName()), PunishmentType.IP_BAN, true)) {
+                punishments.add(p.getType().getName());
+            }
+            for (Punishment p : PunishmentManager.get().getPunishments(UUIDManager.get().getUUID(player.getSingle(e).getName()), PunishmentType.TEMP_BAN, true)) {
+                punishments.add(p.getType().getName());
+            }
+            for (Punishment p : PunishmentManager.get().getPunishments(UUIDManager.get().getUUID(player.getSingle(e).getName()), PunishmentType.TEMP_IP_BAN, true)) {
+                punishments.add(p.getType().getName());
+            }
+            for (Punishment p : PunishmentManager.get().getPunishments(UUIDManager.get().getUUID(player.getSingle(e).getName()), PunishmentType.MUTE, true)) {
+                punishments.add(p.getType().getName());
+            }
+            for (Punishment p : PunishmentManager.get().getPunishments(UUIDManager.get().getUUID(player.getSingle(e).getName()), PunishmentType.TEMP_MUTE, true)) {
+                punishments.add(p.getType().getName());
+            }
+            for (Punishment p : PunishmentManager.get().getPunishments(UUIDManager.get().getUUID(player.getSingle(e).getName()), PunishmentType.WARNING, true)) {
+                punishments.add(p.getType().getName());
+            }
+            for (Punishment p : PunishmentManager.get().getPunishments(UUIDManager.get().getUUID(player.getSingle(e).getName()), PunishmentType.TEMP_WARNING, true)) {
+                punishments.add(p.getType().getName());
+            }
+            return punishments.toArray(new String[punishments.size()]);
+        }else{
+            Skript.error("Must provide a player, please refer to the syntax");
+            return null;
         }
-        for (Punishment p : PunishmentManager.get().getPunishments(UUIDManager.get().getUUID(player.getSingle(e).getName()), PunishmentType.IP_BAN, true)) {
-            punishments.add(p.getType().getName());
-        }
-        for (Punishment p : PunishmentManager.get().getPunishments(UUIDManager.get().getUUID(player.getSingle(e).getName()), PunishmentType.TEMP_BAN, true)) {
-            punishments.add(p.getType().getName());
-        }
-        for (Punishment p : PunishmentManager.get().getPunishments(UUIDManager.get().getUUID(player.getSingle(e).getName()), PunishmentType.TEMP_IP_BAN, true)) {
-            punishments.add(p.getType().getName());
-        }
-        for (Punishment p : PunishmentManager.get().getPunishments(UUIDManager.get().getUUID(player.getSingle(e).getName()), PunishmentType.MUTE, true)) {
-            punishments.add(p.getType().getName());
-        }
-        for (Punishment p : PunishmentManager.get().getPunishments(UUIDManager.get().getUUID(player.getSingle(e).getName()), PunishmentType.TEMP_MUTE, true)) {
-            punishments.add(p.getType().getName());
-        }
-        for (Punishment p : PunishmentManager.get().getPunishments(UUIDManager.get().getUUID(player.getSingle(e).getName()), PunishmentType.WARNING, true)) {
-            punishments.add(p.getType().getName());
-        }
-        for (Punishment p : PunishmentManager.get().getPunishments(UUIDManager.get().getUUID(player.getSingle(e).getName()), PunishmentType.TEMP_WARNING, true)) {
-            punishments.add(p.getType().getName());
-        }
-        return punishments.toArray(new String[punishments.size()]);
     }
 }

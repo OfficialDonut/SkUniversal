@@ -33,12 +33,21 @@ public class ExprBanner extends SimpleExpression<String> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "the banner of player";
+        return "the banner of player " + player.getSingle(e);
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-        return new String[]{PunishmentManager.get().getBan(UUIDManager.get().getUUID(player.getSingle(e).getName())).getOperator()};
+        if(player.getSingle(e) != null){
+            try{
+                return new String[]{PunishmentManager.get().getBan(UUIDManager.get().getUUID(player.getSingle(e).getName())).getOperator()}
+            }catch(NullPointerException x){
+                Skript.error("Something returned null, please double check the provided player.");
+            }
+        }else{
+            Skript.error("Must provide a player, please refer to the syntax");
+            return null;
+        }
     }
 }

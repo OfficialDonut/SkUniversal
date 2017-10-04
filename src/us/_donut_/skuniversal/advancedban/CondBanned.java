@@ -23,11 +23,16 @@ public class CondBanned extends Condition {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "player is banned";
+        return "player " + p.getSingle(e) + " is banned"
     }
 
     @Override
     public boolean check(Event e) {
-        return PunishmentManager.get().isBanned(UUIDManager.get().getUUID(player.getSingle(e).getName()));
+        if(player.getSingle(e)!=null){
+            return PunishmentManager.get().isBanned(UUIDManager.get().getUUID(player.getSingle(e).getName()));
+        }else{
+            Skript.error("Must provide a player, please refer to the syntax");
+            return false;
+        }
     }
 }
