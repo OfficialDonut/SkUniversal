@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.advancedsurvivalgames;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -34,13 +35,18 @@ public class ExprBounty extends SimpleExpression<Number> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "the survival games bounty of player";
+        return "the survival games bounty of player" + player.getSingle(e);
     }
 
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        return new Number[]{Game.getPlayerManager().getSGPlayer(player.getSingle(e)).getBounty()};
+        if (player.getSingle(e) != null) {
+            return new Number[]{Game.getPlayerManager().getSGPlayer(player.getSingle(e)).getBounty()};
+        }else{
+            Skript.error("Must provide a player, please refer to the syntax");
+            return null;
+        }
     }
 
     @Override

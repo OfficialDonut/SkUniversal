@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.bedwars;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -33,13 +34,18 @@ public class ExprPlayers extends SimpleExpression<Player> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "players in Bedwars game";
+        return "players in Bedwars game " + game.getSingle(e);
     }
 
     @Override
     @Nullable
     protected Player[] get(Event e) {
-        List<Player> players = GameManager.getGame(game.getSingle(e)).getPlayers();
-        return players.toArray(new Player[players.size()]);
+        if (GameManager.getGame(game.getSingle(e)) != null) {
+            List<Player> players = GameManager.getGame(game.getSingle(e)).getPlayers();
+            return players.toArray(new Player[players.size()]);
+        } else {
+            Skript.error("Must provide a Bedwars game, please refer to the syntax");
+            return null;
+        }
     }
 }

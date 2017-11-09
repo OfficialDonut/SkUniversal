@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.advancedban;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -39,13 +40,9 @@ public class ExprBanner extends SimpleExpression<String> {
     @Override
     @Nullable
     protected String[] get(Event e) {
-        if(player.getSingle(e) != null){
-            try{
-                return new String[]{PunishmentManager.get().getBan(UUIDManager.get().getUUID(player.getSingle(e).getName())).getOperator()}
-            }catch(NullPointerException x){
-                Skript.error("Something returned null, please double check the provided player.");
-            }
-        }else{
+        if (player.getSingle(e) != null) {
+            return new String[]{ PunishmentManager.get().getBan(UUIDManager.get().getUUID(player.getSingle(e).getName())).getOperator() };
+        } else {
             Skript.error("Must provide a player, please refer to the syntax");
             return null;
         }

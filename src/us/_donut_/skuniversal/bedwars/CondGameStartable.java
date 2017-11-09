@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.bedwars;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -21,11 +22,16 @@ public class CondGameStartable extends Condition {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "Bedwars game is startable";
+        return "Bedwars game " + game.getSingle(e) + " is startable";
     }
 
     @Override
     public boolean check(Event e) {
-        return GameManager.getGame(game.getSingle(e)).isStartable();
+        if (GameManager.getGame(game.getSingle(e)) != null) {
+            return GameManager.getGame(game.getSingle(e)).isStartable();
+        } else {
+            Skript.error("Must provide a Bedwars game, please refer to the syntax");
+            return false;
+        }
     }
 }

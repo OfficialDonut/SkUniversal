@@ -6,11 +6,13 @@ import ch.njol.skript.lang.util.SimpleEvent;
 import me.leoko.advancedban.bukkit.event.PunishmentEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import us._donut_.skuniversal.SkUniversal;
 
 public class AdvancedBanRegister {
 
     public static void registerAdvancedBan() {
         if (Bukkit.getServer().getPluginManager().getPlugin("AdvancedBan") != null) {
+            SkUniversal.hookedPlugins.add("AdvancedBan");
 
             //Conditions
             Skript.registerCondition(CondBanned.class, "%offlineplayer% is banned by AdvancedBan");
@@ -32,7 +34,7 @@ public class AdvancedBanRegister {
             Skript.registerExpression(ExprPunishmentLength.class, String.class, ExpressionType.SIMPLE, "[the] [AdvancedBan] punish[ment] (length|duration)");
 
             //Events
-            Skript.registerEvent("AdvancedBan Punish", SimpleEvent.class, PunishmentEvent.class, "[on] [AdvancedBan] punish[ment]");
+            Skript.registerEvent("AdvancedBan Punish", EvtPunish.class, PunishmentEvent.class, "[AdvancedBan] punish[ment]");
         }
     }
 }

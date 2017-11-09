@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.advancedban;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;

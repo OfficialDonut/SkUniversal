@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.autorank;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -35,17 +36,22 @@ public class ExprAllRequirements extends SimpleExpression<String> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "all requirements";
+        return "all requirements of player " + player.getSingle(e);
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-        List<RequirementsHolder> requirementsList = Autorank.getInstance().getAPI().getAllRequirements(player.getSingle(e));
-        List<String> requirements = new ArrayList<>();
-        for (RequirementsHolder req : requirementsList) {
-            requirements.add(req.getDescription());
+        if (player.getSingle(e) != null) {
+            List<RequirementsHolder> requirementsList = Autorank.getInstance().getAPI().getAllRequirements(player.getSingle(e));
+            List<String> requirements = new ArrayList<>();
+            for (RequirementsHolder req : requirementsList) {
+                requirements.add(req.getDescription());
+            }
+            return requirements.toArray(new String[requirements.size()]);
+        } else{
+            Skript.error("Must provide a player, please refer to the syntax");
+            return null;
         }
-        return requirements.toArray(new String[requirements.size()]);
     }
 }

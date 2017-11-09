@@ -33,7 +33,7 @@ public class ExprLocalTime extends SimpleExpression<Number> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "local time";
+        return "local time of player " + player.getSingle(e);
     }
 
     @Override

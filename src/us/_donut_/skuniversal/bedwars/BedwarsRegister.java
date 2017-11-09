@@ -4,10 +4,12 @@ import ch.njol.skript.Skript;
 import ch.njol.skript.lang.ExpressionType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import us._donut_.skuniversal.SkUniversal;
 
 public class BedwarsRegister {
     public static void registerBedwars() {
         if (Bukkit.getServer().getPluginManager().getPlugin("Bedwars") != null) {
+            SkUniversal.hookedPlugins.add("BedWars");
 
             //Conditions
             Skript.registerCondition(CondInGame.class, "%player% is [playing] in [a] Bedwars game");

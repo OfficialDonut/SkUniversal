@@ -8,10 +8,12 @@ import ch.njol.skript.util.Getter;
 import me.armar.plugins.autorank.api.events.RequirementCompleteEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import us._donut_.skuniversal.SkUniversal;
 
 public class AutorankRegister {
     public static void registerAutorank() {
         if (Bukkit.getServer().getPluginManager().getPlugin("Autorank") != null) {
+            SkUniversal.hookedPlugins.add("Autorank");
 
             //Expressions
             Skript.registerExpression(ExprGlobalTime.class, Number.class, ExpressionType.COMBINED, "[the] global [Autorank] [play[ ]]time of %player%", "%player%'s global [Autorank] [play[ ]]time");
@@ -24,7 +26,7 @@ public class AutorankRegister {
             Skript.registerExpression(ExprCompletedPaths.class, String.class, ExpressionType.COMBINED, "[the] (completed|finished) [Autorank] paths of %player%", "%player%'s (completed|finished) [Autorank] paths");
 
             //Events
-            Skript.registerEvent("Autorank Requirement Completion", SimpleEvent.class, RequirementCompleteEvent.class, "[on] [Autorank] requirement complet(e|ion)");
+            Skript.registerEvent("Autorank Requirement Completion", EvtRequirementCompletion.class, RequirementCompleteEvent.class, "[Autorank] requirement complet(e|ion)");
             EventValues.registerEventValue(RequirementCompleteEvent.class, Player.class, new Getter<Player, RequirementCompleteEvent>() {
                 public Player get(RequirementCompleteEvent e) {
                     return e.getPlayer();

@@ -9,10 +9,12 @@ import e.*;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import us._donut_.skuniversal.SkUniversal;
 
 public class AdvancedSurvivalGamesRegister {
     public static void registerAdvancedSurvivalGames() {
         if (Bukkit.getServer().getPluginManager().getPlugin("AdvancedSurvivalGames") != null) {
+            SkUniversal.hookedPlugins.add("AdvancedSurvivalGames");
 
             //Conditions
             Skript.registerCondition(CondSpectator.class, "%offlineplayer% is spectating [a[n]] [advanced] (survival games|sg) [game]");
@@ -30,15 +32,15 @@ public class AdvancedSurvivalGamesRegister {
             Skript.registerExpression(ExprStage.class, String.class, ExpressionType.SIMPLE, "[the] [advanced] (survival games|sg) [current] stage");
 
             //Events
-            Skript.registerEvent("Advanced Survival Games Death", SimpleEvent.class, SGPlayerKillEvent.class, "[on] [advanced] (survival games|sg) [player] death");
-            Skript.registerEvent("Advanced Survival Games Game Start", SimpleEvent.class, SGGameStartEvent.class, "[on] [advanced] (survival games|sg) game (start|begin)");
-            Skript.registerEvent("Advanced Survival Games Game End", SimpleEvent.class, SGGameEndEvent.class, "[on] [advanced] (survival games|sg) game (end|finish)");
+            Skript.registerEvent("Advanced Survival Games Death", EvtPlayerDeath.class, SGPlayerKillEvent.class, "[advanced] (survival games|sg) [player] death");
+            Skript.registerEvent("Advanced Survival Games Game Start", EvtGameStart.class, SGGameStartEvent.class, "[advanced] (survival games|sg) game (start|begin)");
+            Skript.registerEvent("Advanced Survival Games Game End", EvtGameEnd.class, SGGameEndEvent.class, "[advanced] (survival games|sg) game (end|finish)");
             EventValues.registerEventValue(SGGameEndEvent.class, Player.class, new Getter<Player, SGGameEndEvent>() {
                 public Player get(SGGameEndEvent e) {
                     return e.getWinner().getPlayer().getPlayer();
                 }
             }, 0);
-            Skript.registerEvent("Advanced Survival Games Item Purchase", SimpleEvent.class, SGItemPurchaseEvent.class, "[on] [advanced] (survival games|sg) item purchase");
+            Skript.registerEvent("Advanced Survival Games Item Purchase", EvtItemPurchase.class, SGItemPurchaseEvent.class, "[advanced] (survival games|sg) item purchase");
             EventValues.registerEventValue(SGItemPurchaseEvent.class, Player.class, new Getter<Player, SGItemPurchaseEvent>() {
                 public Player get(SGItemPurchaseEvent e) {
                     return e.getBuyer().getPlayer().getPlayer();
@@ -54,7 +56,7 @@ public class AdvancedSurvivalGamesRegister {
                     return e.getItemPrice();
                 }
             }, 0);
-            Skript.registerEvent("Advanced Survival Games Kit Purchase", SimpleEvent.class, SGKitPurchaseEvent.class, "[on] [advanced] (survival games|sg) kit purchase");
+            Skript.registerEvent("Advanced Survival Games Kit Purchase", EvtKitPurchase.class, SGKitPurchaseEvent.class, "[advanced] (survival games|sg) kit purchase");
             EventValues.registerEventValue(SGKitPurchaseEvent.class, Player.class, new Getter<Player, SGKitPurchaseEvent>() {
                 public Player get(SGKitPurchaseEvent e) {
                     return e.getBuyer().getPlayer().getPlayer();

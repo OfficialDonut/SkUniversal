@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.advancedban;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -39,9 +40,9 @@ public class ExprMuter extends SimpleExpression<String> {
     @Override
     @Nullable
     protected String[] get(Event e) {
-        if(player.getSingle(e) != null){
+        if (player.getSingle(e) != null) {
             return new String[]{PunishmentManager.get().getMute(UUIDManager.get().getUUID(player.getSingle(e).getName())).getOperator()};
-        }else{
+        } else {
             Skript.error("Must provide a player, please refer to the syntax");
             return null;
         }

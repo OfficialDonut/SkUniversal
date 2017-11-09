@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.bedwars;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -22,11 +23,16 @@ public class CondInGame extends Condition {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "player is in Bedwars game";
+        return "player " + player.getSingle(e) + " is in Bedwars game";
     }
 
     @Override
     public boolean check(Event e) {
-        return GameManager.inGame(player.getSingle(e));
+        if (player.getSingle(e) != null) {
+            return GameManager.inGame(player.getSingle(e));
+        } else {
+            Skript.error("Must provide a player, please refer to the syntax");
+            return false;
+        }
     }
 }

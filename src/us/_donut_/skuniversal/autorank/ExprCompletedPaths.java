@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.autorank;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -35,17 +36,22 @@ public class ExprCompletedPaths extends SimpleExpression<String> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "completed paths";
+        return "completed paths of player " + player.getSingle(e);
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-        List<Path> pathsList = Autorank.getInstance().getAPI().getCompletedPaths(player.getSingle(e).getUniqueId());
-        List<String> paths = new ArrayList<>();
-        for (Path p : pathsList) {
-            paths.add(p.getDisplayName());
+        if (player.getSingle(e) != null) {
+            List<Path> pathsList = Autorank.getInstance().getAPI().getCompletedPaths(player.getSingle(e).getUniqueId());
+            List<String> paths = new ArrayList<>();
+            for (Path p : pathsList) {
+                paths.add(p.getDisplayName());
+            }
+            return paths.toArray(new String[paths.size()]);
+        } else{
+            Skript.error("Must provide a player, please refer to the syntax");
+            return null;
         }
-        return paths.toArray(new String[paths.size()]);
     }
 }

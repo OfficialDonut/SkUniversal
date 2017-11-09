@@ -1,5 +1,5 @@
 package us._donut_.skuniversal.autorank;
-;
+
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -32,7 +32,7 @@ public class ExprGlobalTime extends SimpleExpression<Number> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "global time";
+        return "global time of player " + player.getSingle(e);
     }
 
     @Override
