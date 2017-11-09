@@ -12,10 +12,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import us._donut_.skuniversal.SkUniversal;
 
 public class ShopkeepersRegister {
     public static void registerShopekeepers() {
         if (Bukkit.getServer().getPluginManager().getPlugin("Shopkeepers") != null) {
+            SkUniversal.hookedPlugins.add("Shopkeepers");
 
             //Conditions
             Skript.registerCondition(CondIsKeeper.class, "%entity% is [a] [shop]keeper");
@@ -31,7 +33,7 @@ public class ShopkeepersRegister {
             Skript.registerExpression(ExprKeeperAmount.class, Number.class, ExpressionType.SIMPLE, "[the] (amount|number) of [shop]keepers of %player%");
 
             //Events
-            Skript.registerEvent("Shopkeeper Create", SimpleEvent.class, ShopkeeperCreatedEvent.class, "[on] [shop]keeper creat(e|ion)");
+            Skript.registerEvent("Shopkeeper Create", EvtShopkeeperCreate.class, ShopkeeperCreatedEvent.class, "[shop]keeper creat(e|ion)");
             EventValues.registerEventValue(ShopkeeperCreatedEvent.class, Player.class, new Getter<Player, ShopkeeperCreatedEvent>() {
                 public Player get(ShopkeeperCreatedEvent e) {
                     return e.getPlayer();
@@ -42,7 +44,7 @@ public class ShopkeepersRegister {
                     return e.getShopkeeper().getLocation();
                 }
             }, 0);
-            Skript.registerEvent("Shopkeeper Delete", SimpleEvent.class, ShopkeeperDeletedEvent.class, "[on] [shop]keeper (delet(e|ion)|remov(e|al))");
+            Skript.registerEvent("Shopkeeper Delete", EvtShopkeeperDelete.class, ShopkeeperDeletedEvent.class, "[shop]keeper (delet(e|ion)|remov(e|al))");
             EventValues.registerEventValue(ShopkeeperDeletedEvent.class, Player.class, new Getter<Player, ShopkeeperDeletedEvent>() {
                 public Player get(ShopkeeperDeletedEvent e) {
                     return e.getPlayer();
@@ -58,7 +60,7 @@ public class ShopkeepersRegister {
                     return e.getShopkeeper().getName();
                 }
             }, 0);
-            Skript.registerEvent("Shopkeeper Trade Complete", SimpleEvent.class, ShopkeeperTradeCompletedEvent.class, "[on] [shop]keeper trad(e|ing) complet(e|ion)");
+            Skript.registerEvent("Shopkeeper Trade Complete", EvtShopkeeperTrade.class, ShopkeeperTradeCompletedEvent.class, "[shop]keeper trad(e|ing) complet(e|ion)");
             EventValues.registerEventValue(ShopkeeperTradeCompletedEvent.class, Player.class, new Getter<Player, ShopkeeperTradeCompletedEvent>() {
                 public Player get(ShopkeeperTradeCompletedEvent e) {
                     return e.getPlayer();

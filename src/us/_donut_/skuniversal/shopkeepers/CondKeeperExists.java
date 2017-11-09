@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.shopkeepers;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -22,17 +23,22 @@ public class CondKeeperExists extends Condition {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "keeper name exists";
+        return "keeper name " + keeperName.getSingle(e) + " exists";
     }
 
     @Override
     public boolean check(Event e) {
-        ShopkeepersPlugin skp = ShopkeepersPlugin.getInstance();
-        for (Shopkeeper sk :skp.getAllShopkeepers()) {
-            if (sk.getName().equals(keeperName.getSingle(e))) {
-                return true;
+        if (keeperName.getSingle(e) != null) {
+            ShopkeepersPlugin skp = ShopkeepersPlugin.getInstance();
+            for (Shopkeeper sk : skp.getAllShopkeepers()) {
+                if (sk.getName().equals(keeperName.getSingle(e))) {
+                    return true;
+                }
             }
+            return false;
+        } else {
+            Skript.error("Must provide a string, please refer to the syntax");
+            return false;
         }
-        return false;
     }
 }

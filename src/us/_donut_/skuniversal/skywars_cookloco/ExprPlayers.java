@@ -2,6 +2,7 @@ package us._donut_.skuniversal.skywars_cookloco;
 
 import ak.CookLoco.SkyWars.arena.ArenaManager;
 import ak.CookLoco.SkyWars.player.SkyPlayer;
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -35,16 +36,21 @@ public class ExprPlayers extends SimpleExpression<Player> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "the players in SkyWars arena";
+        return "the players in SkyWars arena named " + name.getSingle(e);
     }
 
     @Override
     @Nullable
     protected Player[] get(Event e) {
-        List<Player> players = new ArrayList<>();
-        for (SkyPlayer p : ArenaManager.getGame(name.getSingle(e)).getAlivePlayer()) {
-            players.add(p.getPlayer());
+        if (name.getSingle(e) != null) {
+            List<Player> players = new ArrayList<>();
+            for (SkyPlayer p : ArenaManager.getGame(name.getSingle(e)).getAlivePlayer()) {
+                players.add(p.getPlayer());
+            }
+            return players.toArray(new Player[players.size()]);
+        } else {
+            Skript.error("Must provide a string, please refer to the syntax");
+            return null;
         }
-        return players.toArray(new Player[players.size()]);
     }
 }

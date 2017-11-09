@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.pvplevels;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -35,13 +36,18 @@ public class ExprLevel extends SimpleExpression<Number> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "level of player";
+        return "level of player " + player.getSingle(e);
     }
 
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        return new Number[]{pvp.CurrentLevelOfflinePlayer(player.getSingle(e))};
+        if (player.getSingle(e) != null) {
+            return new Number[]{pvp.CurrentLevelOfflinePlayer(player.getSingle(e))};
+        } else {
+            Skript.error("Must provide a player, please refer to the syntax");
+            return null;
+        }
     }
 
     @Override

@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.pvplevels;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -32,13 +33,18 @@ public class ExprXpRequired extends SimpleExpression<Number> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "xp required to for player to level up";
+        return "xp required to for player " + player.getSingle(e) + " to level up";
     }
 
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        PvPLevelsAPI pvp = new PvPLevelsAPI();
-        return new Number[]{pvp.CurrentXPRequired(player.getSingle(e))};
+        if (player.getSingle(e) != null) {
+            PvPLevelsAPI pvp = new PvPLevelsAPI();
+            return new Number[]{pvp.CurrentXPRequired(player.getSingle(e))};
+        } else {
+            Skript.error("Must provide a player, please refer to the syntax");
+            return null;
+        }
     }
 }

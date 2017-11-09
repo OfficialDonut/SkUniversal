@@ -10,11 +10,13 @@ import ch.njol.skript.registrations.EventValues;
 import ch.njol.skript.util.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import us._donut_.skuniversal.SkUniversal;
 
 public class SkywarsCookLocoRegister {
     public static void registerSkyWarsCookLoco() {
         if (Bukkit.getServer().getPluginManager().getPlugin("SkyWars") != null) {
             if (Bukkit.getServer().getPluginManager().getPlugin("SkyWars").getDescription().getAuthors().get(0).equalsIgnoreCase("CookLoco")) {
+                SkUniversal.hookedPlugins.add("SkyWars (CookLoco)");
 
                 //Conditions
                 Skript.registerCondition(CondInArena.class, "%player% is [currently] in [a] SkyWars arena");
@@ -35,7 +37,7 @@ public class SkywarsCookLocoRegister {
                 Skript.registerExpression(ExprPlayers.class, Player.class, ExpressionType.SIMPLE, "[all of] [the] [alive] players in SkyWars arenas [(named|with name)] %string%");
 
                 //Events
-                Skript.registerEvent("SkyWars Player Join", SimpleEvent.class, SkyPlayerArenaJoinEvent.class, "[on] SkyWars [arena] join");
+                Skript.registerEvent("SkyWars Player Join", EvtSkyWarsJoin.class, SkyPlayerArenaJoinEvent.class, "SkyWars [arena] join");
                 EventValues.registerEventValue(SkyPlayerArenaJoinEvent.class, Player.class, new Getter<Player, SkyPlayerArenaJoinEvent>() {
                     public Player get(SkyPlayerArenaJoinEvent e) {
                         return e.getPlayer().getPlayer();
@@ -46,7 +48,7 @@ public class SkywarsCookLocoRegister {
                         return e.getGame().getName();
                     }
                 }, 0);
-                Skript.registerEvent("SkyWars Player Leave", SimpleEvent.class,SkyPlayerArenaLeaveEvent.class, "[on] SkyWars [arena] leave");
+                Skript.registerEvent("SkyWars Player Leave", EvtSkyWarsLeave.class,SkyPlayerArenaLeaveEvent.class, "SkyWars [arena] leave");
                 EventValues.registerEventValue(SkyPlayerArenaLeaveEvent.class, Player.class, new Getter<Player, SkyPlayerArenaLeaveEvent>() {
                     public Player get(SkyPlayerArenaLeaveEvent e) {
                         return e.getPlayer().getPlayer();
@@ -57,7 +59,7 @@ public class SkywarsCookLocoRegister {
                         return e.getGame().getName();
                     }
                 }, 0);
-                Skript.registerEvent("SkyWars Player Death", SimpleEvent.class,SkyPlayerDeathEvent.class, "[on] SkyWars [player] death");
+                Skript.registerEvent("SkyWars Player Death", EvtPlayerDeath.class,SkyPlayerDeathEvent.class, "SkyWars [player] death");
                 EventValues.registerEventValue(SkyPlayerDeathEvent.class, String.class, new Getter<String, SkyPlayerDeathEvent>() {
                     public String get(SkyPlayerDeathEvent e) {
                         return e.getGame().getName();

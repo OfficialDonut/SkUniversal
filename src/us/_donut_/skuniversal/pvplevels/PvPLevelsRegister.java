@@ -3,10 +3,12 @@ package us._donut_.skuniversal.pvplevels;
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.ExpressionType;
 import org.bukkit.Bukkit;
+import us._donut_.skuniversal.SkUniversal;
 
 public class PvPLevelsRegister {
     public static void registerPvPLevels() {
         if (Bukkit.getServer().getPluginManager().getPlugin("PvPLevels") != null) {
+            SkUniversal.hookedPlugins.add("PvPLevels");
 
             //Expressions
             Skript.registerExpression(ExprLevel.class, Number.class, ExpressionType.COMBINED, "[the] pvp level of %offlineplayer%", "%offlineplayer%'s pvp level");

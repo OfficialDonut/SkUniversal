@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.skywars_daboross;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -21,14 +22,19 @@ public class EffRemoveFromQueue extends Effect {
         return true;
     }
     @Override
-    public String toString(@Nullable Event paramEvent, boolean paramBoolean) {
-        return "remove player from queue";
+    public String toString(@Nullable Event e, boolean paramBoolean) {
+        return "remove player " + player.getSingle(e) + " from queue";
     }
+
     @Override
     protected void execute(Event e) {
-        SkyWars sw = (SkyWars) Bukkit.getPluginManager().getPlugin("SkyWars");
-        if (sw.getGameQueue().inQueue(player.getSingle(e).getUniqueId())) {
-            sw.getGameQueue().removePlayer(player.getSingle(e));
+        if (player.getSingle(e) != null) {
+            SkyWars sw = (SkyWars) Bukkit.getPluginManager().getPlugin("SkyWars");
+            if (sw.getGameQueue().inQueue(player.getSingle(e).getUniqueId())) {
+                sw.getGameQueue().removePlayer(player.getSingle(e));
+            }
+        } else {
+            Skript.error("Must provide a player, please refer to the syntax");
         }
     }
 }

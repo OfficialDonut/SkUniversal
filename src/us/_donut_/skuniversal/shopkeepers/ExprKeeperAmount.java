@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.shopkeepers;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -32,13 +33,18 @@ public class ExprKeeperAmount extends SimpleExpression<Number> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "amount of keepers of player";
+        return "amount of keepers of player " + player.getSingle(e);
     }
 
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        ShopkeepersPlugin skp = ShopkeepersPlugin.getInstance();
-        return new Number[]{skp.countShopsOfPlayer(player.getSingle(e))};
+        if (player.getSingle(e) != null) {
+            ShopkeepersPlugin skp = ShopkeepersPlugin.getInstance();
+            return new Number[]{skp.countShopsOfPlayer(player.getSingle(e))};
+        } else {
+            Skript.error("Must provide a player, please refer to the syntax");
+            return null;
+        }
     }
 }

@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.skywars_daboross;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -23,12 +24,17 @@ public class CondInQueue extends Condition {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "player is in queue";
+        return "player " + player.getSingle(e) + " is in queue";
     }
 
     @Override
     public boolean check(Event e) {
-        SkyWars sw = (SkyWars) Bukkit.getPluginManager().getPlugin("SkyWars");
-        return sw.getGameQueue().inQueue(player.getSingle(e).getUniqueId());
+        if (player.getSingle(e) != null) {
+            SkyWars sw = (SkyWars) Bukkit.getPluginManager().getPlugin("SkyWars");
+            return sw.getGameQueue().inQueue(player.getSingle(e).getUniqueId());
+        } else {
+            Skript.error("Must provide a player, please refer to the syntax");
+            return false;
+        }
     }
 }

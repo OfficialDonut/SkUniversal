@@ -1,6 +1,7 @@
 package us._donut_.skuniversal.skywars_cookloco;
 
 import ak.CookLoco.SkyWars.api.SkyWarsAPI;
+import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -34,13 +35,18 @@ public class ExprDeaths extends SimpleExpression<Number> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "SkyWars deaths of player";
+        return "SkyWars deaths of player " + player.getSingle(e);
     }
 
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        return new Number[]{SkyWarsAPI.getDeaths(player.getSingle(e))};
+        if (player.getSingle(e) != null) {
+            return new Number[]{SkyWarsAPI.getDeaths(player.getSingle(e))};
+        } else {
+            Skript.error("Must provide a player, please refer to the syntax");
+            return null;
+        }
     }
 
     @Override

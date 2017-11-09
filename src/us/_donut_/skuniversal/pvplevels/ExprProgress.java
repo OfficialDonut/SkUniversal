@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.pvplevels;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -33,13 +34,18 @@ public class ExprProgress extends SimpleExpression<String> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "progress of player";
+        return "progress of player " + player.getSingle(e);
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-        PvPLevelsAPI pvp = new PvPLevelsAPI();
-        return new String[]{pvp.CurrentXPProgressOfflinePlayer(player.getSingle(e))};
+        if (player.getSingle(e) != null) {
+            PvPLevelsAPI pvp = new PvPLevelsAPI();
+            return new String[]{pvp.CurrentXPProgressOfflinePlayer(player.getSingle(e))};
+        } else {
+            Skript.error("Must provide a player, please refer to the syntax");
+            return null;
+        }
     }
 }

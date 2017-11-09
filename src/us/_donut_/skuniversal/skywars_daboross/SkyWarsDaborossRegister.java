@@ -10,11 +10,13 @@ import net.daboross.bukkitdev.skywars.api.events.GameStartEvent;
 import net.daboross.bukkitdev.skywars.api.events.PlayerLeaveQueueEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import us._donut_.skuniversal.SkUniversal;
 
 public class SkyWarsDaborossRegister {
     public static void registerSkyWarsDaboross() {
         if (Bukkit.getServer().getPluginManager().getPlugin("SkyWars") != null) {
             if (Bukkit.getServer().getPluginManager().getPlugin("SkyWars").getDescription().getAuthors().get(0).equalsIgnoreCase("Dabo Ross")) {
+                SkUniversal.hookedPlugins.add("SkyWars (Daboross)");
 
                 //Conditions
                 Skript.registerCondition(CondInQueue.class, "%player% is in [a] SkyWars [game] queue");
@@ -31,14 +33,14 @@ public class SkyWarsDaborossRegister {
                 Skript.registerExpression(ExprAlivePlayers.class, Player.class, ExpressionType.SIMPLE, "[the] (last|alive|remaining) players [in [the] [SkyWars] game]");
 
                 //Events
-                Skript.registerEvent("SkyWars Game Start", SimpleEvent.class, GameStartEvent.class, "[on] SkyWars game (start|begin)");
-                Skript.registerEvent("SkyWars Game End", SimpleEvent.class, GameEndEvent.class, "[on] SkyWars game (end|stop)");
+                Skript.registerEvent("SkyWars Game Start", EvtGameBegin.class, GameStartEvent.class, "SkyWars game (start|begin)");
+                Skript.registerEvent("SkyWars Game End", EvtGameEnd.class, GameEndEvent.class, "SkyWars game (end|stop)");
                 EventValues.registerEventValue(GameEndEvent.class, String.class, new Getter<String, GameEndEvent>() {
                     public String get(GameEndEvent e) {
                         return e.getGame().getArena().getArenaName();
                     }
                 }, 0);
-                Skript.registerEvent("SkyWars Leave Queue", SimpleEvent.class, GameStartEvent.class, "[on] SkyWars [game] leave queue");
+                Skript.registerEvent("SkyWars Leave Queue", EvtSkyWarsLeave.class, GameStartEvent.class, "SkyWars [game] leave queue");
                 EventValues.registerEventValue(PlayerLeaveQueueEvent.class, Player.class, new Getter<Player, PlayerLeaveQueueEvent>() {
                     public Player get(PlayerLeaveQueueEvent e) {
                         return e.getPlayer();
