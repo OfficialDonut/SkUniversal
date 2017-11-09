@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.prisonmines;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -35,13 +36,18 @@ public class ExprTeleportLoc extends SimpleExpression<Location> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "teleport location";
+        return "teleport location of mine named " + name.getSingle(e);
     }
 
     @Override
     @Nullable
     protected Location[] get(Event e) {
-        return new Location[]{prisonMines.getByName(name.getSingle(e)).getTeleportLocation()};
+        if (name.getSingle(e) != null) {
+            return new Location[]{prisonMines.getByName(name.getSingle(e)).getTeleportLocation()};
+        } else {
+            Skript.error("Must provide a string, please refer to the syntax");
+            return null;
+        }
     }
 
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){

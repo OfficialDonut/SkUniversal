@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.plotsquared;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -33,13 +34,18 @@ public class ExprPlotRating extends SimpleExpression<Number> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "rating of plot";
+        return "rating of plot at location " + loc.getSingle(e);
     }
 
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        PlotAPI plot = new PlotAPI();
-        return new Number[]{plot.getPlot(loc.getSingle(e)).getAverageRating()};
+        if (loc.getSingle(e) != null) {
+            PlotAPI plot = new PlotAPI();
+            return new Number[]{plot.getPlot(loc.getSingle(e)).getAverageRating()};
+        } else {
+            Skript.error("Must provide a location, please refer to the syntax");
+            return null;
+        }
     }
 }

@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.plotsquared;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -40,17 +41,22 @@ public class ExprPlotOwner extends SimpleExpression<OfflinePlayer> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "owner of plot";
+        return "owner of plot at location " + loc.getSingle(e);
     }
 
     @Override
     @Nullable
     protected OfflinePlayer[] get(Event e) {
-        List<OfflinePlayer> owner = new ArrayList<>();
-        for (UUID p : plot.getPlot(loc.getSingle(e)).getOwners()) {
-            owner.add(Bukkit.getOfflinePlayer(p));
+        if (loc.getSingle(e) != null) {
+            List<OfflinePlayer> owner = new ArrayList<>();
+            for (UUID p : plot.getPlot(loc.getSingle(e)).getOwners()) {
+                owner.add(Bukkit.getOfflinePlayer(p));
+            }
+            return owner.toArray(new OfflinePlayer[owner.size()]);
+        } else {
+            Skript.error("Must provide a location, please refer to the syntax");
+            return null;
         }
-        return owner.toArray(new OfflinePlayer[owner.size()]);
     }
 
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){

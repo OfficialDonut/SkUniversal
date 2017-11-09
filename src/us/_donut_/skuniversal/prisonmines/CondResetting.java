@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.prisonmines;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -21,12 +22,17 @@ public class CondResetting extends Condition {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "mine has teleport location";
+        return "mine named " + name.getSingle(e) + " has teleport location";
     }
 
     @Override
     public boolean check(Event e) {
-        MineAPI.PrisonMinesAPI prisonMines = new MineAPI.PrisonMinesAPI();
-        return prisonMines.getByName(name.getSingle(e)).isResetting();
+        if (name.getSingle(e) != null) {
+            MineAPI.PrisonMinesAPI prisonMines = new MineAPI.PrisonMinesAPI();
+            return prisonMines.getByName(name.getSingle(e)).isResetting();
+        } else {
+            Skript.error("Must provide a name, please refer to the syntax");
+            return false;
+        }
     }
 }

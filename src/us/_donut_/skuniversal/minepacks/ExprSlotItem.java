@@ -1,6 +1,7 @@
 package us._donut_.skuniversal.minepacks;
 
 import at.pcgamingfreaks.MinePacks.MinePacks;
+import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -37,13 +38,23 @@ public class ExprSlotItem extends SimpleExpression<ItemStack> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "item in slot";
+        return "item in slot " + slotNum + " of backpack of player " + player.getSingle(e);
     }
 
     @Override
     @Nullable
     protected ItemStack[] get(Event e) {
-        return new ItemStack[]{mp.DB.getBackpack(player.getSingle(e)).getInventory().getItem(slotNum.getSingle(e))};
+        if (player.getSingle(e) != null) {
+            if (slotNum != null) {
+                return new ItemStack[]{mp.DB.getBackpack(player.getSingle(e)).getInventory().getItem(slotNum.getSingle(e))};
+            } else {
+                Skript.error("Must provide an integer, please refer to the syntax");
+                return null;
+            }
+        } else {
+            Skript.error("Must provide a player, please refer to the syntax");
+            return null;
+        }
     }
 
     @Override

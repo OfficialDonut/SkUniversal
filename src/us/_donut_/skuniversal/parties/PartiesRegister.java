@@ -6,10 +6,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import us._donut_.skuniversal.SkUniversal;
 
 public class PartiesRegister {
     public static void registerParties() {
         if (Bukkit.getServer().getPluginManager().getPlugin("Parties") != null) {
+            SkUniversal.hookedPlugins.add("Parties");
 
             //Condition
             Skript.registerCondition(CondPartyExists.class, "party [(named|with name)] %string% exists");

@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.plotsquared;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -32,13 +33,18 @@ public class ExprPlotBiome extends SimpleExpression<String> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "biome of plot";
+        return "biome of plot at location " + loc.getSingle(e);
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-        PlotAPI plot = new PlotAPI();
-        return new String[]{plot.getPlot(loc.getSingle(e)).getBiome()};
+        if (loc.getSingle(e) != null) {
+            PlotAPI plot = new PlotAPI();
+            return new String[]{plot.getPlot(loc.getSingle(e)).getBiome()};
+        } else {
+            Skript.error("Must provide a location, please refer to the syntax");
+            return null;
+        }
     }
 }

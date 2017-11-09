@@ -1,6 +1,7 @@
 package us._donut_.skuniversal.minepacks;
 
 import at.pcgamingfreaks.MinePacks.MinePacks;
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -24,12 +25,21 @@ public class EffOpenBackpack extends Effect {
         return true;
     }
     @Override
-    public String toString(@Nullable Event paramEvent, boolean paramBoolean) {
-        return "open backpack";
+    public String toString(@Nullable Event e, boolean paramBoolean) {
+        return "open backpack of player " + backpackOwner.getSingle(e) + " to " + player.getSingle(e);
     }
+
     @Override
     protected void execute(Event e) {
-        MinePacks mp = MinePacks.getInstance();
-        mp.openBackpack(player.getSingle(e), backpackOwner.getSingle(e), editable.getSingle(e));
+        if (player.getSingle(e) != null || backpackOwner.getSingle(e) != null) {
+            if (editable.getSingle(e) != null) {
+                MinePacks mp = MinePacks.getInstance();
+                mp.openBackpack(player.getSingle(e), backpackOwner.getSingle(e), editable.getSingle(e));
+            } else {
+                Skript.error("Must provide a boolean, please refer to the syntax");
+            }
+        } else {
+            Skript.error("Must provide a player, please refer to the syntax");
+        }
     }
 }

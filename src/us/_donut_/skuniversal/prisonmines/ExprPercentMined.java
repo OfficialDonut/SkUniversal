@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.prisonmines;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -31,13 +32,18 @@ public class ExprPercentMined extends SimpleExpression<Number> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "percentage of blocks mined";
+        return "percentage of blocks mined in mine named " + name.getSingle(e);
     }
 
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        MineAPI.PrisonMinesAPI prisonMines = new MineAPI.PrisonMinesAPI();
-        return new Number[]{prisonMines.getPercentMined(prisonMines.getByName(name.getSingle(e)))};
+        if (name.getSingle(e) != null) {
+            MineAPI.PrisonMinesAPI prisonMines = new MineAPI.PrisonMinesAPI();
+            return new Number[]{prisonMines.getPercentMined(prisonMines.getByName(name.getSingle(e)))};
+        } else {
+            Skript.error("Must provide a string, please refer to the syntax");
+            return null;
+        }
     }
 }

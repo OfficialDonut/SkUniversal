@@ -1,6 +1,7 @@
 package us._donut_.skuniversal.minepacks;
 
 import at.pcgamingfreaks.MinePacks.MinePacks;
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -32,13 +33,18 @@ public class ExprBackpackSize extends SimpleExpression<Number> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "size of player's backpack";
+        return "size of backpack of player " + player.getSingle(e);
     }
 
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        MinePacks mp = MinePacks.getInstance();
-        return new Number[]{mp.DB.getBackpack(player.getSingle(e)).getSize()};
+        if (player.getSingle(e) != null) {
+            MinePacks mp = MinePacks.getInstance();
+            return new Number[]{mp.DB.getBackpack(player.getSingle(e)).getSize()};
+        } else {
+            Skript.error("Must provide a player, please refer to the syntax");
+            return null;
+        }
     }
 }

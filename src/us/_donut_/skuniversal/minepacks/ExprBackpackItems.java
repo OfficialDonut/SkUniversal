@@ -1,6 +1,7 @@
 package us._donut_.skuniversal.minepacks;
 
 import at.pcgamingfreaks.MinePacks.MinePacks;
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -36,14 +37,19 @@ public class ExprBackpackItems extends SimpleExpression<ItemStack> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "contents of player's backpack";
+        return "contents of backpack of player " + player.getSingle(e);
     }
 
     @Override
     @Nullable
     protected ItemStack[] get(Event e) {
-        MinePacks mp = MinePacks.getInstance();
-        List<ItemStack> items = new ArrayList<>(Arrays.asList(mp.DB.getBackpack(player.getSingle(e)).getInventory().getStorageContents()));
-        return items.toArray(new ItemStack[items.size()]);
+        if (player.getSingle(e) != null) {
+            MinePacks mp = MinePacks.getInstance();
+            List<ItemStack> items = new ArrayList<>(Arrays.asList(mp.DB.getBackpack(player.getSingle(e)).getInventory().getStorageContents()));
+            return items.toArray(new ItemStack[items.size()]);
+        } else {
+            Skript.error("Must provide a player, please refer to the syntax");
+            return null;
+        }
     }
 }

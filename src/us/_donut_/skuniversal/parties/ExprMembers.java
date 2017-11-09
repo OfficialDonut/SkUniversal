@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.parties;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -36,18 +37,23 @@ public class ExprMembers extends SimpleExpression<OfflinePlayer> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "members of party";
+        return "members of party named " + name.getSingle(e);
     }
 
     @Override
     @Nullable
     protected OfflinePlayer[] get(Event e) {
-        PartiesAPI parties = new PartiesAPI();
-        List<UUID> playerUUIDs = parties.getPartyMembers(name.getSingle(e));
-        List<OfflinePlayer> players = new ArrayList<>();
-        for (UUID p : playerUUIDs) {
-            players.add(Bukkit.getOfflinePlayer(p));
+        if (name.getSingle(e) != null) {
+            PartiesAPI parties = new PartiesAPI();
+            List<UUID> playerUUIDs = parties.getPartyMembers(name.getSingle(e));
+            List<OfflinePlayer> players = new ArrayList<>();
+            for (UUID p : playerUUIDs) {
+                players.add(Bukkit.getOfflinePlayer(p));
+            }
+            return players.toArray(new OfflinePlayer[players.size()]);
+        } else {
+            Skript.error("Must provide a string, please refer to the syntax");
+            return null;
         }
-        return players.toArray(new OfflinePlayer[players.size()]);
     }
 }

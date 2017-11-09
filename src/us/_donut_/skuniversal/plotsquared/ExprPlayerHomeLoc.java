@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.plotsquared;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -33,13 +34,18 @@ public class ExprPlayerHomeLoc extends SimpleExpression<Location> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "home location of plot of player";
+        return "home location of plot of player " + player.getSingle(e);
     }
 
     @Override
     @Nullable
     protected Location[] get(Event e) {
-        PlotAPI plot = new PlotAPI();
-        return new Location[]{plot.getHomeLocation(plot.getPlot(player.getSingle(e)))};
+        if (player.getSingle(e) != null) {
+            PlotAPI plot = new PlotAPI();
+            return new Location[]{plot.getHomeLocation(plot.getPlot(player.getSingle(e)))};
+        } else {
+            Skript.error("Must provide a player, please refer to the syntax");
+            return null;
+        }
     }
 }

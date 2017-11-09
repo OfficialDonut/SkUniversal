@@ -4,10 +4,12 @@ import ch.njol.skript.Skript;
 import ch.njol.skript.lang.ExpressionType;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
+import us._donut_.skuniversal.SkUniversal;
 
 public class MinePacksRegister {
     public static void registerMinePacks() {
         if (Bukkit.getServer().getPluginManager().getPlugin("MinePacks") != null) {
+            SkUniversal.hookedPlugins.add("MinePacks");
 
             //Effects
             Skript.registerEffect(EffOpenBackpack.class, "open [an] editable %boolean% (back|mine)pack of %player% to %player%", "open editable %boolean% %player%'s (back|mine)pack to %player%");

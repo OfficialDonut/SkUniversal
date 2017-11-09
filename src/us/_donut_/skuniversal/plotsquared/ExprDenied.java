@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.plotsquared;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -40,17 +41,22 @@ public class ExprDenied extends SimpleExpression<OfflinePlayer> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "denied players";
+        return "denied players of plot at location " + loc.getSingle(e);
     }
 
     @Override
     @Nullable
     protected OfflinePlayer[] get(Event e) {
-        List<OfflinePlayer> denied = new ArrayList<>();
-        for (UUID p : plot.getPlot(loc.getSingle(e)).getDenied()) {
-            denied.add(Bukkit.getOfflinePlayer(p));
+        if (loc.getSingle(e) != null) {
+            List<OfflinePlayer> denied = new ArrayList<>();
+            for (UUID p : plot.getPlot(loc.getSingle(e)).getDenied()) {
+                denied.add(Bukkit.getOfflinePlayer(p));
+            }
+            return denied.toArray(new OfflinePlayer[denied.size()]);
+        } else {
+            Skript.error("Must provide a location, please refer to the syntax");
+            return null;
         }
-        return denied.toArray(new OfflinePlayer[denied.size()]);
     }
 
     @Override

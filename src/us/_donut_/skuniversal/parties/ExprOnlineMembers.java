@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.parties;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -34,14 +35,19 @@ public class ExprOnlineMembers extends SimpleExpression<Player> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "online members of party";
+        return "online members of party named " + name.getSingle(e);
     }
 
     @Override
     @Nullable
     protected Player[] get(Event e) {
-        PartiesAPI parties = new PartiesAPI();
-        List<Player> players = parties.getPartyOnlinePlayers(name.getSingle(e));
-        return players.toArray(new Player[players.size()]);
+        if (name.getSingle(e) != null) {
+            PartiesAPI parties = new PartiesAPI();
+            List<Player> players = parties.getPartyOnlinePlayers(name.getSingle(e));
+            return players.toArray(new Player[players.size()]);
+        } else {
+            Skript.error("Must provide a string, please refer to the syntax");
+            return null;
+        }
     }
 }

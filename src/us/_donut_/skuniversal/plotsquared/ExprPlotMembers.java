@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.plotsquared;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -40,17 +41,22 @@ public class ExprPlotMembers extends SimpleExpression<OfflinePlayer> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "members of plot";
+        return "members of plot of at location " + loc.getSingle(e);
     }
 
     @Override
     @Nullable
     protected OfflinePlayer[] get(Event e) {
-        List<OfflinePlayer> members = new ArrayList<>();
-        for (UUID p : plot.getPlot(loc.getSingle(e)).getMembers()) {
-            members.add(Bukkit.getOfflinePlayer(p));
+        if (loc.getSingle(e) != null) {
+            List<OfflinePlayer> members = new ArrayList<>();
+            for (UUID p : plot.getPlot(loc.getSingle(e)).getMembers()) {
+                members.add(Bukkit.getOfflinePlayer(p));
+            }
+            return members.toArray(new OfflinePlayer[members.size()]);
+        } else {
+            Skript.error("Must provide a location, please refer to the syntax");
+            return null;
         }
-        return members.toArray(new OfflinePlayer[members.size()]);
     }
 
     @Override

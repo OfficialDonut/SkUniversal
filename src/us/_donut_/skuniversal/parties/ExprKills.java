@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.parties;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -35,13 +36,18 @@ public class ExprKills extends SimpleExpression<Number> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "kills of party";
+        return "kills of party named " + name.getSingle(e);
     }
 
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        return new Number[]{parties.getPartyKills(name.getSingle(e))};
+        if (name.getSingle(e) != null) {
+            return new Number[]{parties.getPartyKills(name.getSingle(e))};
+        } else {
+            Skript.error("Must provide a string, please refer to the syntax");
+            return null;
+        }
     }
 
     @Override

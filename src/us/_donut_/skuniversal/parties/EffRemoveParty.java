@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.parties;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -19,12 +20,17 @@ public class EffRemoveParty extends Effect {
         return true;
     }
     @Override
-    public String toString(@Nullable Event paramEvent, boolean paramBoolean) {
-        return "delete party";
+    public String toString(@Nullable Event e, boolean paramBoolean) {
+        return "delete party named " + name.getSingle(e);
     }
+
     @Override
     protected void execute(Event e) {
-        PartiesAPI parties = new PartiesAPI();
-        parties.deleteParty(name.getSingle(e));
+        if (name.getSingle(e) != null) {
+            PartiesAPI parties = new PartiesAPI();
+            parties.deleteParty(name.getSingle(e));
+        } else {
+            Skript.error("Must provide a string, please refer to the syntax");
+        }
     }
 }
