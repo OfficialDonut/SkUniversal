@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.lwc;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -34,13 +35,18 @@ public class ExprOwner extends SimpleExpression<OfflinePlayer> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "the owner of block";
+        return "the owner of block " + block.getSingle(e);
     }
 
     @Override
     @Nullable
     protected OfflinePlayer[] get(Event e) {
-        String[] playerNameAndUUID = LWC.getInstance().findProtection(block.getSingle(e)).getFormattedOwnerPlayerName().split(" ");
-        return new OfflinePlayer[]{Bukkit.getOfflinePlayer(playerNameAndUUID[0])};
+        if (block.getSingle(e) != null) {
+            String[] playerNameAndUUID = LWC.getInstance().findProtection(block.getSingle(e)).getFormattedOwnerPlayerName().split(" ");
+            return new OfflinePlayer[]{Bukkit.getOfflinePlayer(playerNameAndUUID[0])};
+        } else {
+            Skript.error("Must provide a block, please refer to the syntax");
+            return null;
+        }
     }
 }

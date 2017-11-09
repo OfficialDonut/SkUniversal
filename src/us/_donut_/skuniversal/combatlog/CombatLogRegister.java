@@ -10,10 +10,12 @@ import me.iiSnipez.CombatLog.Events.PlayerTagEvent;
 import me.iiSnipez.CombatLog.Events.PlayerUntagEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import us._donut_.skuniversal.SkUniversal;
 
 public class CombatLogRegister {
     public static void registerCombatLog() {
         if (Bukkit.getServer().getPluginManager().getPlugin("CombatLog") != null) {
+            SkUniversal.hookedPlugins.add("CombatLog");
 
             //Conditions
             Skript.registerCondition(CondTagged.class, "%player% is [currently] [CombatLog] tagged");
@@ -24,14 +26,14 @@ public class CombatLogRegister {
             Skript.registerExpression(ExprTaggedPlayers.class, Player.class, ExpressionType.SIMPLE, "[the] [current[ly]] [CombatLog] tagged players");
 
             //Events
-            Skript.registerEvent("CombatLog Tag", SimpleEvent.class, PlayerTagEvent.class, "[on] [CombatLog] [player] tag");
-            Skript.registerEvent("CombatLog Un-tag", SimpleEvent.class, PlayerUntagEvent.class, "[on] [CombatLog] [player] un[-]tag");
+            Skript.registerEvent("CombatLog Tag", EvtPlayerTag.class, PlayerTagEvent.class, "[CombatLog] [player] tag");
+            Skript.registerEvent("CombatLog Un-tag", EvtPlayerUntag.class, PlayerUntagEvent.class, "[CombatLog] [player] un[-]tag");
             EventValues.registerEventValue(PlayerUntagEvent.class, Player.class, new Getter<Player, PlayerUntagEvent>() {
                 public Player get(PlayerUntagEvent e) {
                     return e.getPlayer();
                 }
             }, 0);
-            Skript.registerEvent("Combat Log", SimpleEvent.class, PlayerCombatLogEvent.class, "[on] [player] combat[ ]log");
+            Skript.registerEvent("Combat Log", EvtPlayerCombatLog.class, PlayerCombatLogEvent.class, "[player] combat[ ]log");
             EventValues.registerEventValue(PlayerCombatLogEvent.class, Player.class, new Getter<Player, PlayerCombatLogEvent>() {
                 public Player get(PlayerCombatLogEvent e) {
                     return e.getPlayer();

@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.lockettepro;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -27,24 +28,42 @@ public class EffLock extends Effect {
         return true;
     }
     @Override
-    public String toString(@Nullable Event paramEvent, boolean paramBoolean) {
-        return "place LockettePro sign";
+    public String toString(@Nullable Event e, boolean paramBoolean) {
+        return "place LockettePro sign with player " + player.getSingle(e) + " as the owner";
     }
+
     @Override
     protected void execute(Event e) {
-        BlockFace face;
-        switch (stringFace.getSingle(e)) {
-            case "north": face = BlockFace.NORTH;
-                break;
-            case "south":face = BlockFace.SOUTH;
-                break;
-            case "east": face = BlockFace.EAST;
-                break;
-            case "west": face = BlockFace.WEST;
-                break;
-            default: face = BlockFace.NORTH;
-                break;
+        if (player.getSingle(e) != null) {
+            if (block.getSingle(e) != null) {
+                if (stringFace.getSingle(e) != null) {
+                    BlockFace face;
+                    switch (stringFace.getSingle(e)) {
+                        case "north":
+                            face = BlockFace.NORTH;
+                            break;
+                        case "south":
+                            face = BlockFace.SOUTH;
+                            break;
+                        case "east":
+                            face = BlockFace.EAST;
+                            break;
+                        case "west":
+                            face = BlockFace.WEST;
+                            break;
+                        default:
+                            face = BlockFace.NORTH;
+                            break;
+                    }
+                    Utils.putSignOn(block.getSingle(e), face, Config.getDefaultPrivateString(), player.getSingle(e).getName());
+                } else {
+                    Skript.error("Must provide a string (block face), please refer to the syntax");
+                }
+            } else {
+                Skript.error("Must provide a block, please refer to the syntax");
+            }
+        } else {
+            Skript.error("Must provide a player, please refer to the syntax");
         }
-        Utils.putSignOn(block.getSingle(e), face, Config.getDefaultPrivateString(), player.getSingle(e).getName());
     }
 }

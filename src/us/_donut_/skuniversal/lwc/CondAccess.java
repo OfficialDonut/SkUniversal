@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.lwc;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -25,11 +26,21 @@ public class CondAccess extends Condition {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "player has access to block";
+        return "player " + player.getSingle(e) + " has access to block " + block.getSingle(e);
     }
 
     @Override
     public boolean check(Event e) {
-        return LWC.getInstance().canAccessProtection(player.getSingle(e), block.getSingle(e));
+        if (player.getSingle(e) != null) {
+            if (block.getSingle(e) != null) {
+                return LWC.getInstance().canAccessProtection(player.getSingle(e), block.getSingle(e));
+            } else {
+                Skript.error("Must provide a block, please refer to the syntax");
+                return false;
+            }
+        } else {
+            Skript.error("Must provide a player, please refer to the syntax");
+            return false;
+        }
     }
 }

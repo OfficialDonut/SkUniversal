@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.lwc;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -22,11 +23,16 @@ public class CondProtectable extends Condition {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "block is protectable";
+        return "block " + block.getSingle(e) + " is protectable";
     }
 
     @Override
     public boolean check(Event e) {
-        return LWC.getInstance().isProtectable(block.getSingle(e));
+        if (block.getSingle(e) != null) {
+            return LWC.getInstance().isProtectable(block.getSingle(e));
+        } else {
+            Skript.error("Must provide a block, please refer to the syntax");
+            return false;
+        }
     }
 }

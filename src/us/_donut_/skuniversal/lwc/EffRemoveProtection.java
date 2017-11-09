@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.lwc;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -20,11 +21,16 @@ public class EffRemoveProtection extends Effect {
         return true;
     }
     @Override
-    public String toString(@Nullable Event paramEvent, boolean paramBoolean) {
-        return "remove protection";
+    public String toString(@Nullable Event e, boolean paramBoolean) {
+        return "remove protection from block " + block.getSingle(e);
     }
+
     @Override
     protected void execute(Event e) {
-        LWC.getInstance().findProtection(block.getSingle(e)).remove();
+        if (block.getSingle(e) != null) {
+            LWC.getInstance().findProtection(block.getSingle(e)).remove();
+        } else {
+            Skript.error("Must provide a block, please refer to the syntax");
+        }
     }
 }

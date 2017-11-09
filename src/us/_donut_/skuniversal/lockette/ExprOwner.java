@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.lockette;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -34,16 +35,21 @@ public class ExprOwner extends SimpleExpression<Player> {
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "owner of block";
+        return "owner of block " + block.getSingle(e);
     }
 
     @Override
     @Nullable
     protected Player[] get(Event e) {
-        if (!Lockette.isProtected(block.getSingle(e))) {
+        if (block.getSingle(e) != null) {
+            if (!Lockette.isProtected(block.getSingle(e))) {
+                return null;
+            }
+            Player player = Bukkit.getPlayer(Lockette.getProtectedOwner(block.getSingle(e)));
+            return new Player[]{player};
+        } else {
+            Skript.error("Must provide a block, please refer to the syntax");
             return null;
         }
-        Player player = Bukkit.getPlayer(Lockette.getProtectedOwner(block.getSingle(e)));
-        return new Player[]{player};
     }
 }
