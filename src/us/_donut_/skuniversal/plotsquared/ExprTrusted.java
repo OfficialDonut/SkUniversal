@@ -8,8 +8,9 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import com.intellectualcrafters.plot.api.PlotAPI;
+import com.intellectualcrafters.plot.object.Plot;
+import com.intellectualcrafters.plot.object.PlotId;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
@@ -20,7 +21,7 @@ import java.util.UUID;
 public class ExprTrusted extends SimpleExpression<OfflinePlayer>{
 
     private PlotAPI plot = new PlotAPI();
-    private Expression<Location> loc;
+    private Expression<String> id;
 
     @Override
     public boolean isSingle() {
@@ -35,26 +36,38 @@ public class ExprTrusted extends SimpleExpression<OfflinePlayer>{
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] e, int i, Kleenean kl, SkriptParser.ParseResult pr) {
-        loc = (Expression<Location>) e[0];
+        id = (Expression<String>) e[0];
         return true;
     }
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "trusted players of plot at loc " + loc.getSingle(e);
+        return "trusted players of plot with id " + id.getSingle(e);
     }
 
     @Override
     @Nullable
     protected OfflinePlayer[] get(Event e) {
-        if (loc.getSingle(e) != null) {
+        if (id.getSingle(e) != null) {
             List<OfflinePlayer> trusted = new ArrayList<>();
-            for (UUID p : plot.getPlot(loc.getSingle(e)).getTrusted()) {
-                trusted.add(Bukkit.getOfflinePlayer(p));
+            PlotId plotId = PlotId.fromString(id.getSingle(e));
+            if (plotId == null) {
+                Skript.error("Invalid plot ID, please refer to the syntax");
+                return null;
+            } else {
+                for (Plot aPlot : plot.getAllPlots()) {
+                    if (aPlot.getId().equals(plotId)) {
+                        for (UUID p : aPlot.getTrusted()) {
+                            trusted.add(Bukkit.getOfflinePlayer(p));
+                        }
+                        return trusted.toArray(new OfflinePlayer[trusted.size()]);
+                    }
+                }
+                Skript.error("Invalid plot ID, please refer to the syntax");
+                return null;
             }
-            return trusted.toArray(new OfflinePlayer[trusted.size()]);
         } else {
-            Skript.error("Must provide a location, please refer to the syntax");
+            Skript.error("Must provide a string, please refer to the syntax");
             return null;
         }
     }
@@ -63,9 +76,19 @@ public class ExprTrusted extends SimpleExpression<OfflinePlayer>{
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){
         OfflinePlayer player = (OfflinePlayer) delta[0];
         if (mode == Changer.ChangeMode.ADD) {
-            plot.getPlot(loc.getSingle(e)).addTrusted(player.getUniqueId());
+            PlotId plotId = PlotId.fromString(id.getSingle(e));
+            for (Plot aPlot : plot.getAllPlots()) {
+                if (aPlot.getId().equals(plotId)) {
+                    aPlot.addTrusted(player.getUniqueId());
+                }
+            }
         } else if (mode == Changer.ChangeMode.REMOVE) {
-            plot.getPlot(loc.getSingle(e)).removeTrusted(player.getUniqueId());
+            PlotId plotId = PlotId.fromString(id.getSingle(e));
+            for (Plot aPlot : plot.getAllPlots()) {
+                if (aPlot.getId().equals(plotId)) {
+                    aPlot.removeTrusted(player.getUniqueId());
+                }
+            }
         }
     }
     @Override
