@@ -10,6 +10,7 @@ import us._donut_.skuniversal.autorank.AutorankRegister;
 import us._donut_.skuniversal.bedwars.BedwarsRegister;
 import us._donut_.skuniversal.clearlagg.ClearLagRegister;
 import us._donut_.skuniversal.combatlog.CombatLogRegister;
+import us._donut_.skuniversal.griefprevention.GriefPreventionRegister;
 import us._donut_.skuniversal.lockette.LocketteRegister;
 import us._donut_.skuniversal.lockettepro.LocketteProRegister;
 import us._donut_.skuniversal.lwc.LWCRegister;
@@ -36,6 +37,7 @@ public class SkUniversal extends JavaPlugin {
         BedwarsRegister.registerBedwars();
         ClearLagRegister.registerClearLagg();
         CombatLogRegister.registerCombatLog();
+        GriefPreventionRegister.registerGriefPrevention();
         LocketteRegister.registerLockette();
         LocketteProRegister.registerLockettePro();
         LWCRegister.registerLWC();
