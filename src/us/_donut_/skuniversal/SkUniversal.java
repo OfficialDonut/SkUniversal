@@ -8,6 +8,7 @@ import us._donut_.skuniversal.advancedban.AdvancedBanRegister;
 import us._donut_.skuniversal.advancedsurvivalgames.AdvancedSurvivalGamesRegister;
 import us._donut_.skuniversal.autorank.AutorankRegister;
 import us._donut_.skuniversal.bedwars.BedwarsRegister;
+import us._donut_.skuniversal.cannons.CannonsRegister;
 import us._donut_.skuniversal.clearlagg.ClearLagRegister;
 import us._donut_.skuniversal.combatlog.CombatLogRegister;
 import us._donut_.skuniversal.griefprevention.GriefPreventionRegister;
@@ -26,29 +27,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SkUniversal extends JavaPlugin {
-    public static List<String> hookedPlugins = new ArrayList<>();
+
+    private List<String> hookedPlugins = new ArrayList<>();
+    private Boolean serverHasPlugin(String pluginName) { return getServer().getPluginManager().getPlugin(pluginName) != null; }
 
     @Override
     public void onEnable() {
         Skript.registerAddon(this);
-        AdvancedBanRegister.registerAdvancedBan();
-        AdvancedSurvivalGamesRegister.registerAdvancedSurvivalGames();
-        AutorankRegister.registerAutorank();
-        BedwarsRegister.registerBedwars();
-        ClearLagRegister.registerClearLagg();
-        CombatLogRegister.registerCombatLog();
-        GriefPreventionRegister.registerGriefPrevention();
-        LocketteRegister.registerLockette();
-        LocketteProRegister.registerLockettePro();
-        LWCRegister.registerLWC();
-        MinePacksRegister.registerMinePacks();
-        PartiesRegister.registerParties();
-        PlotSquaredRegister.registerPlotSquared();
-        PrisonMinesRegister.registerPrisonMines();
-        PvPLevelsRegister.registerPvPLevels();
-        ShopkeepersRegister.registerShopekeepers();
-        SkywarsCookLocoRegister.registerSkyWarsCookLoco();
-        SkyWarsDaborossRegister.registerSkyWarsDaboross();
+        if (serverHasPlugin("AdvancedBan")) { AdvancedBanRegister.registerAdvancedBan(); hookedPlugins.add("AdvancedBan"); }
+        if (serverHasPlugin("AdvancedSurvivalGames")) { AdvancedSurvivalGamesRegister.registerAdvancedSurvivalGames(); hookedPlugins.add("AdvancedSurvivalGames"); }
+        if (serverHasPlugin("Autorank")) { AutorankRegister.registerAutorank(); hookedPlugins.add("Autorank"); }
+        if (serverHasPlugin("Bedwars")) { BedwarsRegister.registerBedwars(); hookedPlugins.add("Bedwars"); }
+        if (serverHasPlugin("Cannons")) { CannonsRegister.registerCannons(); hookedPlugins.add("Cannons"); }
+        if (serverHasPlugin("ClearLag")) { ClearLagRegister.registerClearLagg(); hookedPlugins.add("ClearLag"); }
+        if (serverHasPlugin("CombatLog")) { CombatLogRegister.registerCombatLog(); hookedPlugins.add("CombatLog"); }
+        if (serverHasPlugin("GriefPrevention")) { GriefPreventionRegister.registerGriefPrevention(); hookedPlugins.add("GriefPrevention"); }
+        if (serverHasPlugin("Lockette")) { LocketteRegister.registerLockette(); hookedPlugins.add("Lockette"); }
+        if (serverHasPlugin("LockettePro")) { LocketteProRegister.registerLockettePro(); hookedPlugins.add("LockettePro"); }
+        if (serverHasPlugin("LWC")) { LWCRegister.registerLWC(); hookedPlugins.add("LWC"); }
+        if (serverHasPlugin("MinePacks")) { MinePacksRegister.registerMinePacks(); hookedPlugins.add("Minepacks"); }
+        if (serverHasPlugin("Parties")) { PartiesRegister.registerParties(); hookedPlugins.add("Parties"); }
+        if (serverHasPlugin("PlotSquared")) { PlotSquaredRegister.registerPlotSquared(); hookedPlugins.add("PlotSquared"); }
+        if (serverHasPlugin("PrisonMines")) { PrisonMinesRegister.registerPrisonMines(); hookedPlugins.add("PrisonMines"); }
+        if (serverHasPlugin("PvPLevels")) { PvPLevelsRegister.registerPvPLevels(); hookedPlugins.add("PvPLevels"); }
+        if (serverHasPlugin("Shopkeepers")) {ShopkeepersRegister.registerShopekeepers(); hookedPlugins.add("Shopkeepers"); }
+        if (serverHasPlugin("SkyWars") && getServer().getPluginManager().getPlugin("SkyWars").getDescription().getAuthors().get(0).equalsIgnoreCase("CookLoco")) { SkywarsCookLocoRegister.registerSkyWarsCookLoco(); hookedPlugins.add("SkyWars (CookLoco)"); }
+        if (serverHasPlugin("SkyWars") && getServer().getPluginManager().getPlugin("SkyWars").getDescription().getAuthors().get(0).equalsIgnoreCase("Dabo Ross")) { SkyWarsDaborossRegister.registerSkyWarsDaboross(); hookedPlugins.add("SkyWars (Daboross)"); }
+
         if (hookedPlugins.isEmpty()) {
             getLogger().warning("Did not find any plugins to hook into.");
         } else {
@@ -58,8 +63,7 @@ public class SkUniversal extends JavaPlugin {
     }
 
     @Override
-    public void onDisable() {
-    }
+    public void onDisable() { getLogger().info("Disabled!"); }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
