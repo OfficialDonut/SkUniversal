@@ -1,10 +1,12 @@
 package us._donut_.skuniversal.griefprevention;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.classes.Changer;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import ch.njol.util.coll.CollectionUtils;
 import me.ryanhamshire.GriefPrevention.GriefPrevention;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
@@ -46,6 +48,25 @@ public class ExprAccruedClaimBlocks extends SimpleExpression<Number> {
             Skript.error("Must provide a player, please refer to the syntax");
             return null;
         }
+    }
+
+    @Override
+    public void change(Event e, Object[] delta, Changer.ChangeMode mode){
+        Number blockChange = (Number) delta[0];
+        if (mode == Changer.ChangeMode.SET) {
+            GriefPrevention.instance.dataStore.getPlayerData(player.getSingle(e).getUniqueId()).setAccruedClaimBlocks(blockChange.intValue());
+        } else if (mode == Changer.ChangeMode.ADD) {
+            GriefPrevention.instance.dataStore.getPlayerData(player.getSingle(e).getUniqueId()).setAccruedClaimBlocks(GriefPrevention.instance.dataStore.getPlayerData(player.getSingle(e).getUniqueId()).getAccruedClaimBlocks() + blockChange.intValue());
+        } else if (mode == Changer.ChangeMode.REMOVE) {
+            GriefPrevention.instance.dataStore.getPlayerData(player.getSingle(e).getUniqueId()).setAccruedClaimBlocks(GriefPrevention.instance.dataStore.getPlayerData(player.getSingle(e).getUniqueId()).getAccruedClaimBlocks() - blockChange.intValue());
+        }
+    }
+    @Override
+    public Class<?>[] acceptChange(final Changer.ChangeMode mode) {
+        if (mode == Changer.ChangeMode.SET || mode == Changer.ChangeMode.REMOVE || mode == Changer.ChangeMode.ADD) {
+            return CollectionUtils.array(Number.class);
+        }
+        return null;
     }
 
 }
