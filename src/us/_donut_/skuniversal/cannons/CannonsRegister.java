@@ -33,6 +33,7 @@ public class CannonsRegister {
         Skript.registerExpression(CannonOwner.class, OfflinePlayer.class, ExpressionType.SIMPLE, "[the] owner of [the] cannon [with [the] id [of]] %string%");
         Skript.registerExpression(CannonLoc.class, Location.class, ExpressionType.SIMPLE, "[the] loc[ation] of [the] cannon [with [the] id [of]] %string%");
         Skript.registerExpression(CannonDesign.class, String.class, ExpressionType.SIMPLE, "[the] design [type] [name] of [the] cannon [with [the] id [of]] %string%");
+        Skript.registerExpression(CannonName.class, String.class, ExpressionType.SIMPLE, "[the] name of [the] cannon [with [the] id [of]] %string%");
         Skript.registerExpression(CannonSoot.class, Number.class, ExpressionType.SIMPLE, "[the] [amount of] soot in [the] cannon [with [the] id [of]] %string%");
         Skript.registerExpression(CannonTemp.class,Number.class, ExpressionType.SIMPLE, "[the] temp[erature] of [the] cannon [with [the] id [of]] %string%");
         Skript.registerExpression(CannonCritTemp.class,Number.class, ExpressionType.SIMPLE, "[the] critical temp[erature] of [the] cannon [with [the] id [of]] %string%");
