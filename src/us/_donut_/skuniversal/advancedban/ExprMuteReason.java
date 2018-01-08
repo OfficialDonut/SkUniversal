@@ -5,12 +5,18 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import me.leoko.advancedban.manager.PunishmentManager;
 import me.leoko.advancedban.manager.UUIDManager;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("AdvancedBan - Mute Reason")
+@Description("Returns the mute reason of a player.")
+@Examples({"send \"Your mute reason is %mute reason of player%.\""})
 public class ExprMuteReason extends SimpleExpression<String> {
 
     private Expression<OfflinePlayer> player;

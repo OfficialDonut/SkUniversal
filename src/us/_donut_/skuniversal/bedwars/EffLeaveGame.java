@@ -5,11 +5,17 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import me.MineHome.Bedwars.Game.GameManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("Bedwars - Leave Game")
+@Description("Forces a player to leave a Bedwars game.")
+@Examples({"force player to leave bedwars game (player's bedwars game)"})
 public class EffLeaveGame extends Effect {
 
     private Expression<Player> player;
@@ -24,7 +30,7 @@ public class EffLeaveGame extends Effect {
     }
     @Override
     public String toString(@Nullable Event e, boolean paramBoolean) {
-        return "make player " + player.getSingle(e) + " join Bedwars game " + game.getSingle(e);
+        return "make player " + player.getSingle(e) + " leave Bedwars game " + game.getSingle(e);
     }
 
     @Override

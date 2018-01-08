@@ -28,15 +28,25 @@ public class AdvancedSurvivalGamesRegister {
         Skript.registerExpression(ExprStage.class, String.class, ExpressionType.SIMPLE, "[the] [advanced] (survival games|sg) [current] stage");
 
         //Events
-        Skript.registerEvent("Advanced Survival Games Death", SkUniversalEvent.class, SGPlayerKillEvent.class, "[advanced] (survival games|sg) [player] death");
-        Skript.registerEvent("Advanced Survival Games Game Start", SkUniversalEvent.class, SGGameStartEvent.class, "[advanced] (survival games|sg) game (start|begin)");
-        Skript.registerEvent("Advanced Survival Games Game End", SkUniversalEvent.class, SGGameEndEvent.class, "[advanced] (survival games|sg) game (end|finish)");
+        Skript.registerEvent("AdvancedSurvivalGames - Player Death", SkUniversalEvent.class, SGPlayerKillEvent.class, "[advanced] (survival games|sg) [player] death")
+				.description("Called when a player dies.\n\n" +
+						"**Event Expressions:**\n" +
+						"`[the] [advanced] (survival games|sg) victim`\n" +
+						"`[the] [advanced] (survival games|sg) (attacker|killer)`")
+				.examples("on survival games player death:", "\tbroadcast \"%survival games victim% has killed by %survival games attacker%!\"");
+        Skript.registerEvent("AdvancedSurvivalGames - Game Start", SkUniversalEvent.class, SGGameStartEvent.class, "[advanced] (survival games|sg) game (start|begin)")
+				.description("Called when a game starts.");
+        Skript.registerEvent("AdvancedSurvivalGames - Game End", SkUniversalEvent.class, SGGameEndEvent.class, "[advanced] (survival games|sg) game (end|finish)")
+				.description("Called when a game ends.")
+				.examples("on survival games game end:", "\tsend \"Congratulations!\" to player #The winner");
         EventValues.registerEventValue(SGGameEndEvent.class, Player.class, new Getter<Player, SGGameEndEvent>() {
             public Player get(SGGameEndEvent e) {
                 return e.getWinner().getPlayer().getPlayer();
             }
         }, 0);
-        Skript.registerEvent("Advanced Survival Games Item Purchase", SkUniversalEvent.class, SGItemPurchaseEvent.class, "[advanced] (survival games|sg) item purchase");
+        Skript.registerEvent("AdvancedSurvivalGames - Item Purchase", SkUniversalEvent.class, SGItemPurchaseEvent.class, "[advanced] (survival games|sg) item purchase")
+				.description("Called when a player buys an item.")
+				.examples("on survival games item purchase:", "\tbroadcast \"%player% bought %event-item% for %event-number%!\"");
         EventValues.registerEventValue(SGItemPurchaseEvent.class, Player.class, new Getter<Player, SGItemPurchaseEvent>() {
             public Player get(SGItemPurchaseEvent e) {
                 return e.getBuyer().getPlayer().getPlayer();
@@ -52,7 +62,9 @@ public class AdvancedSurvivalGamesRegister {
                 return e.getItemPrice();
             }
         }, 0);
-        Skript.registerEvent("Advanced Survival Games Kit Purchase", SkUniversalEvent.class, SGKitPurchaseEvent.class, "[advanced] (survival games|sg) kit purchase");
+        Skript.registerEvent("AdvancedSurvivalGames - Kit Purchase", SkUniversalEvent.class, SGKitPurchaseEvent.class, "[advanced] (survival games|sg) kit purchase")
+				.description("Called when a player buys a kit.")
+                .examples("on survival games kit purchase:", "\tbroadcast \"%player% bought a kit!\"");
         EventValues.registerEventValue(SGKitPurchaseEvent.class, Player.class, new Getter<Player, SGKitPurchaseEvent>() {
             public Player get(SGKitPurchaseEvent e) {
                 return e.getBuyer().getPlayer().getPlayer();

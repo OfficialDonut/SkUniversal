@@ -5,10 +5,16 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import me.MineHome.Bedwars.Game.GameManager;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("Bedwars - Start Game")
+@Description("Starts a Bedwars game.")
+@Examples({"start bedwars game (player's bedwars game)"})
 public class EffStartGame extends Effect {
 
     private Expression<String> game;

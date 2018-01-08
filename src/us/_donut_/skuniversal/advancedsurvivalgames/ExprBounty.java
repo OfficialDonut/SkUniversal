@@ -6,12 +6,18 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.util.coll.CollectionUtils;
 import e.Game;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("AdvancedSurvivalGames - Bounty")
+@Description("Returns the bounty of a player.")
+@Examples({"send \"Your bounty: %survival games bounty of player%\""})
 public class ExprBounty extends SimpleExpression<Number> {
 
     private Expression<OfflinePlayer> player;

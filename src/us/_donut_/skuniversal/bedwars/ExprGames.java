@@ -4,6 +4,9 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import me.MineHome.Bedwars.Game.GameAPI;
 import me.MineHome.Bedwars.Game.GameManager;
 import org.bukkit.event.Event;
@@ -11,6 +14,10 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Name("Bedwars - Existing Games")
+@Description("Returns a list of all Bedwars games.")
+@Examples({"loop all existing bedwars games:",
+		"\tstop bedwars game loop-value"})
 public class ExprGames extends SimpleExpression<String> {
 
     @Override

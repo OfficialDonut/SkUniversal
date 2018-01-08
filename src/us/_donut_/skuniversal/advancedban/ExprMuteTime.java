@@ -5,12 +5,18 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import me.leoko.advancedban.manager.PunishmentManager;
 import me.leoko.advancedban.manager.UUIDManager;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("AdvancedBan - Mute Time")
+@Description("Returns the mute time of a player.")
+@Examples({"send \"You can continue talking after %remaining mute time of player%.\""})
 public class ExprMuteTime extends SimpleExpression<String> {
 
     private Expression<OfflinePlayer> player;

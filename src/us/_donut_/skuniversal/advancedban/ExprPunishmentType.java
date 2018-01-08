@@ -6,10 +6,14 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Name;
 import me.leoko.advancedban.bukkit.event.PunishmentEvent;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("AdvancedBan - Punishment Type")
+@Description("Returns the punish type on Punishment event.")
 public class ExprPunishmentType extends SimpleExpression<String> {
 
     @Override

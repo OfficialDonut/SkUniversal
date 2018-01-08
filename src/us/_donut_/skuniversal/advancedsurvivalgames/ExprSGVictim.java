@@ -6,11 +6,16 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import e.SGPlayerKillEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("AdvancedSurvivalGames - Victim")
+@Description("Returns the victim on SG Player Death event.")
 public class ExprSGVictim extends SimpleExpression<Player> {
 
     @Override

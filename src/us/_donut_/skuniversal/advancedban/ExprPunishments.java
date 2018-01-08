@@ -5,17 +5,22 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import me.leoko.advancedban.manager.PunishmentManager;
 import me.leoko.advancedban.manager.UUIDManager;
 import me.leoko.advancedban.utils.Punishment;
 import me.leoko.advancedban.utils.PunishmentType;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Name("AdvancedBan - Punishments")
+@Description("Returns the active punishments of a player.")
+@Examples({"send \"Your punishments: %active punishments of player%\""})
 public class ExprPunishments extends SimpleExpression<String> {
 
     private Expression<OfflinePlayer> player;

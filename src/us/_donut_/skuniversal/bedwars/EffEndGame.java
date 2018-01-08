@@ -5,10 +5,16 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import me.MineHome.Bedwars.Game.GameManager;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("Bedwars - Stop Game")
+@Description("Stops a Bedwars game.")
+@Examples({"stop bedwars game (player's bedwars game)"})
 public class EffEndGame extends Effect {
 
     private Expression<String> game;
@@ -21,7 +27,7 @@ public class EffEndGame extends Effect {
     }
     @Override
     public String toString(@Nullable Event e, boolean paramBoolean) {
-        return "start Bedwars game " + game.getSingle(e);
+        return "end Bedwars game " + game.getSingle(e);
     }
 
     @Override

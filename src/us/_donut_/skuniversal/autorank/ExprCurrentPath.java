@@ -5,11 +5,17 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import me.armar.plugins.autorank.Autorank;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("Autorank - Current Path")
+@Description("Returns the current path of a player.")
+@Examples({"send \"Your current path: %current path of player%\""})
 public class ExprCurrentPath extends SimpleExpression<String> {
 
     private Expression<Player> player;

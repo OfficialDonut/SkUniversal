@@ -4,6 +4,8 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Name;
 import e.Game;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -13,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+@Name("AdvancedSurvivalGames - Alive Players")
+@Description("Returns list of the alive players.")
 public class ExprAlivePlayers extends SimpleExpression<Player> {
 
     @Override

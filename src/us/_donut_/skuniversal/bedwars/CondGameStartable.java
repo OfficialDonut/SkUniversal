@@ -5,10 +5,16 @@ import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import me.MineHome.Bedwars.Game.GameManager;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("Bedwars - Is Game Startable")
+@Description("Checks if a game is able to start.")
+@Examples({"if bedwars game \"Game1\" is startable:"})
 public class CondGameStartable extends Condition {
 
     private Expression<String> game;

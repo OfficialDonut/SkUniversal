@@ -5,6 +5,9 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import me.armar.plugins.autorank.Autorank;
 import me.armar.plugins.autorank.pathbuilder.holders.RequirementsHolder;
 import org.bukkit.entity.Player;
@@ -13,6 +16,9 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Name("Autorank - All Requirements")
+@Description("Returns list of all requirements of player.")
+@Examples({"send \"All of your requirements: %requirements of player%\""})
 public class ExprAllRequirements extends SimpleExpression<String> {
 
     private Expression<Player> player;

@@ -5,11 +5,17 @@ import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 import me.MineHome.Bedwars.Game.GameManager;
 
+@Name("Bedwars - Is Playing")
+@Description("Checks if a player is in a Bedwars game.")
+@Examples({"if {_player} is playing in a Bedwars game:"})
 public class CondInGame extends Condition {
 
     private Expression<Player> player;

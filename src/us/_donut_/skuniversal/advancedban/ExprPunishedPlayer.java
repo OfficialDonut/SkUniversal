@@ -6,12 +6,16 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Name;
 import me.leoko.advancedban.bukkit.event.PunishmentEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("AdvancedBan - Punished Player")
+@Description("Returns the punished player on Punishment event.")
 public class ExprPunishedPlayer extends SimpleExpression<OfflinePlayer> {
 
     @Override

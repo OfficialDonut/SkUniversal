@@ -4,10 +4,14 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Name;
 import e.Game;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("AdvancedSurvivalGames - Current Stage")
+@Description("Returns the current stage name.")
 public class ExprStage extends SimpleExpression<String> {
 
     @Override

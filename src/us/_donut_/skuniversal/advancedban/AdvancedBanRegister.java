@@ -29,6 +29,14 @@ public class AdvancedBanRegister {
         Skript.registerExpression(ExprPunishmentLength.class, String.class, ExpressionType.SIMPLE, "[the] [AdvancedBan] punish[ment] (length|duration)");
 
         //Events
-        Skript.registerEvent("AdvancedBan Punish", SkUniversalEvent.class, PunishmentEvent.class, "[AdvancedBan] punish[ment]");
+        Skript.registerEvent("AdvancedBan - Punishment", SkUniversalEvent.class, PunishmentEvent.class, "[AdvancedBan] punish[ment]")
+				.description("Called when a player is punished.\n\n" +
+						"**Event Expressions:**\n" +
+						"`[the] [AdvancedBan] punished player`\n" +
+						"`[the] [AdvancedBan] punisher`\n" +
+						"`[the] [AdvancedBan] punish[ment] type`\n" +
+						"`[the] [AdvancedBan] punish[ment] reason`\n" +
+						"`[the] [AdvancedBan] punish[ment] (length|duration)`")
+				.examples("on punishment:", "\tif punish type is \"mute\":", "\t\tbroadcast \"%punished player% has been muted by %punisher% for %punish duration% with reason %punish reason%!\"");
     }
 }

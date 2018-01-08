@@ -4,11 +4,17 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import me.armar.plugins.autorank.Autorank;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("Autorank - Global Play Time")
+@Description("Returns the global play time of a player in minutes.")
+@Examples({"send \"Your global play time: %global play time of player% minutes\""})
 public class ExprGlobalTime extends SimpleExpression<Number> {
 
     private Expression<Player> player;

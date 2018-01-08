@@ -6,11 +6,15 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Name;
 import me.leoko.advancedban.bukkit.event.PunishmentEvent;
 import org.bukkit.event.Event;
 
 import javax.annotation.Nullable;
 
+@Name("AdvancedBan - Punish Duration")
+@Description("Returns the punish duration on Punishment event.")
 public class ExprPunishmentLength extends SimpleExpression<String> {
 
     @Override

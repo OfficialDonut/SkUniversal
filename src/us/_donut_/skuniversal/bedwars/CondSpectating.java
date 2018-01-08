@@ -5,11 +5,17 @@ import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import me.MineHome.Bedwars.Spectator.Spectator;
 import javax.annotation.Nullable;
 
+@Name("Bedwars - Is Spectating")
+@Description("Checks if a player is spectating a Bedwars game.")
+@Examples({"if loop-player is spectating a Bedwars game:"})
 public class CondSpectating extends Condition {
 
     private Expression<Player> player;

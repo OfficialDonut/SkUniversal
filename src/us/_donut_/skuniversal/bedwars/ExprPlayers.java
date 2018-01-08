@@ -5,12 +5,19 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import me.MineHome.Bedwars.Game.GameManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 import java.util.List;
 
+@Name("Bedwars - Players in Game")
+@Description("Returns a list of all players in a Bedwars game.")
+@Examples({"loop players in bedwars game {_game}:",
+		"\tforce loop-player to leave bedwars game {_game}"})
 public class ExprPlayers extends SimpleExpression<Player> {
 
     private Expression<String> game;

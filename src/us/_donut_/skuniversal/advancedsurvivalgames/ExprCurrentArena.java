@@ -4,10 +4,14 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Name;
 import e.Game;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("AdvancedSurvivalGames - Current Arena")
+@Description("Returns the current playing arena name.")
 public class ExprCurrentArena extends SimpleExpression<String> {
 
     @Override

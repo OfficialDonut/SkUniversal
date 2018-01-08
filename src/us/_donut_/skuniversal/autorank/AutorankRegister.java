@@ -22,7 +22,9 @@ public class AutorankRegister {
         Skript.registerExpression(ExprCompletedPaths.class, String.class, ExpressionType.COMBINED, "[the] (completed|finished) [Autorank] paths of %player%", "%player%'s (completed|finished) [Autorank] paths");
 
         //Events
-        Skript.registerEvent("Autorank Requirement Completion", SkUniversalEvent.class, RequirementCompleteEvent.class, "[Autorank] requirement complet(e|ion)");
+        Skript.registerEvent("Autorank - Requirement Completion", SkUniversalEvent.class, RequirementCompleteEvent.class, "[Autorank] requirement complet(e|ion)")
+				.description("Called when a player completes a requirement.")
+				.examples("on requirement complete:", "broadcast \"%player% has completed %event-string% requirement!\"");
         EventValues.registerEventValue(RequirementCompleteEvent.class, Player.class, new Getter<Player, RequirementCompleteEvent>() {
             public Player get(RequirementCompleteEvent e) {
                 return e.getPlayer();
