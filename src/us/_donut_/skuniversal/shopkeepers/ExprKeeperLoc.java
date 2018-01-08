@@ -2,6 +2,9 @@ package us._donut_.skuniversal.shopkeepers;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -12,6 +15,9 @@ import org.bukkit.Location;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("Shopkeepers - Shopkeeper Location")
+@Description("Returns the location of a shopkeeper")
+@Examples({"send \"%the location of the shopkeeper named {shopkeepers::%player%}\""})
 public class ExprKeeperLoc extends SimpleExpression<Location> {
 
     private Expression<String> keeperName;

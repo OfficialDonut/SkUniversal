@@ -2,6 +2,9 @@ package us._donut_.skuniversal.shopkeepers;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -12,6 +15,9 @@ import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("Shopkeepers - Shopkeeper Name of Entity")
+@Description("Returns the shopkeeper name of an entity.")
+@Examples({"send \"%the shopkeeper name of event-entity\""})
 public class ExprKeeperName extends SimpleExpression<String> {
 
     private Expression<Entity> entity;

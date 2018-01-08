@@ -2,6 +2,9 @@ package us._donut_.skuniversal.skywars_cookloco;
 
 import ak.CookLoco.SkyWars.api.SkyWarsAPI;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -10,6 +13,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("SkyWars (CookLoco) - Player Kit")
+@Description("Returns the skywars kit of a player.")
+@Examples({"send \"%the skywars kit of player%\""})
 public class ExprKit extends SimpleExpression<String> {
 
     private Expression<Player> player;

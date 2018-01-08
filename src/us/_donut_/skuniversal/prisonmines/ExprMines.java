@@ -1,5 +1,8 @@
 package us._donut_.skuniversal.prisonmines;
 
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -11,6 +14,9 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Name("PrisonMines - All Mines")
+@Description("Returns the names of all mines.")
+@Examples({"send \"%the names of all mines%\""})
 public class ExprMines extends SimpleExpression<String> {
 
     @Override

@@ -1,6 +1,9 @@
 package us._donut_.skuniversal.prisonmines;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -10,6 +13,9 @@ import org.bukkit.Location;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("PrisonMines - Mine at Location")
+@Description("Returns the name of a mine at a location.")
+@Examples({"send \"%the mine at player%\""})
 public class ExprMineAtLoc extends SimpleExpression<String> {
 
     private Expression<Location> loc;

@@ -2,6 +2,9 @@ package us._donut_.skuniversal.skywars_cookloco;
 
 import ak.CookLoco.SkyWars.arena.Arena;
 import ak.CookLoco.SkyWars.arena.ArenaManager;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -11,6 +14,9 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Name("SkyWars (CookLoco) - All arenas")
+@Description("Returns the names of all skywars arenas.")
+@Examples({"set {arenas::*} to all skywars arenas"})
 public class ExprArenas extends SimpleExpression<String> {
 
     @Override

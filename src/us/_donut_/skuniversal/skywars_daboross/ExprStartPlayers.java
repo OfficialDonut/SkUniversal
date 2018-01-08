@@ -2,6 +2,8 @@ package us._donut_.skuniversal.skywars_daboross;
 
 import ch.njol.skript.ScriptLoader;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -12,6 +14,8 @@ import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 import java.util.List;
 
+@Name("SkyWars (Daboross) - Starting Players")
+@Description("Returns the stating players on SkyWars Game Start event.")
 public class ExprStartPlayers extends SimpleExpression<Player> {
 
     @Override

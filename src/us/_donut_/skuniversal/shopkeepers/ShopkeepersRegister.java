@@ -29,7 +29,9 @@ public class ShopkeepersRegister {
         Skript.registerExpression(ExprKeeperAmount.class, Number.class, ExpressionType.SIMPLE, "[the] (amount|number) of [shop]keepers of %player%");
 
         //Events
-        Skript.registerEvent("Shopkeeper Create", SkUniversalEvent.class, ShopkeeperCreatedEvent.class, "[shop]keeper creat(e|ion)");
+        Skript.registerEvent("Shopkeepers - Create", SkUniversalEvent.class, ShopkeeperCreatedEvent.class, "[shop]keeper creat(e|ion)")
+                .description("Called when a shopkeeper is created.")
+                .examples("on shopkeeper creation:", "\tsend \"%player% created a shopkeeper at %event-location%!\"");
         EventValues.registerEventValue(ShopkeeperCreatedEvent.class, Player.class, new Getter<Player, ShopkeeperCreatedEvent>() {
             public Player get(ShopkeeperCreatedEvent e) {
                 return e.getPlayer();
@@ -40,7 +42,9 @@ public class ShopkeepersRegister {
                 return e.getShopkeeper().getLocation();
             }
         }, 0);
-        Skript.registerEvent("Shopkeeper Delete", SkUniversalEvent.class, ShopkeeperDeletedEvent.class, "[shop]keeper (delet(e|ion)|remov(e|al))");
+        Skript.registerEvent("Shopkeepers - Delete", SkUniversalEvent.class, ShopkeeperDeletedEvent.class, "[shop]keeper (delet(e|ion)|remov(e|al))")
+                .description("Called when a shopkeeper is deleted.")
+                .examples("on shopkeeper deletion:", "\tsend \"%player% deleted the shopkeeper at %event-location%!\"");
         EventValues.registerEventValue(ShopkeeperDeletedEvent.class, Player.class, new Getter<Player, ShopkeeperDeletedEvent>() {
             public Player get(ShopkeeperDeletedEvent e) {
                 return e.getPlayer();
@@ -56,7 +60,9 @@ public class ShopkeepersRegister {
                 return e.getShopkeeper().getName();
             }
         }, 0);
-        Skript.registerEvent("Shopkeeper Trade Complete", SkUniversalEvent.class, ShopkeeperTradeCompletedEvent.class, "[shop]keeper trad(e|ing) complet(e|ion)");
+        Skript.registerEvent("Shopkeepers - Trade Complete", SkUniversalEvent.class, ShopkeeperTradeCompletedEvent.class, "[shop]keeper trad(e|ing) complet(e|ion)")
+                .description("Called when a shopkeeper trade is completed.")
+                .examples("on shopkeeper trade completion:", "\tsend \"%player% traded the shopkeeper named %event-string% for %event-item%!\"");
         EventValues.registerEventValue(ShopkeeperTradeCompletedEvent.class, Player.class, new Getter<Player, ShopkeeperTradeCompletedEvent>() {
             public Player get(ShopkeeperTradeCompletedEvent e) {
                 return e.getPlayer();

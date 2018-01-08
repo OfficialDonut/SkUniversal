@@ -1,6 +1,9 @@
 package us._donut_.skuniversal.skywars_cookloco;
 
 import ak.CookLoco.SkyWars.api.SkyWarsAPI;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -9,6 +12,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("SkyWars (CookLoco) - Is Spectating")
+@Description("Checks if a player is spectating.")
+@Examples({"if player is spectating a skywars game:"})
 public class CondSpectating extends Condition {
 
     private Expression<Player> player;

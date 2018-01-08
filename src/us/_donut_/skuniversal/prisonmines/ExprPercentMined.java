@@ -1,6 +1,9 @@
 package us._donut_.skuniversal.prisonmines;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -9,6 +12,9 @@ import net.lightshard.prisonmines.MineAPI;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("PrisonMines - Percent Mined")
+@Description("Returns the percentage of a mine that has been mined.")
+@Examples({"send \"%the percentage of the blocks mined in the mine at player%\""})
 public class ExprPercentMined extends SimpleExpression<Number> {
 
     private Expression<String> name;

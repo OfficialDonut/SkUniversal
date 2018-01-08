@@ -2,6 +2,9 @@ package us._donut_.skuniversal.skywars_daboross;
 
 import ch.njol.skript.ScriptLoader;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -12,6 +15,8 @@ import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 import java.util.List;
 
+@Name("SkyWars (Daboross) - Remaining Players")
+@Description("Returns the remaining players on SkyWars Game End event.")
 public class ExprAlivePlayers extends SimpleExpression<Player> {
 
     @Override

@@ -2,6 +2,9 @@ package us._donut_.skuniversal.skywars_cookloco;
 
 import ak.CookLoco.SkyWars.arena.ArenaManager;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -9,6 +12,9 @@ import ch.njol.util.Kleenean;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("SkyWars (CookLoco) - Arena State")
+@Description("Returns the state of a skywars arena.")
+@Examples({"set {state} to the state of the skywars arena named \"cool\""})
 public class ExprState extends SimpleExpression<String> {
 
     private Expression<String> name;

@@ -1,5 +1,8 @@
 package us._donut_.skuniversal.shopkeepers;
 
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -9,6 +12,9 @@ import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("Shopkeepers - Is Shopkeeper")
+@Description("Checks if an entity is a shopkeeper.")
+@Examples({"if event-entity is a shopkeeper:"})
 public class CondIsKeeper extends Condition {
 
     private Expression<Entity> entity;

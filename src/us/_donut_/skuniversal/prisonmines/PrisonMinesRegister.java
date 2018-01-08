@@ -29,13 +29,17 @@ public class PrisonMinesRegister {
         Skript.registerExpression(ExprTeleportLoc.class, Location.class, ExpressionType.SIMPLE, "[the] (teleport|tp) loc[ation] of [the] [PrisonMines] mine [(named|with name)] %string%");
 
         //Events
-        Skript.registerEvent("Mine Reset Start", SkUniversalEvent.class, MinePreResetEvent.class, "[PrisonMines] mine reset (begin|start)");
+        Skript.registerEvent("PrisonMine - Mine Reset Start", SkUniversalEvent.class, MinePreResetEvent.class, "[PrisonMines] mine reset (begin|start)")
+                .description("Called when a mine begins to reset.")
+                .examples("on mine reste begin:", "\tsend \"Mine %event-string% is resetting!\"");
         EventValues.registerEventValue(MinePreResetEvent.class, String.class, new Getter<String, MinePreResetEvent>() {
             public String get(MinePreResetEvent e) {
                 return e.getMine().getName();
             }
         }, 0);
-        Skript.registerEvent("Mine Reset Finish", SkUniversalEvent.class, MinePostResetEvent.class, "[PrisonMines] mine reset (finish|end|complete)");
+        Skript.registerEvent("PrisonMine - Mine Reset Finish", SkUniversalEvent.class, MinePostResetEvent.class, "[PrisonMines] mine reset (finish|end|complete)")
+                .description("Called when a mine is done resetting.")
+                .examples("on mine reset finish:", "\tsend \"Mine %event-string% is done resetting\"");
         EventValues.registerEventValue(MinePostResetEvent.class, String.class, new Getter<String, MinePostResetEvent>() {
             public String get(MinePostResetEvent e) {
                 return e.getMine().getName();

@@ -3,6 +3,8 @@ package us._donut_.skuniversal.skywars_cookloco;;
 import ak.CookLoco.SkyWars.events.SkyPlayerDeathEvent;
 import ch.njol.skript.ScriptLoader;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -11,6 +13,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("SkyWars (CookLoco) - Attacker")
+@Description("Returns the attacker on SkyWars Death event.")
 public class ExprAttacker extends SimpleExpression<Player> {
 
     @Override

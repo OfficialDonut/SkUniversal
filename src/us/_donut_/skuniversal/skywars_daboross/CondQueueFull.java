@@ -1,5 +1,8 @@
 package us._donut_.skuniversal.skywars_daboross;
 
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -9,6 +12,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("SkyWars (Daboross) - Is Queue Full")
+@Description("Checks if the game queue is full.")
+@Examples({"if the skywars game queue is full:"})
 public class CondQueueFull extends Condition {
 
     @SuppressWarnings("unchecked")

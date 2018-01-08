@@ -2,6 +2,9 @@ package us._donut_.skuniversal.prisonmines;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -12,6 +15,9 @@ import org.bukkit.Location;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("PrisonMines - Teleport Location")
+@Description("Returns the teleport location of a mine.")
+@Examples({"send \"%the teleport location of the mine at player%\""})
 public class ExprTeleportLoc extends SimpleExpression<Location> {
 
     MineAPI.PrisonMinesAPI prisonMines = new MineAPI.PrisonMinesAPI();

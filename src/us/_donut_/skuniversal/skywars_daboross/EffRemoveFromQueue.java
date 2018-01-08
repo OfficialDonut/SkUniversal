@@ -1,6 +1,9 @@
 package us._donut_.skuniversal.skywars_daboross;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -11,6 +14,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("SkyWars (Daboross) - Remove Player from Queue")
+@Description("Removes a player from the game queue.")
+@Examples({"remove player from the skywars game queue"})
 public class EffRemoveFromQueue extends Effect {
 
     private Expression<Player> player;

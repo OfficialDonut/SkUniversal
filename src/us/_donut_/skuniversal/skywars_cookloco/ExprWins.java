@@ -3,6 +3,9 @@ package us._donut_.skuniversal.skywars_cookloco;
 import ak.CookLoco.SkyWars.api.SkyWarsAPI;
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -12,6 +15,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("SkyWars (CookLoco) - Player Wins")
+@Description("Returns the amount of skywars wins of a player.")
+@Examples({"send \"%the skywars wins of player%\""})
 public class ExprWins extends SimpleExpression<Number> {
 
     private Expression<Player> player;

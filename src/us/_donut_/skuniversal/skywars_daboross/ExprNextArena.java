@@ -1,5 +1,8 @@
 package us._donut_.skuniversal.skywars_daboross;
 
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -9,6 +12,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("SkyWars (Daboross) - Next Arena")
+@Description("Returns the name of the next arena.")
+@Examples({"send \"%next skywars arena%\""})
 public class ExprNextArena extends SimpleExpression<String> {
 
     @Override

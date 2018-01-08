@@ -3,6 +3,9 @@ package us._donut_.skuniversal.skywars_cookloco;
 import ak.CookLoco.SkyWars.arena.ArenaManager;
 import ak.CookLoco.SkyWars.player.SkyPlayer;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -13,6 +16,9 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Name("SkyWars (CookLoco) - Players in Arena")
+@Description("Returns the alive players in a skywars arena.")
+@Examples({"set {players::*} to the alive players in the skywars arena named \"cool\""})
 public class ExprPlayers extends SimpleExpression<Player> {
 
     private Expression<String> name;

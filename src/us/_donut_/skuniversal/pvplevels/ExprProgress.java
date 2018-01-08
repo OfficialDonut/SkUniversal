@@ -1,6 +1,9 @@
 package us._donut_.skuniversal.pvplevels;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -11,6 +14,9 @@ import org.bukkit.event.Event;
 
 import javax.annotation.Nullable;
 
+@Name("PvPLevels - XP Progress of Player")
+@Description("Returns the XP progress of a player.")
+@Examples({"send \"%pvp xp progress of player%\""})
 public class ExprProgress extends SimpleExpression<String> {
 
     private Expression<OfflinePlayer> player;

@@ -1,6 +1,9 @@
 package us._donut_.skuniversal.shopkeepers;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -10,6 +13,9 @@ import com.nisovin.shopkeepers.ShopkeepersPlugin;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("Shopkeepers - Delete Shopkeeper")
+@Description("Delete a shopkeeper.")
+@Examples({"delete the shopkeeper named {shopkeepers::%player%}"})
 public class EffDeleteKeeper extends Effect {
 
     private Expression<String> keeperName;

@@ -1,5 +1,8 @@
 package us._donut_.skuniversal.skywars_daboross;
 
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -13,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Name("SkyWars (Daboross) - Players in Queue")
+@Description("Returns the players in the game queue.")
+@Examples({"send \"%the players in the skywars game queue%\""})
 public class ExprQueuePlayers extends SimpleExpression<Player> {
 
     @Override

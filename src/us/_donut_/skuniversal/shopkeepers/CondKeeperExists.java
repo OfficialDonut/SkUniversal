@@ -1,6 +1,9 @@
 package us._donut_.skuniversal.shopkeepers;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -10,6 +13,9 @@ import com.nisovin.shopkeepers.ShopkeepersPlugin;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("Shopkeepers - Does Shopkeeper Exist")
+@Description("Checks if a shopkeeper with a certain name exists.")
+@Examples({"if a shopkeeper named \"cool\" exists:"})
 public class CondKeeperExists extends Condition {
 
     private Expression<String> keeperName;

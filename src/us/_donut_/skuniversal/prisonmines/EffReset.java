@@ -1,6 +1,9 @@
 package us._donut_.skuniversal.prisonmines;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -9,6 +12,9 @@ import net.lightshard.prisonmines.MineAPI;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("PrisonMines - Reset Mine")
+@Description("Resets a mine.")
+@Examples({"reset the mine named \"cool\""})
 public class EffReset extends Effect {
 
     private Expression<String> name;
