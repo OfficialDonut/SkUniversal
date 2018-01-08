@@ -37,7 +37,7 @@ public class CannonsRegister {
         Skript.registerExpression(CannonSoot.class, Number.class, ExpressionType.SIMPLE, "[the] [amount of] soot in [the] cannon [with [the] id [of]] %string%");
         Skript.registerExpression(CannonTemp.class,Number.class, ExpressionType.SIMPLE, "[the] temp[erature] of [the] cannon [with [the] id [of]] %string%");
         Skript.registerExpression(CannonCritTemp.class,Number.class, ExpressionType.SIMPLE, "[the] critical temp[erature] of [the] cannon [with [the] id [of]] %string%");
-        Skript.registerExpression(CannonFuse.class,Number.class, ExpressionType.SIMPLE, "[the] critical temp[erature] of [the] cannon [with [the] id [of]] %string%");
+        Skript.registerExpression(CannonFuse.class,Number.class, ExpressionType.SIMPLE, "[the] fuse [length] of [the] cannon [with [the] id [of]] %string%");
         Skript.registerExpression(CannonLoadTime.class,Number.class, ExpressionType.SIMPLE, "[the] load[ing] time of [the] cannon [with [the] id [of]] %string%");
         Skript.registerExpression(CannonMass.class,Number.class, ExpressionType.SIMPLE, "[the] mass of [the] cannon [with [the] id [of]] %string%");
         Skript.registerExpression(CannonPitch.class, Number.class, ExpressionType.SIMPLE, "[the] [aiming] pitch of [the] cannon [with [the] id [of]] %string%");
@@ -46,7 +46,9 @@ public class CannonsRegister {
         Skript.registerExpression(CannonAmount.class, Number.class, ExpressionType.SIMPLE, "[the] (amount|number) of cannons %offlineplayer% has built");
 
         //Events
-        Skript.registerEvent("Cannon Fire", SkUniversalEvent.class, CannonFireEvent.class, "cannon (fire|shoot)");
+        Skript.registerEvent("Cannons - Cannon Fire", SkUniversalEvent.class, CannonFireEvent.class, "cannon (fire|shoot)")
+                .description("Called when a cannon shoots.")
+                .examples("on cannon shoot:", "\tbroadcast \"%player% shot a cannon!\"");
         EventValues.registerEventValue(CannonFireEvent.class, String.class, new Getter<String, CannonFireEvent>() {
             public String get(CannonFireEvent e) {
                 return e.getCannon().getUID().toString();
@@ -57,13 +59,17 @@ public class CannonsRegister {
                 return Bukkit.getOfflinePlayer(e.getPlayer());
             }
         }, 0);
-        Skript.registerEvent("Cannon Destroy", SkUniversalEvent.class, CannonDestroyedEvent.class, "cannon destroy");
+        Skript.registerEvent("Cannons - Cannon Destroy", SkUniversalEvent.class, CannonDestroyedEvent.class, "cannon destroy")
+                .description("Called when a cannon is destroyed.")
+                .examples("on cannon destroy:", "\tbroadcast \"%player% destroyed a cannon!\"");
         EventValues.registerEventValue(CannonDestroyedEvent.class, String.class, new Getter<String, CannonDestroyedEvent>() {
             public String get(CannonDestroyedEvent e) {
                 return e.getCannon().getUID().toString();
             }
         }, 0);
-        Skript.registerEvent("Projectile Impact", SkUniversalEvent.class, ProjectileImpactEvent.class, "cannon projectile impact");
+        Skript.registerEvent("Cannons - Projectile Impact", SkUniversalEvent.class, ProjectileImpactEvent.class, "cannon projectile impact")
+                .description("Called when a cannon projectile lands.")
+                .examples("on cannon projectile impact:", "\tbroadcast \"A cannonball landed at %event-location%!\"");
         EventValues.registerEventValue(ProjectileImpactEvent.class, Location.class, new Getter<Location, ProjectileImpactEvent>() {
             public Location get(ProjectileImpactEvent e) {
                 return e.getImpactLocation();
@@ -74,7 +80,9 @@ public class CannonsRegister {
                 return Bukkit.getOfflinePlayer(e.getShooterUID());
             }
         }, 0);
-        Skript.registerEvent("Cannon Pre-Creation", SkUniversalEvent.class, CannonBeforeCreateEvent.class, "cannon pre[-]creat(e|ion)");
+        Skript.registerEvent("Cannons - Cannon Pre-Creation", SkUniversalEvent.class, CannonBeforeCreateEvent.class, "cannon pre[-]creat(e|ion)")
+                .description("Called right before a cannon is created.")
+                .examples("on cannon pre-creation:", "\tbroadcast \"%player% is about to create a cannon!\"");
         EventValues.registerEventValue(CannonBeforeCreateEvent.class, String.class, new Getter<String, CannonBeforeCreateEvent>() {
             public String get(CannonBeforeCreateEvent e) {
                 return e.getCannon().getUID().toString();
@@ -85,7 +93,9 @@ public class CannonsRegister {
                 return Bukkit.getOfflinePlayer(e.getPlayer());
             }
         }, 0);
-        Skript.registerEvent("Cannon Create", SkUniversalEvent.class, CannonAfterCreateEvent.class, "cannon creat(e|ion)");
+        Skript.registerEvent("Cannons - Cannon Create", SkUniversalEvent.class, CannonAfterCreateEvent.class, "cannon creat(e|ion)")
+                .description("Called when a cannon is created.")
+                .examples("on cannon creation:", "\tbroadcast \"%player% created a cannon!\"");
         EventValues.registerEventValue(CannonAfterCreateEvent.class, String.class, new Getter<String, CannonAfterCreateEvent>() {
             public String get(CannonAfterCreateEvent e) {
                 return e.getCannon().getUID().toString();
@@ -96,7 +106,9 @@ public class CannonsRegister {
                 return Bukkit.getOfflinePlayer(e.getPlayer());
             }
         }, 0);
-        Skript.registerEvent("Cannon Death", SkUniversalEvent.class, CannonsEntityDeathEvent.class, "(cannon death|death by cannon)");
+        Skript.registerEvent("Cannons - Cannon Death", SkUniversalEvent.class, CannonsEntityDeathEvent.class, "(cannon death|death by cannon)")
+                .description("Called when someone dies from a cannon.")
+                .examples("on death by cannon:", "\tbroadcast \"%event-entity% was killed by cannon!\"");
         EventValues.registerEventValue(CannonsEntityDeathEvent.class, OfflinePlayer.class, new Getter<OfflinePlayer, CannonsEntityDeathEvent>() {
             public OfflinePlayer get(CannonsEntityDeathEvent e) {
                 return Bukkit.getOfflinePlayer(e.getShooter());
@@ -112,7 +124,9 @@ public class CannonsRegister {
                 return e.getCannonID().toString();
             }
         }, 0);
-        Skript.registerEvent("Cannon Use", SkUniversalEvent.class, CannonUseEvent.class, "cannon (use|[inter]action)");
+        Skript.registerEvent("Cannons - Cannon Use", SkUniversalEvent.class, CannonUseEvent.class, "cannon (use|[inter]action)")
+                .description("Called when a player interacts with a cannon.")
+                .examples("on cannon interaction:", "\tbroadcast \"%player% interacted with a cannon!\"");
         EventValues.registerEventValue(CannonUseEvent.class, String.class, new Getter<String, CannonUseEvent>() {
             public String get(CannonUseEvent e) {
                 return e.getCannon().getUID().toString();

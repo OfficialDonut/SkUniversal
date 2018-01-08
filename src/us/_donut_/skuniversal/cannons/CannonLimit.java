@@ -3,6 +3,9 @@ package us._donut_.skuniversal.cannons;
 import at.pavlov.cannons.Cannons;
 import at.pavlov.cannons.cannon.CannonManager;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -11,6 +14,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("Cannons - Cannon Limit")
+@Description("Returns the cannon limit of a player.")
+@Examples({"send \"%the cannon limit of %player%%\""})
 public class CannonLimit extends SimpleExpression<Number> {
 
     private Expression<Player> player;

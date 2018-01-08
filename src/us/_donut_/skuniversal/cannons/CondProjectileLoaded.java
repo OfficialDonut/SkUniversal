@@ -2,6 +2,9 @@ package us._donut_.skuniversal.cannons;
 
 import at.pavlov.cannons.Cannons;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -10,6 +13,10 @@ import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
+
+@Name("Cannons - Is Projectile Loaded")
+@Description("Checks if a projectile is loaded in a cannon.")
+@Examples({"if a projectile is loaded in the cannon with id (id of cannon at player):"})
 public class CondProjectileLoaded extends Condition {
 
     private Expression<String> id;

@@ -3,6 +3,9 @@ package us._donut_.skuniversal.cannons;
 import at.pavlov.cannons.cannon.Cannon;
 import at.pavlov.cannons.cannon.CannonManager;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -13,6 +16,10 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Name("Cannons - Cannon IDs within Box")
+@Description("Returns all cannon IDs within a box.")
+@Examples({"send \"%ids of the cannons within the box centered at player with length 5, width 5, and height 5%\""})
 public class CannonIDsInBox extends SimpleExpression<String> {
 
     private Expression<Location> center;

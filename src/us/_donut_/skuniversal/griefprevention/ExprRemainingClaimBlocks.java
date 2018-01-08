@@ -1,6 +1,9 @@
 package us._donut_.skuniversal.griefprevention;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -10,6 +13,9 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("GriefPrevention - Remaining Claim Blocks")
+@Description("Returns the remaining claim blocks of a player.")
+@Examples({"send \"%the remaining claim blocks of player%\""})
 public class ExprRemainingClaimBlocks extends SimpleExpression<Number> {
 
     private Expression<OfflinePlayer> player;

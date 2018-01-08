@@ -1,6 +1,9 @@
 package us._donut_.skuniversal.griefprevention;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -9,6 +12,9 @@ import me.ryanhamshire.GriefPrevention.GriefPrevention;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("GriefPrevention - Claim Width")
+@Description("Returns the width of a claim.")
+@Examples({"send \"%the width of the claim with id (id of the basic claim at player)%\""})
 public class ExprClaimWidth extends SimpleExpression<Number> {
 
     private Expression<Number> id;

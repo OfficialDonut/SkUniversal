@@ -2,6 +2,9 @@ package us._donut_.skuniversal.cannons;
 
 import at.pavlov.cannons.Cannons;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -10,6 +13,9 @@ import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
+@Name("Cannons - Cannon Design")
+@Description("Returns the design of a cannon.")
+@Examples({"send \"%the design of the cannon with id (id of cannon at player)%\""})
 public class CannonDesign extends SimpleExpression<String> {
 
     private Expression<String> id;

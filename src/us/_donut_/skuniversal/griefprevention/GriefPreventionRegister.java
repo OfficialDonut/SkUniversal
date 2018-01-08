@@ -31,30 +31,42 @@ public class GriefPreventionRegister {
         Skript.registerExpression(ExprBonusClaimBlocks.class, Number.class, ExpressionType.COMBINED, "[the] bonus [G[rief]P[revention]] claim blocks of %offlineplayer%", "%offlineplayer%'s bonus [G[rief]P[revention]] claim blocks");
 
         //Effects
-        Skript.registerEffect(EffDeleteClaim.class, "(delete|remove) the [G[rief]P[revention]] claim [with id] %number%");
+        Skript.registerEffect(EffDeleteClaim.class, "(delete|remove) [the] [G[rief]P[revention]] claim[s] [with id[s]] %numbers%");
 
         //Events
-        Skript.registerEvent("GriefPrevention Claim Deletion", SkUniversalEvent.class, ClaimDeletedEvent.class, "[G[rief]P[revention]] claim delet(e|ion)");
+        Skript.registerEvent("GriefPrevention - Claim Deletion", SkUniversalEvent.class, ClaimDeletedEvent.class, "[G[rief]P[revention]] claim delet(e|ion)")
+                .description("Called when a claim is deleted.")
+                .examples("on claim deletion:", "\tbroadcast \"Claim %event-number% was deleted!\"");
         EventValues.registerEventValue(ClaimDeletedEvent.class, Number.class, new Getter<Number, ClaimDeletedEvent>() {
             public Number get(ClaimDeletedEvent e) {
                 return e.getClaim().getID();
             }
         }, 0);
-        Skript.registerEvent("GriefPrevention Claim Expiration", SkUniversalEvent.class, ClaimExpirationEvent.class, "[G[rief]P[revention]] claim expir(e|ation)");
+        Skript.registerEvent("GriefPrevention - Claim Expiration", SkUniversalEvent.class, ClaimExpirationEvent.class, "[G[rief]P[revention]] claim expir(e|ation)")
+                .description("Called when a claim expires.")
+                .examples("on claim expiration:", "\tbroadcast \"Claim %event-number% has expired!\"");
         EventValues.registerEventValue(ClaimExpirationEvent.class, Number.class, new Getter<Number, ClaimExpirationEvent>() {
             public Number get(ClaimExpirationEvent e) {
                 return e.getClaim().getID();
             }
         }, 0);
-        Skript.registerEvent("GriefPrevention Prevent Block Break", SkUniversalEvent.class, PreventBlockBreakEvent.class, "[G[rief]P[revention]] prevent block [from] break[ing]");
+        Skript.registerEvent("GriefPrevention - Prevent Block Break", SkUniversalEvent.class, PreventBlockBreakEvent.class, "[G[rief]P[revention]] prevent block [from] break[ing]")
+                .description("Called when a player tries to break a block.")
+                .examples("on prevent block from breaking:", "\tbroadcast \"%player% tried to grief!\"");
         EventValues.registerEventValue(PreventBlockBreakEvent.class, Player.class, new Getter<Player, PreventBlockBreakEvent>() {
             public Player get(PreventBlockBreakEvent e) {
                 return e.getInnerEvent().getPlayer();
             }
         }, 0);
-        Skript.registerEvent("GriefPrevention Prevent PvP", SkUniversalEvent.class, PreventPvPEvent.class, "[G[rief]P[revention]] prevent pvp");
-        Skript.registerEvent("GriefPrevention Protect Drops", SkUniversalEvent.class, PreventPvPEvent.class, "[G[rief]P[revention]] protect [death] drops");
-        Skript.registerEvent("GriefPrevention Save Trapped Player", SkUniversalEvent.class, SaveTrappedPlayerEvent.class, "[G[rief]P[revention]] save trapped player");
+        Skript.registerEvent("GriefPrevention - Prevent PvP", SkUniversalEvent.class, PreventPvPEvent.class, "[G[rief]P[revention]] prevent pvp")
+                .description("Called when PvP is prevented.")
+                .examples("on prevent pvp:", "\tbroadcast \"No PvP allowed!\"");
+        Skript.registerEvent("GriefPrevention - Protect Drops", SkUniversalEvent.class, PreventPvPEvent.class, "[G[rief]P[revention]] protect [death] drops")
+                .description("Called when death drops are protected.")
+                .examples("on protect drops:", "\tbroadcast \"These drops are protected!\"");
+        Skript.registerEvent("GriefPrevention - Save Trapped Player", SkUniversalEvent.class, SaveTrappedPlayerEvent.class, "[G[rief]P[revention]] save trapped player")
+                .description("Called when a trapped player is saved.")
+                .examples("on save trapped player:", "\tbroadcast \"A player was saved from claim %event-number%!\"");
         EventValues.registerEventValue(SaveTrappedPlayerEvent.class, Number.class, new Getter<Number, SaveTrappedPlayerEvent>() {
             public Number get(SaveTrappedPlayerEvent e) {
                 return e.getClaim().getID();

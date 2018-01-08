@@ -1,6 +1,9 @@
 package us._donut_.skuniversal.combatlog;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -11,6 +14,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("CombatLog - Is Tagged")
+@Description("Checks if a player is combat tagged.")
+@Examples({"if %player% is tagged:"})
 public class CondTagged extends Condition {
 
     private Expression<Player> player;

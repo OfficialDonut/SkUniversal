@@ -3,6 +3,9 @@ package us._donut_.skuniversal.cannons;
 import at.pavlov.cannons.cannon.Cannon;
 import at.pavlov.cannons.cannon.CannonManager;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -13,6 +16,9 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Name("Cannons - Cannon IDs in Sphere")
+@Description("Returns the IDs of all cannons in a sphere.")
+@Examples({"send \"%the IDs of the cannons within the sphere centered at player with radius 5%\""})
 public class CannonIDsInSphere extends SimpleExpression<String> {
 
     private Expression<Location> center;

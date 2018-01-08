@@ -1,6 +1,9 @@
 package us._donut_.skuniversal.lockette;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -12,6 +15,9 @@ import org.bukkit.event.Event;
 import org.yi.acru.bukkit.Lockette.Lockette;
 import javax.annotation.Nullable;
 
+@Name("Lockette - Block Owner")
+@Description("Returns the owner of a block.")
+@Examples({"send \"%owner of the clicked block%\""})
 public class ExprOwner extends SimpleExpression<Player> {
 
     private Expression<Block> block;

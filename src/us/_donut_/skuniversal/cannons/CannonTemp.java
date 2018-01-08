@@ -3,6 +3,9 @@ package us._donut_.skuniversal.cannons;
 import at.pavlov.cannons.Cannons;
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -12,6 +15,9 @@ import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
+@Name("Cannons - Cannon Temperature")
+@Description("Returns the temperature of a cannon.")
+@Examples({"send \"%the temperature of the cannon with id (id of cannon at player)%\""})
 public class CannonTemp extends SimpleExpression<Number> {
 
     private Expression<String> id;

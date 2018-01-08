@@ -6,12 +6,16 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Name;
 import me.minebuilders.clearlag.events.EntityRemoveEvent;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 import java.util.List;
 
+@Name("ClearLagg - Cleared Entities")
+@Description("Returns list of the cleared entities on Removed Entities event.")
 public class ExprClearedEntities extends SimpleExpression<Entity> {
 
     @Override

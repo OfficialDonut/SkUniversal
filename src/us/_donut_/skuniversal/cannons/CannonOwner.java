@@ -3,6 +3,9 @@ package us._donut_.skuniversal.cannons;
 import at.pavlov.cannons.Cannons;
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -14,6 +17,10 @@ import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
+
+@Name("Cannons - Cannon Owner")
+@Description("Returns the owner of a cannon.")
+@Examples({"send \"%the owner of the cannon with id (id of cannon at player)%\""})
 public class CannonOwner extends SimpleExpression<OfflinePlayer> {
 
     private Expression<String> id;

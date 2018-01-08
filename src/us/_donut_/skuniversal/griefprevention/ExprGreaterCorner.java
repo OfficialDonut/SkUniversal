@@ -1,6 +1,9 @@
 package us._donut_.skuniversal.griefprevention;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -10,6 +13,9 @@ import org.bukkit.Location;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("GriefPrevention - Greater Corner")
+@Description("Returns the greater corner of a claim.")
+@Examples({"send \"%the greater corner of the claim with id (id of the basic claim at player)%\""})
 public class ExprGreaterCorner extends SimpleExpression<Location> {
 
     private Expression<Number> id;

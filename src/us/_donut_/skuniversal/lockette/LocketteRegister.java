@@ -7,9 +7,9 @@ import org.bukkit.entity.Player;
 public class LocketteRegister {
     public static void registerLockette() {
         //Conditions
-        Skript.registerCondition(CondLocked.class, "%block% is (locked|protected) [by Lockette]");
+        Skript.registerCondition(CondLocked.class, "[the] %block% is (locked|protected) [by Lockette]");
 
         //Expressions
-        Skript.registerExpression(ExprOwner.class, Player.class, ExpressionType.COMBINED, "[Lockette] owner of %block%", "%block%'s [Lockette] owner");
+        Skript.registerExpression(ExprOwner.class, Player.class, ExpressionType.COMBINED, "[the] [Lockette] owner of [the] %block%", "[the] %block%'s [Lockette] owner");
     }
 }

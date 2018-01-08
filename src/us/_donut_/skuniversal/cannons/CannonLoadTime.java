@@ -2,6 +2,9 @@ package us._donut_.skuniversal.cannons;
 
 import at.pavlov.cannons.Cannons;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -11,6 +14,9 @@ import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
+@Name("Cannons - Cannon Load Time")
+@Description("Returns the time a cannon takes to load.")
+@Examples({"send \"%the load time of the cannon with id (id of cannon at player)%\""})
 public class CannonLoadTime extends SimpleExpression<Number> {
 
     private Expression<String> id;

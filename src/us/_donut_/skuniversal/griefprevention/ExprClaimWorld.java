@@ -1,6 +1,9 @@
 package us._donut_.skuniversal.griefprevention;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -11,6 +14,9 @@ import org.bukkit.event.Event;
 
 import javax.annotation.Nullable;
 
+@Name("GriefPrevention - Claim World")
+@Description("Returns the world of a claim.")
+@Examples({"send \"%the world of the claim with id (id of the basic claim at player)%\""})
 public class ExprClaimWorld extends SimpleExpression<World> {
 
     private Expression<Number> id;

@@ -2,6 +2,8 @@ package us._donut_.skuniversal.combatlog;
 
 import ch.njol.skript.ScriptLoader;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -11,6 +13,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("ComnbatLog - Tagger")
+@Description("Returns the tagger on Tag event.\n")
 public class ExprTagger extends SimpleExpression<Player> {
 
     @Override

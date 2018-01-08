@@ -3,6 +3,9 @@ package us._donut_.skuniversal.cannons;
 import at.pavlov.cannons.Cannons;
 import at.pavlov.cannons.Enum.BreakCause;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -11,6 +14,9 @@ import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
+@Name("Cannons - Destroy Cannon")
+@Description("Destroys a cannon.")
+@Examples({"destroy cannon with id (id of cannon at player)"})
 public class EffDestroyCannon extends Effect {
 
     private Expression<String> id;

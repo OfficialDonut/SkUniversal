@@ -1,6 +1,9 @@
 package us._donut_.skuniversal.griefprevention;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -14,6 +17,9 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Name("GriefPrevention - Trusted Players")
+@Description("Returns the trusted players of a claim.")
+@Examples({"send \"%the trusted players of the claim with id (id of the basic claim at player)%\""})
 public class ExprTrustedPlayers extends SimpleExpression<OfflinePlayer> {
 
     private Expression<Number> id;

@@ -2,6 +2,9 @@ package us._donut_.skuniversal.cannons;
 
 import at.pavlov.cannons.Cannons;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -10,6 +13,10 @@ import org.bukkit.Location;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+
+@Name("Cannons - Cannon from Location")
+@Description("Returns the ID of a cannon at a location.")
+@Examples({"send \"%the id of the cannon at player%\""})
 public class CannonIDFromLoc extends SimpleExpression<String> {
 
     private Expression<Location> location;

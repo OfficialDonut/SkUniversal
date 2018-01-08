@@ -2,6 +2,9 @@ package us._donut_.skuniversal.cannons;
 
 import at.pavlov.cannons.Cannons;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -11,6 +14,9 @@ import org.bukkit.event.Event;
 
 import javax.annotation.Nullable;
 
+@Name("Cannons - Cannon Amount")
+@Description("Returns the amount of cannons a player has built.")
+@Examples({"send \"%player% has built %amount of cannons player has built%\""})
 public class CannonAmount extends SimpleExpression<Number> {
 
     private Expression<Player> player;
