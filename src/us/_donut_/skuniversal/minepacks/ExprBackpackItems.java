@@ -2,6 +2,9 @@ package us._donut_.skuniversal.minepacks;
 
 import at.pcgamingfreaks.MinePacks.MinePacks;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -14,6 +17,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Name("MinePacks - Backpack Items")
+@Description("Returns the items in a backpack.")
+@Examples({"send \"%the items in the backpack of player%\""})
 public class ExprBackpackItems extends SimpleExpression<ItemStack> {
 
     private Expression<Player> player;

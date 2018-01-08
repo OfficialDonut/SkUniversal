@@ -1,6 +1,9 @@
 package us._donut_.skuniversal.lwc;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -12,6 +15,9 @@ import org.bukkit.block.Block;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("LWC - Owner")
+@Description("Returns the owner of a block.")
+@Examples({"send \"%the owner of the clicked block%\""})
 public class ExprOwner extends SimpleExpression<OfflinePlayer> {
 
     private Expression<Block> block;

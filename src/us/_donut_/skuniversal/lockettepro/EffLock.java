@@ -1,6 +1,9 @@
 package us._donut_.skuniversal.lockettepro;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -13,6 +16,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("LockettePro - Lock Block")
+@Description("Locks a block by placing a sign on it.")
+@Examples({"place a LockettePro sign on the north face of the clicked block with player as the owner"})
 public class EffLock extends Effect {
 
     private Expression<String> stringFace;
@@ -38,7 +44,7 @@ public class EffLock extends Effect {
             if (block.getSingle(e) != null) {
                 if (stringFace.getSingle(e) != null) {
                     BlockFace face;
-                    switch (stringFace.getSingle(e)) {
+                    switch (stringFace.getSingle(e).toLowerCase()) {
                         case "north":
                             face = BlockFace.NORTH;
                             break;

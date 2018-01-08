@@ -3,6 +3,9 @@ package us._donut_.skuniversal.minepacks;
 import at.pcgamingfreaks.MinePacks.MinePacks;
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -13,6 +16,9 @@ import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 import javax.annotation.Nullable;
 
+@Name("MinePacks - Backpack SLot")
+@Description("Returns the item in a backpack slot.")
+@Examples({"send \"%the item in slot 5 of backpack of player%\""})
 public class ExprSlotItem extends SimpleExpression<ItemStack> {
     private MinePacks mp = MinePacks.getInstance();
     private Expression<Integer> slotNum;

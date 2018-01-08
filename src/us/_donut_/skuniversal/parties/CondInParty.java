@@ -1,5 +1,8 @@
 package us._donut_.skuniversal.parties;
 
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -9,6 +12,9 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("Parties - Is Player in Party")
+@Description("Checks if a player is in a party.")
+@Examples({"if player is in a party:"})
 public class CondInParty extends Condition {
 
     private Expression<OfflinePlayer> player;

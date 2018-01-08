@@ -1,6 +1,9 @@
 package us._donut_.skuniversal.parties;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -10,6 +13,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("Parties - Create Party")
+@Description("Creates a party.")
+@Examples({"create party named \"cool\" with leader player"})
 public class EffCreateParty extends Effect {
 
     private Expression<Player> player;

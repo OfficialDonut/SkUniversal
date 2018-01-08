@@ -1,6 +1,9 @@
 package us._donut_.skuniversal.lwc;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -10,6 +13,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("LWC - Prtection Number")
+@Description("Returns the number of protections a player has.")
+@Examples({"send \"%the number of protections of player%\""})
 public class ExprProtectionNumber extends SimpleExpression<Number> {
 
     private Expression<Player> player;

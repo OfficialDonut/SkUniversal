@@ -1,6 +1,9 @@
 package us._donut_.skuniversal.plotsquared;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -12,6 +15,9 @@ import org.bukkit.event.Event;
 
 import javax.annotation.Nullable;
 
+@Name("PlotSquared - Plot Rating")
+@Description("Returns the rating of a plot.")
+@Examples({"send \"%the rating of the plot with id (id of plot at player)%\""})
 public class ExprPlotRating extends SimpleExpression<Number> {
 
     private Expression<String> id;

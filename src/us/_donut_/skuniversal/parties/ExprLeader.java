@@ -2,6 +2,9 @@ package us._donut_.skuniversal.parties;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -14,6 +17,9 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("Parties - Party Leader")
+@Description("Returns the leader of a party.")
+@Examples({"send \"%the leader of the party named \"cool\"%\""})
 public class ExprLeader extends SimpleExpression<OfflinePlayer> {
 
     private Expression<String> name;

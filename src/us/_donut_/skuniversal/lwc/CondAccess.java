@@ -1,6 +1,9 @@
 package us._donut_.skuniversal.lwc;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -11,6 +14,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("LWC - Player Access")
+@Description("Checks if a player has access to a block.")
+@Examples({"if player has access to the clicked block:"})
 public class CondAccess extends Condition {
 
     private Expression<Player> player;

@@ -1,6 +1,9 @@
 package us._donut_.skuniversal.parties;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -14,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Name("Parties - Party Members")
+@Description("Returns the members of a party.")
+@Examples({"send \"%the members of the party named \"cool\"%\""})
 public class ExprMembers extends SimpleExpression<OfflinePlayer> {
 
     private Expression<String> name;

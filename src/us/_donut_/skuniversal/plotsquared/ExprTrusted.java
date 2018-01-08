@@ -2,6 +2,9 @@ package us._donut_.skuniversal.plotsquared;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -18,6 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Name("PlotSquared - Trusted Players of Plot")
+@Description("Returns the trusted players of a plot.")
+@Examples({"send \"%the trusted players of the plot with id (id of plot at player)%\""})
 public class ExprTrusted extends SimpleExpression<OfflinePlayer>{
 
     private PlotAPI plot = new PlotAPI();

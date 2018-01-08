@@ -2,6 +2,9 @@ package us._donut_.skuniversal.minepacks;
 
 import at.pcgamingfreaks.MinePacks.MinePacks;
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -11,6 +14,9 @@ import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 import javax.annotation.Nullable;
 
+@Name("MinePacks - Add Item")
+@Description("Adds item to backpack of player.")
+@Examples({"add dirt to backpack of player"})
 public class EffAddItem extends Effect {
 
     private Expression<ItemStack> item;

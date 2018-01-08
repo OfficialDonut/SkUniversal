@@ -1,6 +1,9 @@
 package us._donut_.skuniversal.lockettepro;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Description;
+import ch.njol.skript.doc.Examples;
+import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -11,6 +14,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+@Name("LockettePro - Is User")
+@Description("Checks if a player can use a locked block.")
+@Examples({"if player is user of clicked block:"})
 public class CondUser extends Condition {
 
     private Expression<Player> player;
