@@ -8,6 +8,7 @@ import us._donut_.skuniversal.advancedban.AdvancedBanRegister;
 import us._donut_.skuniversal.advancedsurvivalgames.AdvancedSurvivalGamesRegister;
 import us._donut_.skuniversal.autorank.AutorankRegister;
 import us._donut_.skuniversal.bedwars.BedwarsRegister;
+import us._donut_.skuniversal.bitcoin.BitcoinRegister;
 import us._donut_.skuniversal.cannons.CannonsRegister;
 import us._donut_.skuniversal.clearlagg.ClearLagRegister;
 import us._donut_.skuniversal.combatlog.CombatLogRegister;
@@ -23,6 +24,7 @@ import us._donut_.skuniversal.pvplevels.PvPLevelsRegister;
 import us._donut_.skuniversal.shopkeepers.ShopkeepersRegister;
 import us._donut_.skuniversal.skywars_cookloco.SkywarsCookLocoRegister;
 import us._donut_.skuniversal.skywars_daboross.SkyWarsDaborossRegister;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,7 @@ public class SkUniversal extends JavaPlugin {
         if (serverHasPlugin("AdvancedSurvivalGames")) { AdvancedSurvivalGamesRegister.registerAdvancedSurvivalGames(); hookedPlugins.add("AdvancedSurvivalGames"); }
         if (serverHasPlugin("Autorank")) { AutorankRegister.registerAutorank(); hookedPlugins.add("Autorank"); }
         if (serverHasPlugin("Bedwars")) { BedwarsRegister.registerBedwars(); hookedPlugins.add("Bedwars"); }
+        if (serverHasPlugin("Bitcoin")) { BitcoinRegister.registerBitcoin(); hookedPlugins.add("Bitcoin"); }
         if (serverHasPlugin("Cannons")) { CannonsRegister.registerCannons(); hookedPlugins.add("Cannons"); }
         if (serverHasPlugin("ClearLag")) { ClearLagRegister.registerClearLagg(); hookedPlugins.add("ClearLag"); }
         if (serverHasPlugin("CombatLog")) { CombatLogRegister.registerCombatLog(); hookedPlugins.add("CombatLog"); }
