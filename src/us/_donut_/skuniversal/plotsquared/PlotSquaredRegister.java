@@ -42,9 +42,9 @@ public class PlotSquaredRegister {
         Skript.registerEvent("PlotSquared - Plot Claim", SkUniversalEvent.class, PlayerClaimPlotEvent.class, "[PlotSquared] plot claim[ing]")
                 .description("Called when a plot is claimed.")
                 .examples("on plot claim:", "\tbroadcast \"Plot %event-string% was claimed!\"");
-        EventValues.registerEventValue(PlotDeleteEvent.class, String.class, new Getter<String, PlotDeleteEvent>() {
-            public String get(PlotDeleteEvent e) {
-                return e.getPlotId().toString();
+        EventValues.registerEventValue(PlayerClaimPlotEvent.class, String.class, new Getter<String, PlayerClaimPlotEvent>() {
+            public String get(PlayerClaimPlotEvent e) {
+                return e.getPlot().getId().toString();
             }
         }, 0);
     }
