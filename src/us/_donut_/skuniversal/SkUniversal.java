@@ -18,6 +18,7 @@ import us._donut_.skuniversal.lockettepro.LocketteProRegister;
 import us._donut_.skuniversal.lwc.LWCRegister;
 import us._donut_.skuniversal.minepacks.MinePacksRegister;
 import us._donut_.skuniversal.parties.PartiesRegister;
+import us._donut_.skuniversal.playerpoints.PlayerPointsRegister;
 import us._donut_.skuniversal.plotsquared.PlotSquaredRegister;
 import us._donut_.skuniversal.prisonmines.PrisonMinesRegister;
 import us._donut_.skuniversal.pvplevels.PvPLevelsRegister;
@@ -50,6 +51,7 @@ public class SkUniversal extends JavaPlugin {
         if (serverHasPlugin("LWC")) { LWCRegister.registerLWC(); hookedPlugins.add("LWC"); }
         if (serverHasPlugin("MinePacks")) { MinePacksRegister.registerMinePacks(); hookedPlugins.add("Minepacks"); }
         if (serverHasPlugin("Parties")) { PartiesRegister.registerParties(); hookedPlugins.add("Parties"); }
+        if (serverHasPlugin("PlayerPoints")) { PlayerPointsRegister.registerPlayerPoints(); hookedPlugins.add("PlayerPoints"); }
         if (serverHasPlugin("PlotSquared")) { PlotSquaredRegister.registerPlotSquared(); hookedPlugins.add("PlotSquared"); }
         if (serverHasPlugin("PrisonMines")) { PrisonMinesRegister.registerPrisonMines(); hookedPlugins.add("PrisonMines"); }
         if (serverHasPlugin("PvPLevels")) { PvPLevelsRegister.registerPvPLevels(); hookedPlugins.add("PvPLevels"); }
