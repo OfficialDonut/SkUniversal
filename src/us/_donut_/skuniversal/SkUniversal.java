@@ -15,6 +15,7 @@ import us._donut_.skuniversal.combatlog.CombatLogRegister;
 import us._donut_.skuniversal.griefprevention.GriefPreventionRegister;
 import us._donut_.skuniversal.lockette.LocketteRegister;
 import us._donut_.skuniversal.lockettepro.LocketteProRegister;
+import us._donut_.skuniversal.luckperms.LuckPermsRegister;
 import us._donut_.skuniversal.lwc.LWCRegister;
 import us._donut_.skuniversal.minepacks.MinePacksRegister;
 import us._donut_.skuniversal.parties.PartiesRegister;
@@ -37,27 +38,28 @@ public class SkUniversal extends JavaPlugin {
     @Override
     public void onEnable() {
         Skript.registerAddon(this);
-        if (serverHasPlugin("AdvancedBan")) { AdvancedBanRegister.registerAdvancedBan(); hookedPlugins.add("AdvancedBan"); }
-        if (serverHasPlugin("AdvancedSurvivalGames")) { AdvancedSurvivalGamesRegister.registerAdvancedSurvivalGames(); hookedPlugins.add("AdvancedSurvivalGames"); }
-        if (serverHasPlugin("Autorank")) { AutorankRegister.registerAutorank(); hookedPlugins.add("Autorank"); }
-        if (serverHasPlugin("Bedwars")) { BedwarsRegister.registerBedwars(); hookedPlugins.add("Bedwars"); }
-        if (serverHasPlugin("Bitcoin")) { BitcoinRegister.registerBitcoin(); hookedPlugins.add("Bitcoin"); }
-        if (serverHasPlugin("Cannons")) { CannonsRegister.registerCannons(); hookedPlugins.add("Cannons"); }
-        if (serverHasPlugin("ClearLag")) { ClearLagRegister.registerClearLagg(); hookedPlugins.add("ClearLag"); }
-        if (serverHasPlugin("CombatLog")) { CombatLogRegister.registerCombatLog(); hookedPlugins.add("CombatLog"); }
-        if (serverHasPlugin("GriefPrevention")) { GriefPreventionRegister.registerGriefPrevention(); hookedPlugins.add("GriefPrevention"); }
-        if (serverHasPlugin("Lockette")) { LocketteRegister.registerLockette(); hookedPlugins.add("Lockette"); }
-        if (serverHasPlugin("LockettePro")) { LocketteProRegister.registerLockettePro(); hookedPlugins.add("LockettePro"); }
-        if (serverHasPlugin("LWC")) { LWCRegister.registerLWC(); hookedPlugins.add("LWC"); }
-        if (serverHasPlugin("MinePacks")) { MinePacksRegister.registerMinePacks(); hookedPlugins.add("Minepacks"); }
-        if (serverHasPlugin("Parties")) { PartiesRegister.registerParties(); hookedPlugins.add("Parties"); }
-        if (serverHasPlugin("PlayerPoints")) { PlayerPointsRegister.registerPlayerPoints(); hookedPlugins.add("PlayerPoints"); }
-        if (serverHasPlugin("PlotSquared")) { PlotSquaredRegister.registerPlotSquared(); hookedPlugins.add("PlotSquared"); }
-        if (serverHasPlugin("PrisonMines")) { PrisonMinesRegister.registerPrisonMines(); hookedPlugins.add("PrisonMines"); }
-        if (serverHasPlugin("PvPLevels")) { PvPLevelsRegister.registerPvPLevels(); hookedPlugins.add("PvPLevels"); }
-        if (serverHasPlugin("Shopkeepers")) {ShopkeepersRegister.registerShopekeepers(); hookedPlugins.add("Shopkeepers"); }
-        if (serverHasPlugin("SkyWars") && getServer().getPluginManager().getPlugin("SkyWars").getDescription().getAuthors().get(0).equalsIgnoreCase("CookLoco")) { SkywarsCookLocoRegister.registerSkyWarsCookLoco(); hookedPlugins.add("SkyWars (CookLoco)"); }
-        if (serverHasPlugin("SkyWars") && getServer().getPluginManager().getPlugin("SkyWars").getDescription().getAuthors().get(0).equalsIgnoreCase("Dabo Ross")) { SkyWarsDaborossRegister.registerSkyWarsDaboross(); hookedPlugins.add("SkyWars (Daboross)"); }
+        if (serverHasPlugin("AdvancedBan")) { new AdvancedBanRegister(); hookedPlugins.add("AdvancedBan"); }
+        if (serverHasPlugin("AdvancedSurvivalGames")) { new AdvancedSurvivalGamesRegister(); hookedPlugins.add("AdvancedSurvivalGames"); }
+        if (serverHasPlugin("Autorank")) { new AutorankRegister(); hookedPlugins.add("Autorank"); }
+        if (serverHasPlugin("Bedwars")) { new BedwarsRegister(); hookedPlugins.add("Bedwars"); }
+        if (serverHasPlugin("Bitcoin")) { new BitcoinRegister(); hookedPlugins.add("Bitcoin"); }
+        if (serverHasPlugin("Cannons")) { new CannonsRegister(); hookedPlugins.add("Cannons"); }
+        if (serverHasPlugin("ClearLag")) { new ClearLagRegister(); hookedPlugins.add("ClearLag"); }
+        if (serverHasPlugin("CombatLog")) { new CombatLogRegister(); hookedPlugins.add("CombatLog"); }
+        if (serverHasPlugin("GriefPrevention")) { new GriefPreventionRegister(); hookedPlugins.add("GriefPrevention"); }
+        if (serverHasPlugin("Lockette")) { new LocketteRegister(); hookedPlugins.add("Lockette"); }
+        if (serverHasPlugin("LockettePro")) { new LocketteProRegister(); hookedPlugins.add("LockettePro"); }
+        if (serverHasPlugin("LuckPerms")) { new LuckPermsRegister(); hookedPlugins.add("LuckPerms"); }
+        if (serverHasPlugin("LWC")) { new LWCRegister(); hookedPlugins.add("LWC"); }
+        if (serverHasPlugin("MinePacks")) { new MinePacksRegister(); hookedPlugins.add("Minepacks"); }
+        if (serverHasPlugin("Parties")) { new PartiesRegister(); hookedPlugins.add("Parties"); }
+        if (serverHasPlugin("PlayerPoints")) { new PlayerPointsRegister(); hookedPlugins.add("PlayerPoints"); }
+        if (serverHasPlugin("PlotSquared")) {new PlotSquaredRegister(); hookedPlugins.add("PlotSquared"); }
+        if (serverHasPlugin("PrisonMines")) { new PrisonMinesRegister(); hookedPlugins.add("PrisonMines"); }
+        if (serverHasPlugin("PvPLevels")) { new PvPLevelsRegister(); hookedPlugins.add("PvPLevels"); }
+        if (serverHasPlugin("Shopkeepers")) { new ShopkeepersRegister(); hookedPlugins.add("Shopkeepers"); }
+        if (serverHasPlugin("SkyWars") && getServer().getPluginManager().getPlugin("SkyWars").getDescription().getAuthors().get(0).equalsIgnoreCase("CookLoco")) { new SkywarsCookLocoRegister(); hookedPlugins.add("SkyWars (CookLoco)"); }
+        if (serverHasPlugin("SkyWars") && getServer().getPluginManager().getPlugin("SkyWars").getDescription().getAuthors().get(0).equalsIgnoreCase("Dabo Ross")) { new SkyWarsDaborossRegister(); hookedPlugins.add("SkyWars (Daboross)"); }
 
         if (hookedPlugins.isEmpty()) {
             getLogger().warning("Did not find any plugins to hook into.");
