@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 
 public class BedwarsRegister {
 
-    public static void registerBedwars() {
+    public BedwarsRegister() {
         //Conditions
         Skript.registerCondition(CondInGame.class, "%player% is [playing] in [a] Bedwars game");
         Skript.registerCondition(CondSpectating.class, "%player% is spectating [a] Bedwars game");
