@@ -10,7 +10,7 @@ import us._donut_.skuniversal.SkUniversalEvent;
 
 public class AutorankRegister {
 
-    public static void registerAutorank() {
+    public AutorankRegister() {
         //Expressions
         Skript.registerExpression(ExprGlobalTime.class, Number.class, ExpressionType.COMBINED, "[the] global [Autorank] [play[ ]]time of %player%", "%player%'s global [Autorank] [play[ ]]time");
         Skript.registerExpression(ExprLocalTime.class, Number.class, ExpressionType.COMBINED, "[the] local [Autorank] [play[ ]]time of %player%", "%player%'s local [Autorank] [play[ ]]time");
