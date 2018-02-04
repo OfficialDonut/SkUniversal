@@ -13,7 +13,7 @@ import us._donut_.skuniversal.SkUniversalEvent;
 
 public class GriefPreventionRegister {
 
-    public static void registerGriefPrevention() {
+    public GriefPreventionRegister() {
         //Expressions
         Skript.registerExpression(ExprClaimIDs.class, Number.class, ExpressionType.SIMPLE, "[[the] ID[s] of] [all [of]] [the] [G[rief]P[revention]] (0¦(basic|normal) |1¦admin |2¦sub[(-| )]|3¦)claim[s] [(4¦at %location%|8¦of %offlineplayer%)]");
         Skript.registerExpression(ExprClaimType.class, String.class, ExpressionType.SIMPLE, "[the] [claim] type of [G[rief]P[revention]] claim [with id] %number%");
