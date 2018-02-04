@@ -6,7 +6,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class MinePacksRegister {
 
-    public static void registerMinePacks() {
+    public MinePacksRegister() {
         //Effects
         Skript.registerEffect(EffOpenBackpack.class, "open [an] editable %boolean% (back|mine)pack of %player% to %player%", "open editable %boolean% %player%'s (back|mine)pack to %player%");
         Skript.registerEffect(EffAddItem.class, "add %itemstack% to [the] (back|mine)pack of %player%", "add %itemstack% to %player%'s (back|mine)pack");
