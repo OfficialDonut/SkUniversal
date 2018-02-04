@@ -14,7 +14,7 @@ import us._donut_.skuniversal.SkUniversalEvent;
 
 public class ShopkeepersRegister {
 
-    public static void registerShopekeepers() {
+    public ShopkeepersRegister() {
         //Conditions
         Skript.registerCondition(CondIsKeeper.class, "%entity% is [a] [shop]keeper");
         Skript.registerCondition(CondKeeperExists.class, "[a] [shop]keeper [(named|with name)] %string% exists");
