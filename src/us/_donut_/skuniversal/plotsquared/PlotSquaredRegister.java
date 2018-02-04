@@ -13,7 +13,7 @@ import us._donut_.skuniversal.SkUniversalEvent;
 
 public class PlotSquaredRegister {
 
-    public static void registerPlotSquared() {
+    public PlotSquaredRegister() {
         //Conditions
         Skript.registerCondition(CondInPlot.class, "%player% is in [a] [PlotSquared] plot");
 
