@@ -8,7 +8,7 @@ import us._donut_.skuniversal.SkUniversalEvent;
 
 public class AdvancedBanRegister {
 
-    public static void registerAdvancedBan() {
+   public AdvancedBanRegister() {
         //Conditions
         Skript.registerCondition(CondBanned.class, "%offlineplayer% is banned by AdvancedBan");
         Skript.registerCondition(CondMuted.class, "%offlineplayer% is muted [by AdvancedBan]");
