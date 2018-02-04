@@ -12,7 +12,7 @@ import us._donut_.skuniversal.SkUniversalEvent;
 
 public class ClearLagRegister {
 
-    public static void registerClearLagg() {
+    public ClearLagRegister() {
         //Expressions
         Skript.registerExpression(ExprClearedEntities.class, Entity.class, ExpressionType.SIMPLE, "[the] entities (cleared|removed|deleted) [by ClearLag[g]]");
 
