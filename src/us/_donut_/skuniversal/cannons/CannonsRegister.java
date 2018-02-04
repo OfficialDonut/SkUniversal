@@ -13,7 +13,7 @@ import us._donut_.skuniversal.SkUniversalEvent;
 
 public class CannonsRegister {
 
-    public static void registerCannons() {
+    public CannonsRegister() {
         //Conditions
         Skript.registerCondition(CondReadyToFire.class, "[the] cannon [with [the] id [of]] %string% is ready to fire");
         Skript.registerCondition(CondClean.class, "[the] cannon [with id] %string% is clean");
