@@ -11,7 +11,7 @@ import us._donut_.skuniversal.SkUniversalEvent;
 
 public class PrisonMinesRegister {
 
-    public static void registerPrisonMines() {
+    public PrisonMinesRegister() {
         //Conditions
         Skript.registerCondition(CondTeleportLoc.class, "[the] [PrisonMines] mine [(named|with name)] %string% has [a] (teleport|tp) loc[ation]");
         Skript.registerCondition(CondResetting.class, "[the] [PrisonMines] mine [(named|with name)] %string% is (resetting|being reset)");
