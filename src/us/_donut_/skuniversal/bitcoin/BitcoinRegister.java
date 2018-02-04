@@ -6,7 +6,7 @@ import org.bukkit.OfflinePlayer;
 
 public class BitcoinRegister {
 
-    public static void registerBitcoin() {
+    public BitcoinRegister() {
         //Effects
         Skript.registerEffect(EffOpenBitcoinMenu.class, "open [the] bitcoin [main] menu to %player%");
         Skript.registerEffect(EffOpenBitcoinMining.class, "open [the] bitcoin min(e|ing) (menu|interface) to %player%");
