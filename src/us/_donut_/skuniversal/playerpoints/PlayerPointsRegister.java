@@ -12,7 +12,7 @@ import us._donut_.skuniversal.SkUniversalEvent;
 
 public class PlayerPointsRegister {
 
-    public static void registerPlayerPoints() {
+    public PlayerPointsRegister() {
         //Expressions
         Skript.registerExpression(ExprPointsBalance.class, Number.class, ExpressionType.COMBINED, "[the] [Player][ ]Point[s] [bal[ance]] of %offlineplayer%", "%offlineplayer%'s [Player][ ]Point[s] [bal[ance]]");
 
