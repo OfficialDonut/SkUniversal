@@ -12,7 +12,7 @@ import us._donut_.skuniversal.SkUniversalEvent;
 
 public class SkyWarsDaborossRegister {
 
-    public static void registerSkyWarsDaboross() {
+    public SkyWarsDaborossRegister() {
         //Conditions
         Skript.registerCondition(CondInQueue.class, "%player% is in [a] SkyWars [game] queue");
         Skript.registerCondition(CondQueueFull.class, "SkyWars [game] queue is full");
@@ -25,7 +25,7 @@ public class SkyWarsDaborossRegister {
         Skript.registerExpression(ExprQueuePlayers.class, Player.class, ExpressionType.SIMPLE, "[the] players in [the] SkyWars [game] queue");
         Skript.registerExpression(ExprNextArena.class, String.class, ExpressionType.SIMPLE, "[the] next SkyWars [game] arena");
         Skript.registerExpression(ExprStartPlayers.class, Player.class, ExpressionType.SIMPLE, "[the] start[ing] players [in [the] [SkyWars] game]");
-        Skript.registerExpression(ExprAlivePlayers.class, Player.class, ExpressionType.SIMPLE, "[the] (last|alive|remaining) players [in [the] [SkyWars] game]");
+        Skript.registerExpression(ExprRemainingPlayers.class, Player.class, ExpressionType.SIMPLE, "[the] (last|alive|remaining) players [in [the] [SkyWars] game]");
 
         //Events
         Skript.registerEvent("SkyWars (Daboross) - Game Start", SkUniversalEvent.class, GameStartEvent.class, "SkyWars game (start|begin)")
