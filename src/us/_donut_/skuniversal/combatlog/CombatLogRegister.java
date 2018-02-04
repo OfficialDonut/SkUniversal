@@ -12,7 +12,7 @@ import us._donut_.skuniversal.SkUniversalEvent;
 
 public class CombatLogRegister {
 
-    public static void registerCombatLog() {
+    public CombatLogRegister() {
         //Conditions
         Skript.registerCondition(CondTagged.class, "%player% is [currently] [CombatLog] tagged");
 
