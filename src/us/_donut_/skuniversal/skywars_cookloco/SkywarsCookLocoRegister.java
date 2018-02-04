@@ -12,7 +12,7 @@ import us._donut_.skuniversal.SkUniversalEvent;
 
 public class SkywarsCookLocoRegister {
 
-    public static void registerSkyWarsCookLoco() {
+    public SkywarsCookLocoRegister() {
         //Conditions
         Skript.registerCondition(CondInArena.class, "%player% is [currently] in [a] SkyWars arena");
         Skript.registerCondition(CondSpectating.class, "%player% is [currently] spectating [a] SkyWars [game]");
@@ -21,7 +21,7 @@ public class SkywarsCookLocoRegister {
         //Expressions
         Skript.registerExpression(ExprWins.class, Number.class, ExpressionType.COMBINED, "[the] [(amount|number) of] SkyWars wins of %player%", "%player%'s [(amount|number) of] SkyWars wins");
         Skript.registerExpression(ExprCoins.class, Number.class, ExpressionType.COMBINED, "[the] [(amount|number) of] SkyWars coins of %player%", "%player%'s [(amount|number) of] SkyWars coins");
-        Skript.registerExpression(ExprKills.class, Number.class, ExpressionType.COMBINED, "[the] [(amount|number) of] SkyWars kills of %player%", "%player%'s [(amount|number) of] SkyWars kills");
+        Skript.registerExpression(ExprSkyWarsKills.class, Number.class, ExpressionType.COMBINED, "[the] [(amount|number) of] SkyWars kills of %player%", "%player%'s [(amount|number) of] SkyWars kills");
         Skript.registerExpression(ExprDeaths.class, Number.class, ExpressionType.COMBINED, "[the] [(amount|number) of] SkyWars deaths of %player%", "%player%'s [(amount|number) of] SkyWars deaths");
         Skript.registerExpression(ExprArena.class, String.class, ExpressionType.COMBINED, "[the] [current] SkyWars arena of %player%", "%player%'s [current] SkyWars arena");
         Skript.registerExpression(ExprKit.class, String.class, ExpressionType.COMBINED, "[the] [current] SkyWars kit of %player%", "%player%'s [current] SkyWars kit");
