@@ -11,7 +11,7 @@ import us._donut_.skuniversal.SkUniversalEvent;
 
 public class AdvancedSurvivalGamesRegister {
 
-    public static void registerAdvancedSurvivalGames() {
+    public AdvancedSurvivalGamesRegister() {
         //Conditions
         Skript.registerCondition(CondSpectator.class, "%offlineplayer% is spectating [a[n]] [advanced] (survival games|sg) [game]");
         Skript.registerCondition(CondTeam.class, "%offlineplayer% has [a[n]] [advanced] (survival games|sg) team[mate]");
