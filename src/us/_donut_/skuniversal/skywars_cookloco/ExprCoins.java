@@ -48,7 +48,7 @@ public class ExprCoins extends SimpleExpression<Number> {
     @Nullable
     protected Number[] get(Event e) {
         if (player.getSingle(e) != null) {
-            return new Number[]{SkyWarsAPI.getSkyPlayer(player.getSingle(e)).getCoins()};
+            return new Number[]{SkyWarsAPI.getSkyPlayer(player.getSingle(e)).getCoins(true)};
         } else {
             Skript.error("Must provide a player, please refer to the syntax");
             return null;
@@ -59,7 +59,7 @@ public class ExprCoins extends SimpleExpression<Number> {
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){
         Number coinsChange = (Number) delta[0];
         if (mode == Changer.ChangeMode.SET) {
-            int newCoins = coinsChange.intValue() - SkyWarsAPI.getSkyPlayer(player.getSingle(e)).getCoins();
+            int newCoins = coinsChange.intValue() - SkyWarsAPI.getSkyPlayer(player.getSingle(e)).getCoins(true);
             SkyWarsAPI.getSkyPlayer(player.getSingle(e)).addCoins(newCoins, false);
         } else if (mode == Changer.ChangeMode.ADD) {
             SkyWarsAPI.getSkyPlayer(player.getSingle(e)).addCoins(coinsChange.intValue(), false);
