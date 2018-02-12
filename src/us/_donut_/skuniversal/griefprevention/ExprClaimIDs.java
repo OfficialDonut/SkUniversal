@@ -15,7 +15,6 @@ import org.bukkit.event.Event;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Name("GriefPrevention - Claim IDs")
@@ -85,7 +84,10 @@ public class ExprClaimIDs extends SimpleExpression<Number> {
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        Collection<Claim> allClaims = GriefPrevention.instance.dataStore.getClaims();
+        List<Claim> allClaims = new ArrayList<>(GriefPrevention.instance.dataStore.getClaims());
+        for (Claim claim : GriefPrevention.instance.dataStore.getClaims()) {
+            allClaims.addAll(claim.children);
+        }
         List<Claim> claimsThatAreCorrectType = new ArrayList<>();
         for (Claim claim : allClaims) {
             if (claimType.equalsIgnoreCase("normal") && !claim.isAdminClaim() && claim.parent == null) {
@@ -101,11 +103,10 @@ public class ExprClaimIDs extends SimpleExpression<Number> {
                 claimsThatAreCorrectType.add(claim);
             }
         }
-
         List<Number> claimIDs = new ArrayList<>();
         for (Claim claim : claimsThatAreCorrectType) {
             if (location != null) {
-                if (claim.contains(location.getSingle(e), true, true)) {
+                if (claim.contains(location.getSingle(e), true, false)) {
                     claimIDs.add(claim.getID());
                 }
             } else if (player != null) {
