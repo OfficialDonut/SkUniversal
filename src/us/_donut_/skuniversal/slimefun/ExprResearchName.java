@@ -1,5 +1,6 @@
 package us._donut_.skuniversal.slimefun;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -44,6 +45,11 @@ public class ExprResearchName extends SimpleExpression<String> {
     @Override
     @Nullable
     protected String[] get(Event e) {
-        return new String[]{Research.getByID(id.getSingle(e)).getName()};
+        if (id.getSingle(e) != null) {
+            return new String[]{Research.getByID(id.getSingle(e)).getName()};
+        } else {
+            Skript.error("Must provide an integer, please refer to the syntax");
+            return null;
+        }
     }
 }

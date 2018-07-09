@@ -28,7 +28,7 @@ public class CondHasKit extends Condition {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "player has a SkyWars kit";
+        return "player " + player.toString(e, b) + " has a SkyWars kit";
     }
 
     @Override

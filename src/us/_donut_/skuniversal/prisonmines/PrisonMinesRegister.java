@@ -21,12 +21,12 @@ public class PrisonMinesRegister {
 
         //Expressions
         Skript.registerExpression(ExprMines.class, String.class, ExpressionType.SIMPLE, "[the] [names of] [all [the]] [PrisonMines] mines");
-        Skript.registerExpression(ExprMineAtLoc.class, String.class, ExpressionType.SIMPLE, "[the] [name of [the]] [PrisonMines] mine at %location%");
-        Skript.registerExpression(ExprAmountMined.class, Number.class, ExpressionType.SIMPLE, "[the] (amount|number) of blocks mined in [the] [PrisonMines] mine [(named|with name)] %string%");
-        Skript.registerExpression(ExprPercentMined.class, Number.class, ExpressionType.SIMPLE, "[the] percent[age] of [the] blocks [already] mined in [the] [PrisonMines] mine [(named|with name)] %string%");
-        Skript.registerExpression(ExprPercentLeft.class, Number.class, ExpressionType.SIMPLE, "[the] percent[age] of [the] blocks (left|not mined) in [the] [PrisonMines] mine [(named|with name)] %string%");
-        Skript.registerExpression(ExprTimeLeft.class, Number.class, ExpressionType.SIMPLE, "[the] [amount of] time [left] until [the] [PrisonMines] mine [(named|with name)] %string% (resets|is reset)");
-        Skript.registerExpression(ExprTeleportLoc.class, Location.class, ExpressionType.SIMPLE, "[the] (teleport|tp) loc[ation] of [the] [PrisonMines] mine [(named|with name)] %string%");
+        Skript.registerExpression(ExprMineAtLoc.class, String.class, ExpressionType.COMBINED, "[the] [name of [the]] [PrisonMines] mine at %location%");
+        Skript.registerExpression(ExprAmountMined.class, Number.class, ExpressionType.COMBINED, "[the] (amount|number) of blocks mined in [the] [PrisonMines] mine [(named|with name)] %string%");
+        Skript.registerExpression(ExprPercentMined.class, Number.class, ExpressionType.COMBINED, "[the] percent[age] of [the] blocks [already] mined in [the] [PrisonMines] mine [(named|with name)] %string%");
+        Skript.registerExpression(ExprPercentLeft.class, Number.class, ExpressionType.COMBINED, "[the] percent[age] of [the] blocks (left|not mined) in [the] [PrisonMines] mine [(named|with name)] %string%");
+        Skript.registerExpression(ExprTimeLeft.class, Number.class, ExpressionType.COMBINED, "[the] [amount of] time [left] until [the] [PrisonMines] mine [(named|with name)] %string% (resets|is reset)");
+        Skript.registerExpression(ExprTeleportLoc.class, Location.class, ExpressionType.COMBINED, "[the] (teleport|tp) loc[ation] of [the] [PrisonMines] mine [(named|with name)] %string%");
 
         //Events
         Skript.registerEvent("PrisonMine - Mine Reset Start", SkUniversalEvent.class, MinePreResetEvent.class, "[PrisonMines] mine reset (begin|start)")

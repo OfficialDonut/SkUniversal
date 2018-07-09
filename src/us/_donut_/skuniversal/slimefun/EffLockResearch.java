@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.slimefun;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -30,17 +29,13 @@ public class EffLockResearch extends Effect {
         return true;
     }
     @Override
-    public String toString(@Nullable Event e, boolean paramBoolean) {
-        return "lock Slimefun research";
+    public String toString(@Nullable Event e, boolean b) {
+        return "lock Slimefun research with id " + id.toString(e, b) + " for player " + player.toString(e, b);
     }
 
     @Override
     protected void execute(Event e) {
-        if (id != null && player != null) {
-            Research research = Research.getByID(id.getSingle(e));
-            research.lock(player.getSingle(e));
-        } else {
-            Skript.error("Must provide a non-null value, please refer to the syntax");
-        }
+        Research research = Research.getByID(id.getSingle(e));
+        research.lock(player.getSingle(e));
     }
 }

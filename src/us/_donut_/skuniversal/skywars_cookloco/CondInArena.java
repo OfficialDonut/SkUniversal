@@ -28,7 +28,7 @@ public class CondInArena extends Condition {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "player is in SkyWars arena";
+        return "player " + player.toString(e, b) + " is in SkyWars arena";
     }
 
     @Override

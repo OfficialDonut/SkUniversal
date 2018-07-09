@@ -24,9 +24,9 @@ public class ShopkeepersRegister {
 
         //Expressions
         Skript.registerExpression(ExprKeepers.class, String.class, ExpressionType.SIMPLE, "[[the ]names of] [all] [the] [existing] [shop]keepers");
-        Skript.registerExpression(ExprKeeperLoc.class, Location.class, ExpressionType.SIMPLE, "[the] loc[ation] of [the] [shop]keeper [(named|with name)] %string%");
+        Skript.registerExpression(ExprKeeperLoc.class, Location.class, ExpressionType.COMBINED, "[the] loc[ation] of [the] [shop]keeper [(named|with name)] %string%");
         Skript.registerExpression(ExprKeeperName.class, String.class, ExpressionType.COMBINED, "[the] [shop]keeper name of [the] %entity%", "%entity%'s [shop]keeper name");
-        Skript.registerExpression(ExprKeeperAmount.class, Number.class, ExpressionType.SIMPLE, "[the] (amount|number) of [shop]keepers of %player%");
+        Skript.registerExpression(ExprKeeperAmount.class, Number.class, ExpressionType.COMBINED, "[the] (amount|number) of [shop]keepers of %player%");
 
         //Events
         Skript.registerEvent("Shopkeepers - Create", SkUniversalEvent.class, ShopkeeperCreatedEvent.class, "[shop]keeper creat(e|ion)")

@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.shopkeepers;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -40,27 +39,20 @@ public class ExprKeeperLoc extends SimpleExpression<Location> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "location of keeper named " + keeperName.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "location of keeper named " + keeperName.toString(e, b);
     }
 
     @Override
     @Nullable
     protected Location[] get(Event e) {
-        if (keeperName.getSingle(e) != null) {
-            ShopkeepersPlugin skp = ShopkeepersPlugin.getInstance();
-            return new Location[]{skp.getShopkeeperByName(keeperName.getSingle(e)).getLocation()};
-        } else {
-            Skript.error("Must provide a string, please refer to the syntax");
-            return null;
-        }
+        return new Location[]{ShopkeepersPlugin.getInstance().getShopkeeperByName(keeperName.getSingle(e)).getLocation()};
     }
 
     @Override
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){
         if (mode == Changer.ChangeMode.SET) {
-            ShopkeepersPlugin skp = ShopkeepersPlugin.getInstance();
-            skp.getShopkeeperByName(keeperName.getSingle(e)).setLocation((Location) delta[0]);
+            ShopkeepersPlugin.getInstance().getShopkeeperByName(keeperName.getSingle(e)).setLocation((Location) delta[0]);
         }
     }
 

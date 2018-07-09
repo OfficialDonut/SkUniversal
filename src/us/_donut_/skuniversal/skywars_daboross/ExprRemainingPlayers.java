@@ -1,24 +1,21 @@
-package us._donut_.skuniversal.skywars_cookloco;
+package us._donut_.skuniversal.skywars_daboross;
 
-import ak.CookLoco.SkyWars.arena.ArenaManager;
-import ak.CookLoco.SkyWars.player.SkyPlayer;
+import ch.njol.skript.ScriptLoader;
+import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
-import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import net.daboross.bukkitdev.skywars.api.events.GameEndEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
-@Name("SkyWars (CookLoco) - Players in Arena")
-@Description("Returns the alive players in a skywars arena.")
-@Examples({"set {players::*} to the alive players in the skywars arena named \"cool\""})
-public class ExprPlayers extends SimpleExpression<Player> {
-
-    private Expression<String> name;
+@Name("SkyWars (Daboross) - Remaining Players")
+@Description("Returns the remaining players on SkyWars Game End event.")
+public class ExprRemainingPlayers extends SimpleExpression<Player> {
 
     @Override
     public boolean isSingle() {
@@ -33,18 +30,21 @@ public class ExprPlayers extends SimpleExpression<Player> {
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] e, int i, Kleenean kl, SkriptParser.ParseResult pr) {
-        name = (Expression<String>) e[0];
+        if (!ScriptLoader.isCurrentEvent(GameEndEvent.class)) {
+            Skript.error("You can not use alive players expression in any event but on SkyWars game end.");
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "the players in SkyWars arena named " + name.toString(e, b);
+        return "the alive players";
     }
 
     @Override
     @Nullable
     protected Player[] get(Event e) {
-        return ArenaManager.getGame(name.getSingle(e)).getAlivePlayer().stream().map(SkyPlayer::getPlayer).toArray(Player[]::new);
+        return ((GameEndEvent)e).getAlivePlayers().toArray(new Player[0]);
     }
 }

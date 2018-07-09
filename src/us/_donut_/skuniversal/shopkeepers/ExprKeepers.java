@@ -11,8 +11,6 @@ import com.nisovin.shopkeepers.Shopkeeper;
 import com.nisovin.shopkeepers.ShopkeepersPlugin;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Name("Shopkeepers - All Shopkeepers")
 @Description("Returns the names of all shopkeepers.")
@@ -36,18 +34,13 @@ public class ExprKeepers extends SimpleExpression<String> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
+    public String toString(@Nullable Event e, boolean b) {
         return "all the shopkeepers";
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-        ShopkeepersPlugin skp = ShopkeepersPlugin.getInstance();
-        List<String> keepers = new ArrayList<>();
-        for (Shopkeeper sk : skp.getAllShopkeepers()) {
-            keepers.add(sk.getName());
-        }
-        return keepers.toArray(new String[keepers.size()]);
+        return ShopkeepersPlugin.getInstance().getAllShopkeepers().stream().map(Shopkeeper::getName).toArray(String[]::new);
     }
 }

@@ -1,7 +1,7 @@
 package us._donut_.skuniversal.skywars_cookloco;
 
-import ak.CookLoco.SkyWars.events.ArenaJoinEvent;
-import ak.CookLoco.SkyWars.events.ArenaLeaveEvent;
+import ak.CookLoco.SkyWars.events.SkyPlayerArenaJoinEvent;
+import ak.CookLoco.SkyWars.events.SkyPlayerArenaLeaveEvent;
 import ak.CookLoco.SkyWars.events.SkyPlayerDeathEvent;
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.ExpressionType;
@@ -29,36 +29,36 @@ public class SkywarsCookLocoRegister {
         Skript.registerExpression(ExprVictim.class, Player.class, ExpressionType.SIMPLE, "[the] SkyWars victim");
         Skript.registerExpression(ExprState.class, String.class, ExpressionType.COMBINED, "[the] [current] [game] state of [the] SkyWars arena [(named|with name)] %string%", "[the] SkyWars arena [(named|with name)] %string%'s [current] [game] state");
         Skript.registerExpression(ExprArenas.class, String.class, ExpressionType.SIMPLE, "[all of] [the] SkyWars arenas");
-        Skript.registerExpression(ExprPlayers.class, Player.class, ExpressionType.SIMPLE, "[all of] [the] [alive] players in [the] SkyWars arena [(named|with name)] %string%");
+        Skript.registerExpression(ExprPlayers.class, Player.class, ExpressionType.COMBINED, "[all of] [the] [alive] players in [the] SkyWars arena [(named|with name)] %string%");
 
         //Events
-        Skript.registerEvent("SkyWars (CookLoco) - Player Join", SkUniversalEvent.class, ArenaJoinEvent.class, "SkyWars [arena] join")
+        Skript.registerEvent("SkyWars (CookLoco) - Player Join", SkUniversalEvent.class, SkyPlayerArenaJoinEvent.class, "SkyWars [arena] join")
                 .description("Called when a player joins an arena.")
                 .examples("on skywars arena join:", "\tbroadcast \"%player% joined arena %event-string%!\"");
-        EventValues.registerEventValue(ArenaJoinEvent.class, Player.class, new Getter<Player, ArenaJoinEvent>() {
-            public Player get(ArenaJoinEvent e) {
+        EventValues.registerEventValue(SkyPlayerArenaJoinEvent.class, Player.class, new Getter<Player, SkyPlayerArenaJoinEvent>() {
+            public Player get(SkyPlayerArenaJoinEvent e) {
                 return e.getPlayer().getPlayer();
             }
         }, 0);
-        EventValues.registerEventValue(ArenaJoinEvent.class, String.class, new Getter<String, ArenaJoinEvent>() {
-            public String get(ArenaJoinEvent e) {
+        EventValues.registerEventValue(SkyPlayerArenaJoinEvent.class, String.class, new Getter<String,SkyPlayerArenaJoinEvent>() {
+            public String get(SkyPlayerArenaJoinEvent e) {
                 return e.getGame().getName();
             }
         }, 0);
-        Skript.registerEvent("SkyWars (CookLoco) -Player Leave", SkUniversalEvent.class, ArenaLeaveEvent.class, "SkyWars [arena] leave")
+        Skript.registerEvent("SkyWars (CookLoco) - Player Leave", SkUniversalEvent.class, SkyPlayerArenaLeaveEvent.class, "SkyWars [arena] leave")
                 .description("Called when a player leaves an arena.")
                 .examples("on skywars arena leave:", "\tbroadcast \"%player% left arena %event-string%!\"");
-        EventValues.registerEventValue(ArenaLeaveEvent.class, Player.class, new Getter<Player, ArenaLeaveEvent>() {
-            public Player get(ArenaLeaveEvent e) {
+        EventValues.registerEventValue(SkyPlayerArenaLeaveEvent.class, Player.class, new Getter<Player, SkyPlayerArenaLeaveEvent>() {
+            public Player get(SkyPlayerArenaLeaveEvent e) {
                 return e.getPlayer().getPlayer();
             }
         }, 0);
-        EventValues.registerEventValue(ArenaLeaveEvent.class, String.class, new Getter<String, ArenaLeaveEvent>() {
-            public String get(ArenaLeaveEvent e) {
+        EventValues.registerEventValue(SkyPlayerArenaLeaveEvent.class, String.class, new Getter<String, SkyPlayerArenaLeaveEvent>() {
+            public String get(SkyPlayerArenaLeaveEvent e) {
                 return e.getGame().getName();
             }
         }, 0);
-        Skript.registerEvent("SkyWars (CookLoco) - Player Death", SkUniversalEvent.class,SkyPlayerDeathEvent.class, "SkyWars [player] death")
+        Skript.registerEvent("SkyWars (CookLoco) - Player Death", SkUniversalEvent.class, SkyPlayerDeathEvent.class, "SkyWars [player] death")
                 .description("Called when a player dies while playing skywars.\n\n" +
                         "**Event Expressions:**\n" +
                         "`[the] skywars (attacker|killer)`\n" +

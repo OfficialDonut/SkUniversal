@@ -1,4 +1,4 @@
-package us._donut_.skuniversal.shopkeepers;
+package us._donut_.skuniversal.shopchest;
 
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -7,17 +7,17 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import com.nisovin.shopkeepers.ShopkeepersPlugin;
-import org.bukkit.entity.Player;
+import de.epiceric.shopchest.shop.Shop;
 import org.bukkit.event.Event;
+
 import javax.annotation.Nullable;
 
-@Name("Shopkeepers - Shopkeeper Amount")
-@Description("Returns the amount of shopkeepers a player has.")
-@Examples({"send \"%the amount of shopkeepers of player\""})
-public class ExprKeeperAmount extends SimpleExpression<Number> {
+@Name("ShopChest - Shop Buy Price")
+@Description("Returns the buy price of a shop.")
+@Examples({"send \"%the buy price of shop with id (shop at player)%\""})
+public class ExprBuyPrice extends SimpleExpression<Number> {
 
-    private Expression<Player> player;
+    private Expression<Number> id;
 
     @Override
     public boolean isSingle() {
@@ -32,18 +32,19 @@ public class ExprKeeperAmount extends SimpleExpression<Number> {
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] e, int i, Kleenean kl, SkriptParser.ParseResult pr) {
-        player = (Expression<Player>) e[0];
+        id = (Expression<Number>) e[0];
         return true;
     }
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "amount of keepers of player " + player.toString(e, b);
+        return "the buy price of the shop with id " + id.toString(e, b);
     }
 
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        return new Number[]{ShopkeepersPlugin.getInstance().countShopsOfPlayer(player.getSingle(e))};
+        Shop shop = ShopChestRegister.getShop(id.getSingle(e).intValue());
+        return shop == null ? null : new Number[]{shop.getBuyPrice()};
     }
 }

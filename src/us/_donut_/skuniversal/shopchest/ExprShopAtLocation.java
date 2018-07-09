@@ -1,4 +1,4 @@
-package us._donut_.skuniversal.shopkeepers;
+package us._donut_.skuniversal.shopchest;
 
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -7,17 +7,19 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import com.nisovin.shopkeepers.ShopkeepersPlugin;
-import org.bukkit.entity.Player;
+import de.epiceric.shopchest.ShopChest;
+import de.epiceric.shopchest.shop.Shop;
+import org.bukkit.Location;
 import org.bukkit.event.Event;
+
 import javax.annotation.Nullable;
 
-@Name("Shopkeepers - Shopkeeper Amount")
-@Description("Returns the amount of shopkeepers a player has.")
-@Examples({"send \"%the amount of shopkeepers of player\""})
-public class ExprKeeperAmount extends SimpleExpression<Number> {
+@Name("ShopChest - Shop At Location")
+@Description("Returns the id of the shop at a location.")
+@Examples({"send \"%the id of the shop at player%\""})
+public class ExprShopAtLocation extends SimpleExpression<Number> {
 
-    private Expression<Player> player;
+    private Expression<Location> location;
 
     @Override
     public boolean isSingle() {
@@ -32,18 +34,19 @@ public class ExprKeeperAmount extends SimpleExpression<Number> {
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] e, int i, Kleenean kl, SkriptParser.ParseResult pr) {
-        player = (Expression<Player>) e[0];
+        location = (Expression<Location>) e[0];
         return true;
     }
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "amount of keepers of player " + player.toString(e, b);
+        return "the shop at location " + location.toString(e, b);
     }
 
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        return new Number[]{ShopkeepersPlugin.getInstance().countShopsOfPlayer(player.getSingle(e))};
+        Shop shop = ShopChest.getInstance().getShopUtils().getShop(location.getSingle(e));
+        return shop == null || !shop.hasId() ? null : new Number[]{shop.getID()};
     }
 }

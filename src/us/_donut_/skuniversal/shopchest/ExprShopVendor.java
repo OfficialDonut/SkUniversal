@@ -1,4 +1,4 @@
-package us._donut_.skuniversal.pvplevels;
+package us._donut_.skuniversal.shopchest;
 
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -7,18 +7,18 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import me.MathiasMC.PvPLevels.PvPLevelsAPI;
+import de.epiceric.shopchest.shop.Shop;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
 
 import javax.annotation.Nullable;
 
-@Name("PvPLevels - XP Progress of Player")
-@Description("Returns the XP progress of a player.")
-@Examples({"send \"%pvp xp progress of player%\""})
-public class ExprProgress extends SimpleExpression<String> {
+@Name("ShopChest - Shop Vendor")
+@Description("Returns the vendor of a shop.")
+@Examples({"send \"%the vendor of shop with id (shop at player)%\""})
+public class ExprShopVendor extends SimpleExpression<OfflinePlayer> {
 
-    private Expression<OfflinePlayer> player;
+    private Expression<Number> id;
 
     @Override
     public boolean isSingle() {
@@ -26,25 +26,26 @@ public class ExprProgress extends SimpleExpression<String> {
     }
 
     @Override
-    public Class<? extends String> getReturnType() {
-        return String.class;
+    public Class<? extends OfflinePlayer> getReturnType() {
+        return OfflinePlayer.class;
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] e, int i, Kleenean kl, SkriptParser.ParseResult pr) {
-        player = (Expression<OfflinePlayer>) e[0];
+        id = (Expression<Number>) e[0];
         return true;
     }
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "progress of player " + player.toString(e, b);
+        return "the vendor of the shop with id " + id.toString(e, b);
     }
 
     @Override
     @Nullable
-    protected String[] get(Event e) {
-        return new String[]{new PvPLevelsAPI().CurrentXPProgressOfflinePlayer(player.getSingle(e))};
+    protected OfflinePlayer[] get(Event e) {
+        Shop shop = ShopChestRegister.getShop(id.getSingle(e).intValue());
+        return shop == null ? null : new OfflinePlayer[]{shop.getVendor()};
     }
 }

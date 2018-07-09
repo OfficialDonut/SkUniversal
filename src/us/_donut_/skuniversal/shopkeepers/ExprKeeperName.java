@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.shopkeepers;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -40,27 +39,20 @@ public class ExprKeeperName extends SimpleExpression<String> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "name of keeper " + entity.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "name of keeper " + entity.toString(e, b);
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-        if (entity.getSingle(e) != null) {
-            ShopkeepersPlugin skp = ShopkeepersPlugin.getInstance();
-            return new String[]{skp.getShopkeeperByEntity(entity.getSingle(e)).getName()};
-        } else {
-            Skript.error("Must provide a entity, please refer to the syntax");
-            return null;
-        }
+        return new String[]{ShopkeepersPlugin.getInstance().getShopkeeperByEntity(entity.getSingle(e)).getName()};
     }
 
     @Override
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){
         if (mode == Changer.ChangeMode.SET) {
-            ShopkeepersPlugin skp = ShopkeepersPlugin.getInstance();
-            skp.getShopkeeperByEntity(entity.getSingle(e)).setName((String) delta[0]);
+            ShopkeepersPlugin.getInstance().getShopkeeperByEntity(entity.getSingle(e)).setName((String) delta[0]);
         }
     }
 

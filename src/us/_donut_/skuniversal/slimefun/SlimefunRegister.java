@@ -24,9 +24,9 @@ public class SlimefunRegister {
 
         //Expressions
         Skript.registerExpression(ExprItemNames.class, String.class, ExpressionType.SIMPLE, "[the] [names of] [all] [the] Slimefun items");
-        Skript.registerExpression(ExprSlimefunItem.class, ItemStack.class, ExpressionType.SIMPLE, "[the] Slimefun item [(named|with name)] %string%");
-        Skript.registerExpression(ExprResearchName.class, String.class, ExpressionType.SIMPLE, "[the] name of [the] [Slimefun] research [with id] %integer%");
-        Skript.registerExpression(ExprResearchCost.class, Number.class, ExpressionType.SIMPLE, "[the] (cost|level) of [the] [Slimefun] research [with id] %integer%");
+        Skript.registerExpression(ExprSlimefunItem.class, ItemStack.class, ExpressionType.COMBINED, "[the] Slimefun item [(named|with name)] %string%");
+        Skript.registerExpression(ExprResearchName.class, String.class, ExpressionType.COMBINED, "[the] name of [the] [Slimefun] research [with id] %integer%");
+        Skript.registerExpression(ExprResearchCost.class, Number.class, ExpressionType.COMBINED, "[the] (cost|level) of [the] [Slimefun] research [with id] %integer%");
         Skript.registerExpression(ExprAllResearches.class, Number.class, ExpressionType.SIMPLE, "[[the] ids of] [all [of]] [the] [Slimefun] researches");
 
         //Events

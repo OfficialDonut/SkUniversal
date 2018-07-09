@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.prisonmines;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -28,17 +27,11 @@ public class CondResetting extends Condition {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "mine named " + name.getSingle(e) + " is resetting";
+        return "mine named " + name.toString(e, b) + " is resetting";
     }
 
     @Override
     public boolean check(Event e) {
-        if (name.getSingle(e) != null) {
-            MineAPI.PrisonMinesAPI prisonMines = new MineAPI.PrisonMinesAPI();
-            return prisonMines.getByName(name.getSingle(e)).isResetting();
-        } else {
-            Skript.error("Must provide a name, please refer to the syntax");
-            return false;
-        }
+        return new MineAPI.PrisonMinesAPI().getByName(name.getSingle(e)).isResetting();
     }
 }

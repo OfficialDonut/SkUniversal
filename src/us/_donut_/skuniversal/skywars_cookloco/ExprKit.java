@@ -1,7 +1,6 @@
 package us._donut_.skuniversal.skywars_cookloco;
 
 import ak.CookLoco.SkyWars.api.SkyWarsAPI;
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -38,18 +37,13 @@ public class ExprKit extends SimpleExpression<String> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "SkyWars kit of player " + player.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "SkyWars kit of player " + player.toString(e, b);
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-        if (player.getSingle(e) != null) {
-            return new String[]{SkyWarsAPI.getSkyPlayer(player.getSingle(e)).getKit().getName()};
-        } else {
-            Skript.error("Must provide a player, please refer to the syntax");
-            return null;
-        }
+        return new String[]{SkyWarsAPI.getSkyPlayer(player.getSingle(e)).getKit().getName()};
     }
 }

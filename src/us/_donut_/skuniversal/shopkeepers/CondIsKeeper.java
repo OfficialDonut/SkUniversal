@@ -28,12 +28,11 @@ public class CondIsKeeper extends Condition {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "entity is a shopkeeper";
+        return "entity " + entity.toString(e, b) + " is a shopkeeper";
     }
 
     @Override
     public boolean check(Event e) {
-        ShopkeepersPlugin skp = ShopkeepersPlugin.getInstance();
-        return skp.isShopkeeper(entity.getSingle(e));
+        return ShopkeepersPlugin.getInstance().isShopkeeper(entity.getSingle(e));
     }
 }

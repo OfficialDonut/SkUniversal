@@ -1,4 +1,4 @@
-package us._donut_.skuniversal.shopkeepers;
+package us._donut_.skuniversal.shopchest;
 
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -7,17 +7,17 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import com.nisovin.shopkeepers.ShopkeepersPlugin;
-import org.bukkit.entity.Player;
+import de.epiceric.shopchest.shop.Shop;
 import org.bukkit.event.Event;
+
 import javax.annotation.Nullable;
 
-@Name("Shopkeepers - Shopkeeper Amount")
-@Description("Returns the amount of shopkeepers a player has.")
-@Examples({"send \"%the amount of shopkeepers of player\""})
-public class ExprKeeperAmount extends SimpleExpression<Number> {
+@Name("ShopChest - Shop Type")
+@Description("Returns the type of a shop.")
+@Examples({"send \"%the type of shop with id (shop at player)%\""})
+public class ExprShopType extends SimpleExpression<String> {
 
-    private Expression<Player> player;
+    private Expression<Number> id;
 
     @Override
     public boolean isSingle() {
@@ -25,25 +25,26 @@ public class ExprKeeperAmount extends SimpleExpression<Number> {
     }
 
     @Override
-    public Class<? extends Number> getReturnType() {
-        return Number.class;
+    public Class<? extends String> getReturnType() {
+        return String.class;
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] e, int i, Kleenean kl, SkriptParser.ParseResult pr) {
-        player = (Expression<Player>) e[0];
+        id = (Expression<Number>) e[0];
         return true;
     }
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "amount of keepers of player " + player.toString(e, b);
+        return "the type of the shop with id " + id.toString(e, b);
     }
 
     @Override
     @Nullable
-    protected Number[] get(Event e) {
-        return new Number[]{ShopkeepersPlugin.getInstance().countShopsOfPlayer(player.getSingle(e))};
+    protected String[] get(Event e) {
+        Shop shop = ShopChestRegister.getShop(id.getSingle(e).intValue());
+        return shop == null ? null : new String[]{shop.getShopType().name()};
     }
 }

@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.pvplevels;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -38,26 +37,15 @@ public class ExprKDR extends SimpleExpression<Number> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "kdr of player " + player.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "kdr of player " + player.toString(e, b);
     }
 
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        if (player.getSingle(e) != null) {
-            PvPLevelsAPI pvp = new PvPLevelsAPI();
-            int deaths;
-            if (pvp.CurrentDeathsOfflinePlayer(player.getSingle(e)) == 0) {
-                deaths = 1;
-            } else {
-                deaths = pvp.CurrentDeathsOfflinePlayer(player.getSingle(e));
-            }
-            float kdr = (float) pvp.CurrentKillsOfflinePlayer(player.getSingle(e)) / deaths;
-            return new Number[]{kdr};
-        } else {
-            Skript.error("Must provide a player, please refer to the syntax");
-            return null;
-        }
+        PvPLevelsAPI pvp = new PvPLevelsAPI();
+        float kdr = (float) pvp.CurrentKillsOfflinePlayer(player.getSingle(e)) / pvp.CurrentDeathsOfflinePlayer(player.getSingle(e)) == 0 ? 1 : pvp.CurrentDeathsOfflinePlayer(player.getSingle(e));
+        return new Number[]{kdr};
     }
 }

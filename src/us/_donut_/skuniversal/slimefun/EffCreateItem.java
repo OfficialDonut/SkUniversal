@@ -46,29 +46,25 @@ public class EffCreateItem extends Effect {
         return true;
     }
     @Override
-    public String toString(@Nullable Event e, boolean paramBoolean) {
-        return "create Slimefun item";
+    public String toString(@Nullable Event e, boolean b) {
+        return "create Slimefun item " + item.toString(e, b) + " with id " + id.toString(e, b);
     }
 
     @Override
     protected void execute(Event e) {
-        if (item != null && id != null && category != null && recipe != null && recipeType != null) {
-            Category actualCategory;
-            try {
-                actualCategory = (Category) Categories.class.getField(category.getSingle(e)).get(Category.class);
-            } catch (NoSuchFieldException | IllegalAccessException exc) {
-                actualCategory = Categories.MISC;
-            }
-            RecipeType actualRecipeType;
-            try {
-                actualRecipeType = (RecipeType) RecipeType.class.getField(recipeType.getSingle(e)).get(RecipeType.class);
-            } catch (NoSuchFieldException | IllegalAccessException exc) {
-                actualRecipeType = RecipeType.ENHANCED_CRAFTING_TABLE;
-            }
-            SlimefunItem slimefunItem = new SlimefunItem(actualCategory, item.getSingle(e), id.getSingle(e), actualRecipeType, recipe.getArray(e));
-            slimefunItem.register();
-        } else {
-            Skript.error("Must provide a non-null value, please refer to the syntax");
+        Category actualCategory;
+        try {
+            actualCategory = (Category) Categories.class.getField(category.getSingle(e)).get(Category.class);
+        } catch (NoSuchFieldException | IllegalAccessException exc) {
+            actualCategory = Categories.MISC;
         }
+        RecipeType actualRecipeType;
+        try {
+            actualRecipeType = (RecipeType) RecipeType.class.getField(recipeType.getSingle(e)).get(RecipeType.class);
+        } catch (NoSuchFieldException | IllegalAccessException exc) {
+            actualRecipeType = RecipeType.ENHANCED_CRAFTING_TABLE;
+        }
+        SlimefunItem slimefunItem = new SlimefunItem(actualCategory, item.getSingle(e), id.getSingle(e), actualRecipeType, recipe.getArray(e));
+        slimefunItem.register();
     }
 }

@@ -1,7 +1,6 @@
 package us._donut_.skuniversal.skywars_cookloco;
 
 import ak.CookLoco.SkyWars.api.SkyWarsAPI;
-import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -40,26 +39,21 @@ public class ExprCoins extends SimpleExpression<Number> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "SkyWars coins of player " + player.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "SkyWars coins of player " + player.toString(e, b);
     }
 
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        if (player.getSingle(e) != null) {
-            return new Number[]{SkyWarsAPI.getSkyPlayer(player.getSingle(e)).getCoins(true)};
-        } else {
-            Skript.error("Must provide a player, please refer to the syntax");
-            return null;
-        }
+        return new Number[]{SkyWarsAPI.getSkyPlayer(player.getSingle(e)).getCoins()};
     }
 
     @Override
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){
         Number coinsChange = (Number) delta[0];
         if (mode == Changer.ChangeMode.SET) {
-            int newCoins = coinsChange.intValue() - SkyWarsAPI.getSkyPlayer(player.getSingle(e)).getCoins(true);
+            int newCoins = coinsChange.intValue() - SkyWarsAPI.getSkyPlayer(player.getSingle(e)).getCoins();
             SkyWarsAPI.getSkyPlayer(player.getSingle(e)).addCoins(newCoins, false);
         } else if (mode == Changer.ChangeMode.ADD) {
             SkyWarsAPI.getSkyPlayer(player.getSingle(e)).addCoins(coinsChange.intValue(), false);

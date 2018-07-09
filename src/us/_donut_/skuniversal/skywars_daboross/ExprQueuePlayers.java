@@ -12,9 +12,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 @Name("SkyWars (Daboross) - Players in Queue")
 @Description("Returns the players in the game queue.")
@@ -38,7 +35,7 @@ public class ExprQueuePlayers extends SimpleExpression<Player> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
+    public String toString(@Nullable Event e, boolean b) {
         return "players in queue";
     }
 
@@ -46,11 +43,6 @@ public class ExprQueuePlayers extends SimpleExpression<Player> {
     @Nullable
     protected Player[] get(Event e) {
         SkyWars sw = (SkyWars) Bukkit.getPluginManager().getPlugin("SkyWars");
-        List<Player> players = new ArrayList<>();
-        for (UUID id : sw.getGameQueue().getInQueue()) {
-            Player p = Bukkit.getPlayer(id);
-            players.add(p);
-        }
-        return players.toArray(new Player[players.size()]);
+        return sw.getGameQueue().getInQueue().stream().map(Bukkit::getPlayer).toArray(Player[]::new);
     }
 }

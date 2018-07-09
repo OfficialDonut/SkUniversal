@@ -12,7 +12,6 @@ import net.daboross.bukkitdev.skywars.api.events.GameStartEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
-import java.util.List;
 
 @Name("SkyWars (Daboross) - Starting Players")
 @Description("Returns the stating players on SkyWars Game Start event.")
@@ -39,14 +38,13 @@ public class ExprStartPlayers extends SimpleExpression<Player> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
+    public String toString(@Nullable Event e, boolean b) {
         return "the starting players";
     }
 
     @Override
     @Nullable
     protected Player[] get(Event e) {
-        List<Player> players = ((GameStartEvent)e).getPlayers();
-        return players.toArray(new Player[players.size()]);
+        return ((GameStartEvent)e).getPlayers().toArray(new Player[0]);
     }
 }

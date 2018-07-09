@@ -1,7 +1,6 @@
 package us._donut_.skuniversal.skywars_cookloco;
 
-import ak.CookLoco.SkyWars.arena.ArenaManager;
-import ch.njol.skript.Skript;
+import ak.CookLoco.SkyWars.arena.ArenaManager;;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -37,18 +36,13 @@ public class ExprState extends SimpleExpression<String> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "state of SkyWars arena named " + name.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "state of SkyWars arena named " + name.toString(e, b);
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-        if (name.getSingle(e) != null) {
-            return new String[]{ArenaManager.getGame(name.getSingle(e)).getState().toString()};
-        } else {
-            Skript.error("Must provide a string,s please refer to the syntax");
-            return null;
-        }
+        return new String[]{ArenaManager.getGame(name.getSingle(e)).getState().toString()};
     }
 }

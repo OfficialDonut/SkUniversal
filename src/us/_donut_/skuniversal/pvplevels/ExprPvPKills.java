@@ -1,6 +1,5 @@
-package us._donut_.skuniversal.skywars_cookloco;
+package us._donut_.skuniversal.pvplevels;
 
-import ak.CookLoco.SkyWars.api.SkyWarsAPI;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -10,16 +9,18 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
-import org.bukkit.entity.Player;
+import me.MathiasMC.PvPLevels.PvPLevelsAPI;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
-@Name("SkyWars (CookLoco) - Player Wins")
-@Description("Returns the amount of skywars wins of a player.")
-@Examples({"send \"%the skywars wins of player%\""})
-public class ExprWins extends SimpleExpression<Number> {
+@Name("PvPLevels - Kills of Player")
+@Description("Returns the amount of kills of a player.")
+@Examples({"send \"%pvp kills of player%\""})
+public class ExprPvPKills extends SimpleExpression<Number> {
 
-    private Expression<Player> player;
+    private PvPLevelsAPI pvp = new PvPLevelsAPI();
+    private Expression<OfflinePlayer> player;
 
     @Override
     public boolean isSingle() {
@@ -34,30 +35,30 @@ public class ExprWins extends SimpleExpression<Number> {
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] e, int i, Kleenean kl, SkriptParser.ParseResult pr) {
-        player = (Expression<Player>) e[0];
+        player = (Expression<OfflinePlayer>) e[0];
         return true;
     }
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "SkyWars wins of player " + player.toString(e, b);
+        return "number of kills of player " + player.toString(e, b);
     }
 
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        return new Number[]{SkyWarsAPI.getWins(player.getSingle(e))};
+        return new Number[]{pvp.CurrentKillsOfflinePlayer(player.getSingle(e))};
     }
 
     @Override
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){
-        Number winsChange = (Number) delta[0];
+        Number deathsChange = (Number) delta[0];
         if (mode == Changer.ChangeMode.SET) {
-            SkyWarsAPI.getSkyPlayer(player.getSingle(e)).setWins(winsChange.intValue());
+            pvp.SetKills(player.getSingle(e).getPlayer(), deathsChange.intValue());
         } else if (mode == Changer.ChangeMode.ADD) {
-            SkyWarsAPI.getSkyPlayer(player.getSingle(e)).addWins(winsChange.intValue());
+            pvp.AddKills(player.getSingle(e).getPlayer(), deathsChange.intValue());
         } else if (mode == Changer.ChangeMode.REMOVE) {
-            SkyWarsAPI.getSkyPlayer(player.getSingle(e)).setWins(SkyWarsAPI.getWins(player.getSingle(e))-winsChange.intValue());
+            pvp.RemoveKills(player.getSingle(e).getPlayer(), deathsChange.intValue());
         }
     }
     @Override

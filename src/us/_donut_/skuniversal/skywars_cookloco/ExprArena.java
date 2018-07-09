@@ -37,8 +37,8 @@ public class ExprArena extends SimpleExpression<String> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "SkyWars arena of player";
+    public String toString(@Nullable Event e, boolean b) {
+        return "SkyWars arena of player " + player.toString(e, b);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.prisonmines;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -37,19 +36,14 @@ public class ExprAmountMined extends SimpleExpression<Number> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "number of blocks mined in mine named " + name.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "number of blocks mined in mine named " + name.toString(e, b);
     }
 
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        if (name.getSingle(e) != null) {
-            MineAPI.PrisonMinesAPI prisonMines = new MineAPI.PrisonMinesAPI();
-            return new Number[]{prisonMines.getBlocksMined(prisonMines.getByName(name.getSingle(e)))};
-        } else {
-            Skript.error("Must provide a string, please refer to the syntax");
-            return null;
-        }
+        MineAPI prisonMines = new MineAPI.PrisonMinesAPI();
+        return new Number[]{prisonMines.getBlocksMined(prisonMines.getByName(name.getSingle(e)))};
     }
 }

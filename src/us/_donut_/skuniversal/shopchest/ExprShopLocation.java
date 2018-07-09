@@ -1,4 +1,4 @@
-package us._donut_.skuniversal.prisonmines;
+package us._donut_.skuniversal.shopchest;
 
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -7,17 +7,18 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import net.lightshard.prisonmines.MineAPI;
+import de.epiceric.shopchest.shop.Shop;
 import org.bukkit.Location;
 import org.bukkit.event.Event;
+
 import javax.annotation.Nullable;
 
-@Name("PrisonMines - Mine at Location")
-@Description("Returns the name of a mine at a location.")
-@Examples({"send \"%the mine at player%\""})
-public class ExprMineAtLoc extends SimpleExpression<String> {
+@Name("ShopChest - Shop Location")
+@Description("Returns the location of a shop.")
+@Examples({"send \"%the location of shop with id (shop at player)%\""})
+public class ExprShopLocation extends SimpleExpression<Location> {
 
-    private Expression<Location> loc;
+    private Expression<Number> id;
 
     @Override
     public boolean isSingle() {
@@ -25,25 +26,26 @@ public class ExprMineAtLoc extends SimpleExpression<String> {
     }
 
     @Override
-    public Class<? extends String> getReturnType() {
-        return String.class;
+    public Class<? extends Location> getReturnType() {
+        return Location.class;
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] e, int i, Kleenean kl, SkriptParser.ParseResult pr) {
-        loc = (Expression<Location>) e[0];
+        id = (Expression<Number>) e[0];
         return true;
     }
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "name of mine at location " + loc.toString(e, b);
+        return "the location of the shop with id " + id.toString(e, b);
     }
 
     @Override
     @Nullable
-    protected String[] get(Event e) {
-        return new String[]{new MineAPI.PrisonMinesAPI().getByLocation(loc.getSingle(e)).getName()};
+    protected Location[] get(Event e) {
+        Shop shop = ShopChestRegister.getShop(id.getSingle(e).intValue());
+        return shop == null ? null : new Location[]{shop.getLocation()};
     }
 }

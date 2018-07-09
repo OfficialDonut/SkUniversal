@@ -11,8 +11,7 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 @Name("SkyWars (CookLoco) - All arenas")
 @Description("Returns the names of all skywars arenas.")
@@ -36,17 +35,13 @@ public class ExprArenas extends SimpleExpression<String> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
+    public String toString(@Nullable Event e, boolean b) {
         return "the SkyWars arenas";
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-        List<String> arenas = new ArrayList<>();
-        for (Arena arena : ArenaManager.getGames()) {
-            arenas.add(arena.getName());
-        }
-        return arenas.toArray(new String[arenas.size()]);
+        return Arrays.stream(ArenaManager.getGames()).map(Arena::getName).toArray(String[]::new);
     }
 }

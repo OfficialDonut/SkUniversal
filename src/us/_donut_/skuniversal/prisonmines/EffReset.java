@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.prisonmines;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -32,11 +31,6 @@ public class EffReset extends Effect {
 
     @Override
     protected void execute(Event e) {
-        if (name.getSingle(e) != null) {
-            MineAPI.PrisonMinesAPI prisonMines = new MineAPI.PrisonMinesAPI();
-            prisonMines.getByName(name.getSingle(e)).reset();
-        } else {
-            Skript.error("Must provide a string, please refer to the syntax");
-        }
+        new MineAPI.PrisonMinesAPI().getByName(name.getSingle(e)).reset();
     }
 }

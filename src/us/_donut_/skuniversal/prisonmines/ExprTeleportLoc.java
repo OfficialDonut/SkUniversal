@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.prisonmines;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -20,7 +19,7 @@ import javax.annotation.Nullable;
 @Examples({"send \"%the teleport location of the mine at player%\""})
 public class ExprTeleportLoc extends SimpleExpression<Location> {
 
-    MineAPI.PrisonMinesAPI prisonMines = new MineAPI.PrisonMinesAPI();
+    private MineAPI prisonMines = new MineAPI.PrisonMinesAPI();
     private Expression<String> name;
 
     @Override
@@ -41,19 +40,14 @@ public class ExprTeleportLoc extends SimpleExpression<Location> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "teleport location of mine named " + name.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "teleport location of mine named " + name.toString(e, b);
     }
 
     @Override
     @Nullable
     protected Location[] get(Event e) {
-        if (name.getSingle(e) != null) {
-            return new Location[]{prisonMines.getByName(name.getSingle(e)).getTeleportLocation()};
-        } else {
-            Skript.error("Must provide a string, please refer to the syntax");
-            return null;
-        }
+        return new Location[]{prisonMines.getByName(name.getSingle(e)).getTeleportLocation()};
     }
 
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){

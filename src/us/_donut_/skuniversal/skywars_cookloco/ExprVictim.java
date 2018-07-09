@@ -38,7 +38,7 @@ public class ExprVictim extends SimpleExpression<Player> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
+    public String toString(@Nullable Event e, boolean b) {
         return "the skywars victim";
     }
 

@@ -23,9 +23,11 @@ import us._donut_.skuniversal.playerpoints.PlayerPointsRegister;
 import us._donut_.skuniversal.plotsquared.PlotSquaredRegister;
 import us._donut_.skuniversal.prisonmines.PrisonMinesRegister;
 import us._donut_.skuniversal.pvplevels.PvPLevelsRegister;
+import us._donut_.skuniversal.shopchest.ShopChestRegister;
 import us._donut_.skuniversal.shopkeepers.ShopkeepersRegister;
 import us._donut_.skuniversal.skywars_cookloco.SkywarsCookLocoRegister;
 import us._donut_.skuniversal.skywars_daboross.SkyWarsDaborossRegister;
+import us._donut_.skuniversal.slimefun.SlimefunRegister;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +35,7 @@ import java.util.List;
 public class SkUniversal extends JavaPlugin {
 
     private List<String> hookedPlugins = new ArrayList<>();
-    private Boolean serverHasPlugin(String pluginName) { return getServer().getPluginManager().getPlugin(pluginName) != null; }
+    private Boolean serverHasPlugin(String pluginName) { return getServer().getPluginManager().isPluginEnabled(pluginName); }
 
     @Override
     public void onEnable() {
@@ -58,14 +60,11 @@ public class SkUniversal extends JavaPlugin {
         if (serverHasPlugin("PrisonMines")) { new PrisonMinesRegister(); hookedPlugins.add("PrisonMines"); }
         if (serverHasPlugin("PvPLevels")) { new PvPLevelsRegister(); hookedPlugins.add("PvPLevels"); }
         if (serverHasPlugin("Shopkeepers")) { new ShopkeepersRegister(); hookedPlugins.add("Shopkeepers"); }
+        if (serverHasPlugin("ShopChest")) { new ShopChestRegister(); hookedPlugins.add("ShopChest"); }
         if (serverHasPlugin("SkyWars") && getServer().getPluginManager().getPlugin("SkyWars").getDescription().getAuthors().get(0).equalsIgnoreCase("CookLoco")) { new SkywarsCookLocoRegister(); hookedPlugins.add("SkyWars (CookLoco)"); }
         if (serverHasPlugin("SkyWars") && getServer().getPluginManager().getPlugin("SkyWars").getDescription().getAuthors().get(0).equalsIgnoreCase("Dabo Ross")) { new SkyWarsDaborossRegister(); hookedPlugins.add("SkyWars (Daboross)"); }
-
-        if (hookedPlugins.isEmpty()) {
-            getLogger().warning("Did not find any plugins to hook into.");
-        } else {
-            getLogger().info("Hooked Plugins: " + hookedPlugins);
-        }
+        if (serverHasPlugin("Slimefun")) { new SlimefunRegister(); hookedPlugins.add("Slimefun"); }
+        getLogger().info(hookedPlugins.isEmpty() ? "Did not find any plugins to hook into." : "Hooked Plugins: " + hookedPlugins);
         getLogger().info("Enabled!");
     }
 
@@ -79,11 +78,7 @@ public class SkUniversal extends JavaPlugin {
             sender.sendMessage("§5§l§nSkUniversal v" + getDescription().getVersion());
             sender.sendMessage("");
             sender.sendMessage("§6Hooked plugins:");
-            if (hookedPlugins.isEmpty()) {
-                sender.sendMessage("§eNone");
-            } else {
-                sender.sendMessage("§e" + hookedPlugins);
-            }
+            sender.sendMessage(hookedPlugins.isEmpty() ? "§eNone" : "§e" + hookedPlugins);
             sender.sendMessage("");
             sender.sendMessage("§6Plugin page:");
             sender.sendMessage("§ehttps://www.spigotmc.org/resources/skuniversal.45392/");

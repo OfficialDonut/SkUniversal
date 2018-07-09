@@ -37,17 +37,13 @@ public class EffCreateResearch extends Effect {
         return true;
     }
     @Override
-    public String toString(@Nullable Event e, boolean paramBoolean) {
-        return "create Slimefun research";
+    public String toString(@Nullable Event e, boolean b) {
+        return "create Slimefun research with id " + id.toString(e, b);
     }
 
     @Override
     protected void execute(Event e) {
-        if (id != null && name != null && level != null) {
-            Research research = new Research(id.getSingle(e), name.getSingle(e), level.getSingle(e));
-            research.register();
-        } else {
-            Skript.error("Must provide a non-null value, please refer to the syntax");
-        }
+        Research research = new Research(id.getSingle(e), name.getSingle(e), level.getSingle(e));
+        research.register();
     }
 }

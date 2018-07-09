@@ -1,4 +1,4 @@
-package us._donut_.skuniversal.shopkeepers;
+package us._donut_.skuniversal.shopchest;
 
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -7,15 +7,16 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import com.nisovin.shopkeepers.ShopkeepersPlugin;
+import de.epiceric.shopchest.ShopChest;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+
 import javax.annotation.Nullable;
 
-@Name("Shopkeepers - Shopkeeper Amount")
-@Description("Returns the amount of shopkeepers a player has.")
-@Examples({"send \"%the amount of shopkeepers of player\""})
-public class ExprKeeperAmount extends SimpleExpression<Number> {
+@Name("ShopChest - Shop Limit")
+@Description("Returns the shop limit of a player.")
+@Examples({"send \"%the shop limit of player%\""})
+public class ExprShopLimit extends SimpleExpression<Number> {
 
     private Expression<Player> player;
 
@@ -38,12 +39,12 @@ public class ExprKeeperAmount extends SimpleExpression<Number> {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "amount of keepers of player " + player.toString(e, b);
+        return "the shop limit of " + player.toString(e, b);
     }
 
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        return new Number[]{ShopkeepersPlugin.getInstance().countShopsOfPlayer(player.getSingle(e))};
+        return new Number[]{ShopChest.getInstance().getShopUtils().getShopLimit(player.getSingle(e))};
     }
 }

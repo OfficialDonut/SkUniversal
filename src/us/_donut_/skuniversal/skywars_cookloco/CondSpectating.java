@@ -28,7 +28,7 @@ public class CondSpectating extends Condition {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "player is spectating a SkyWars game";
+        return "player " + player.toString(e, b) + " is spectating a SkyWars game";
     }
 
     @Override

@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.slimefun;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -32,16 +31,11 @@ public class CondHasResearch extends Condition {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "player has research";
+        return "player " + player.toString(e, b) + " has research " + id.toString(e, b);
     }
 
     @Override
     public boolean check(Event e) {
-        if(player.getSingle(e) != null && id.getSingle(e)!= null){
-            return Research.getByID(id.getSingle(e)).hasUnlocked(player.getSingle(e).getUniqueId());
-        } else {
-            Skript.error("Must provide a non-null value, please refer to the syntax");
-            return false;
-        }
+        return Research.getByID(id.getSingle(e)).hasUnlocked(player.getSingle(e).getUniqueId());
     }
 }

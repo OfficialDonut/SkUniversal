@@ -14,10 +14,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
-@Name("SkyWars (CookLoco) - Player Wins")
-@Description("Returns the amount of skywars wins of a player.")
-@Examples({"send \"%the skywars wins of player%\""})
-public class ExprWins extends SimpleExpression<Number> {
+@Name("SkyWars (CookLoco) - Player Kills")
+@Description("Returns the amount of skywars kills of a player.")
+@Examples({"send \"%the skywars kills of player%\""})
+public class ExprSkyWarsKills extends SimpleExpression<Number> {
 
     private Expression<Player> player;
 
@@ -40,24 +40,24 @@ public class ExprWins extends SimpleExpression<Number> {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "SkyWars wins of player " + player.toString(e, b);
+        return "SkyWars kills of player " + player.toString(e, b);
     }
 
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        return new Number[]{SkyWarsAPI.getWins(player.getSingle(e))};
+        return new Number[]{SkyWarsAPI.getKills(player.getSingle(e))};
     }
 
     @Override
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){
-        Number winsChange = (Number) delta[0];
+        Number killsChange = (Number) delta[0];
         if (mode == Changer.ChangeMode.SET) {
-            SkyWarsAPI.getSkyPlayer(player.getSingle(e)).setWins(winsChange.intValue());
+            SkyWarsAPI.getSkyPlayer(player.getSingle(e)).setKills(killsChange.intValue());
         } else if (mode == Changer.ChangeMode.ADD) {
-            SkyWarsAPI.getSkyPlayer(player.getSingle(e)).addWins(winsChange.intValue());
+            SkyWarsAPI.getSkyPlayer(player.getSingle(e)).addKills(killsChange.intValue());
         } else if (mode == Changer.ChangeMode.REMOVE) {
-            SkyWarsAPI.getSkyPlayer(player.getSingle(e)).setWins(SkyWarsAPI.getWins(player.getSingle(e))-winsChange.intValue());
+            SkyWarsAPI.getSkyPlayer(player.getSingle(e)).setKills(SkyWarsAPI.getKills(player.getSingle(e)) - killsChange.intValue());
         }
     }
     @Override

@@ -1,11 +1,8 @@
 package us._donut_.skuniversal.slimefun;
 
-import ch.njol.skript.ScriptLoader;
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
-import ch.njol.skript.events.bukkit.ScriptEvent;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -32,17 +29,13 @@ public class EffUnlockResearch extends Effect {
         return true;
     }
     @Override
-    public String toString(@Nullable Event e, boolean paramBoolean) {
-        return "unlock Slimefun research";
+    public String toString(@Nullable Event e, boolean b) {
+        return "unlock Slimefun research with id " + id.toString(e, b) + " for player " + player.toString(e, b);
     }
 
     @Override
     protected void execute(Event e) {
-        if (id != null && player != null) {
-            Research research = Research.getByID(id.getSingle(e));
-            research.unlock(player.getSingle(e), true);
-        } else {
-            Skript.error("Must provide a non-null value, please refer to the syntax");
-        }
+        Research research = Research.getByID(id.getSingle(e));
+        research.unlock(player.getSingle(e), true);
     }
 }

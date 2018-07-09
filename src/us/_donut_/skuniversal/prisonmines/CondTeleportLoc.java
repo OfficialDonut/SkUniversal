@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.prisonmines;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -28,17 +27,11 @@ public class CondTeleportLoc extends Condition {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "mine named " + name.getSingle(e) + " has teleport location";
+        return "mine named " + name.toString(e, b) + " has teleport location";
     }
 
     @Override
     public boolean check(Event e) {
-        if (name.getSingle(e) != null) {
-            MineAPI.PrisonMinesAPI prisonMines = new MineAPI.PrisonMinesAPI();
-            return prisonMines.getByName(name.getSingle(e)).hasTeleportLocation();
-        } else {
-            Skript.error("Must provide a string, please refer to the syntax");
-            return false;
-        }
+        return new MineAPI.PrisonMinesAPI().getByName(name.getSingle(e)).hasTeleportLocation();
     }
 }

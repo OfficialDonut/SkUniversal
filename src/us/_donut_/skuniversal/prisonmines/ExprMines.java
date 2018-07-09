@@ -11,8 +11,6 @@ import net.lightshard.prisonmines.MineAPI;
 import net.lightshard.prisonmines.mine.Mine;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Name("PrisonMines - All Mines")
 @Description("Returns the names of all mines.")
@@ -43,11 +41,6 @@ public class ExprMines extends SimpleExpression<String> {
     @Override
     @Nullable
     protected String[] get(Event e) {
-        MineAPI.PrisonMinesAPI prisonMines = new MineAPI.PrisonMinesAPI();
-        List<String> names = new ArrayList<>();
-        for (Mine mine : prisonMines.getMines()) {
-            names.add(mine.getName());
-        }
-        return names.toArray(new String[names.size()]);
+        return new MineAPI.PrisonMinesAPI().getMines().stream().map(Mine::getName).toArray(String[]::new);
     }
 }
