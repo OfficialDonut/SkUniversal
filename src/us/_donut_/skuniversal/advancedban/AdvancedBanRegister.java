@@ -10,7 +10,7 @@ public class AdvancedBanRegister {
 
    public AdvancedBanRegister() {
         //Conditions
-        Skript.registerCondition(CondBanned.class, "%offlineplayer% is banned by AdvancedBan");
+        Skript.registerCondition(CondBanned.class, "%offlineplayer% is banned [by AdvancedBan]");
         Skript.registerCondition(CondMuted.class, "%offlineplayer% is muted [by AdvancedBan]");
 
         //Expressions

@@ -33,7 +33,7 @@ public class ExprExchangeCurrencySymbol extends SimpleExpression<String> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
+    public String toString(@Nullable Event e, boolean b) {
         return "the exchange currency symbol";
     }
 

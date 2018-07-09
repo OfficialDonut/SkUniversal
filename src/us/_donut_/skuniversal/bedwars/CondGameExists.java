@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.bedwars;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -28,16 +27,11 @@ public class CondGameExists extends Condition {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "Bedwars game " + game.getSingle(e) + " exists";
+        return "Bedwars game " + game.toString(e, b) + " exists";
     }
 
     @Override
     public boolean check(Event e) {
-        if (game.getSingle(e) != null) {
-            return GameManager.existGame(game.getSingle(e));
-        } else {
-            Skript.error("Must provide a string, please refer to the syntax");
-            return false;
-        }
+        return GameManager.existGame(game.getSingle(e));
     }
 }

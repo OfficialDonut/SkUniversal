@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.bedwars;
-
-import ch.njol.skript.Skript;
+;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -26,16 +25,12 @@ public class EffStartGame extends Effect {
         return true;
     }
     @Override
-    public String toString(@Nullable Event e, boolean paramBoolean) {
-        return "start Bedwars game " + game.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "start Bedwars game " + game.toString(e, b);
     }
 
     @Override
     protected void execute(Event e) {
-        if (GameManager.getGame(game.getSingle(e)) != null) {
-            GameManager.getGame(game.getSingle(e)).start();
-        } else {
-            Skript.error("Must provide a Bedwars game, please refer to the syntax");
-        }
+        GameManager.getGame(game.getSingle(e)).start();
     }
 }

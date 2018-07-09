@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.advancedsurvivalgames;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -11,6 +10,7 @@ import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.util.coll.CollectionUtils;
 import e.Game;
+import e.SGPlayer;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
@@ -40,33 +40,30 @@ public class ExprBounty extends SimpleExpression<Number> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "the survival games bounty of player" + player.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "the survival games bounty of player " + player.toString(e, b);
     }
 
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        if (player.getSingle(e) != null) {
-            return new Number[]{Game.getPlayerManager().getSGPlayer(player.getSingle(e)).getBounty()};
-        }else{
-            Skript.error("Must provide a player, please refer to the syntax");
-            return null;
-        }
+        return new Number[]{Game.getPlayerManager().getSGPlayer(player.getSingle(e)).getBounty()};
     }
 
     @Override
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){
-            Number bountyChange = (Number)delta[0];
-            Number currentBounty = Game.getPlayerManager().getSGPlayer(player.getSingle(e)).getBounty();
-            if (mode == Changer.ChangeMode.SET) {
-                Game.getPlayerManager().getSGPlayer(player.getSingle(e)).setBounty(bountyChange.intValue());
-            } else if (mode == Changer.ChangeMode.ADD) {
-                Game.getPlayerManager().getSGPlayer(player.getSingle(e)).setBounty(currentBounty.intValue()+bountyChange.intValue());
-            } else if (mode == Changer.ChangeMode.REMOVE) {
-                Game.getPlayerManager().getSGPlayer(player.getSingle(e)).setBounty(currentBounty.intValue()-bountyChange.intValue());
+        Number bountyChange = (Number)delta[0];
+        Number currentBounty = Game.getPlayerManager().getSGPlayer(player.getSingle(e)).getBounty();
+        SGPlayer sgPlayer =  Game.getPlayerManager().getSGPlayer(player.getSingle(e));
+        if (mode == Changer.ChangeMode.SET) {
+            sgPlayer.setBounty(bountyChange.intValue());
+        } else if (mode == Changer.ChangeMode.ADD) {
+            sgPlayer.setBounty(currentBounty.intValue() + bountyChange.intValue());
+        } else if (mode == Changer.ChangeMode.REMOVE) {
+            sgPlayer.setBounty(currentBounty.intValue() - bountyChange.intValue());
         }
     }
+
     @Override
     public Class<?>[] acceptChange(final Changer.ChangeMode mode) {
         if (mode == Changer.ChangeMode.SET || mode == Changer.ChangeMode.REMOVE || mode == Changer.ChangeMode.ADD) {

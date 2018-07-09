@@ -26,24 +26,24 @@ public class CannonsRegister {
         Skript.registerEffect(EffFireCannon.class, "fire [the] cannon [with [the] id [of]] %string%[,] auto[ ]load %boolean%[,] (use|consume) ammo %boolean%");
 
         //Expressions
-        Skript.registerExpression(CannonIDFromLoc.class, String.class, ExpressionType.SIMPLE, "[the] id of [the] cannon at %location%");
-        Skript.registerExpression(AllCannonIDs.class, String.class, ExpressionType.SIMPLE, "[the] ids of all cannons");
-        Skript.registerExpression(CannonIDsInBox.class, String.class, ExpressionType.SIMPLE, "[the] ids of [all] [the] cannons [with]in [the] box centered at %location% with length %number%[,] width %number%[,] [and] height %number%");
-        Skript.registerExpression(CannonIDsInSphere.class, String.class, ExpressionType.SIMPLE, "[the] ids of [all] [the] cannons [with]in [the] sphere centered at %location% with radius %number%");
-        Skript.registerExpression(CannonOwner.class, OfflinePlayer.class, ExpressionType.SIMPLE, "[the] owner of [the] cannon [with [the] id [of]] %string%");
-        Skript.registerExpression(CannonLoc.class, Location.class, ExpressionType.SIMPLE, "[the] loc[ation] of [the] cannon [with [the] id [of]] %string%");
-        Skript.registerExpression(CannonDesign.class, String.class, ExpressionType.SIMPLE, "[the] design [type] [name] of [the] cannon [with [the] id [of]] %string%");
-        Skript.registerExpression(CannonName.class, String.class, ExpressionType.SIMPLE, "[the] name of [the] cannon [with [the] id [of]] %string%");
-        Skript.registerExpression(CannonSoot.class, Number.class, ExpressionType.SIMPLE, "[the] [amount of] soot in [the] cannon [with [the] id [of]] %string%");
-        Skript.registerExpression(CannonTemp.class,Number.class, ExpressionType.SIMPLE, "[the] temp[erature] of [the] cannon [with [the] id [of]] %string%");
-        Skript.registerExpression(CannonCritTemp.class,Number.class, ExpressionType.SIMPLE, "[the] critical temp[erature] of [the] cannon [with [the] id [of]] %string%");
-        Skript.registerExpression(CannonFuse.class,Number.class, ExpressionType.SIMPLE, "[the] fuse [length] of [the] cannon [with [the] id [of]] %string%");
-        Skript.registerExpression(CannonLoadTime.class,Number.class, ExpressionType.SIMPLE, "[the] load[ing] time of [the] cannon [with [the] id [of]] %string%");
-        Skript.registerExpression(CannonMass.class,Number.class, ExpressionType.SIMPLE, "[the] mass of [the] cannon [with [the] id [of]] %string%");
-        Skript.registerExpression(CannonPitch.class, Number.class, ExpressionType.SIMPLE, "[the] [aiming] pitch of [the] cannon [with [the] id [of]] %string%");
-        Skript.registerExpression(CannonYaw.class, Number.class, ExpressionType.SIMPLE, "[the] [aiming] yaw of [the] cannon [with [the] id [of]] %string%");
-        Skript.registerExpression(CannonLimit.class, Number.class, ExpressionType.COMBINED, "[the] cannon limit of %player%", "%player%'s cannon limit");
-        Skript.registerExpression(CannonAmount.class, Number.class, ExpressionType.SIMPLE, "[the] (amount|number) of cannons %offlineplayer% has built");
+        Skript.registerExpression(ExprCannonIDFromLoc.class, String.class, ExpressionType.COMBINED, "[the] id of [the] cannon at %location%");
+        Skript.registerExpression(ExprAllCannonIDs.class, String.class, ExpressionType.SIMPLE, "[the] ids of all cannons");
+        Skript.registerExpression(ExprCannonIDsInBox.class, String.class, ExpressionType.COMBINED, "[the] ids of [all] [the] cannons [with]in [the] box centered at %location% with length %number%[,] width %number%[,] [and] height %number%");
+        Skript.registerExpression(ExprCannonIDsInSphere.class, String.class, ExpressionType.COMBINED, "[the] ids of [all] [the] cannons [with]in [the] sphere centered at %location% with radius %number%");
+        Skript.registerExpression(ExprCannonOwner.class, OfflinePlayer.class, ExpressionType.COMBINED, "[the] owner of [the] cannon [with [the] id [of]] %string%");
+        Skript.registerExpression(ExprCannonLoc.class, Location.class, ExpressionType.COMBINED, "[the] loc[ation] of [the] cannon [with [the] id [of]] %string%");
+        Skript.registerExpression(ExprCannonDesign.class, String.class, ExpressionType.COMBINED, "[the] design [type] [name] of [the] cannon [with [the] id [of]] %string%");
+        Skript.registerExpression(ExprCannonName.class, String.class, ExpressionType.COMBINED, "[the] name of [the] cannon [with [the] id [of]] %string%");
+        Skript.registerExpression(ExprCannonSoot.class, Number.class, ExpressionType.COMBINED, "[the] [amount of] soot in [the] cannon [with [the] id [of]] %string%");
+        Skript.registerExpression(ExprCannonTemp.class,Number.class, ExpressionType.COMBINED, "[the] temp[erature] of [the] cannon [with [the] id [of]] %string%");
+        Skript.registerExpression(ExprCannonCritTemp.class,Number.class, ExpressionType.COMBINED, "[the] critical temp[erature] of [the] cannon [with [the] id [of]] %string%");
+        Skript.registerExpression(ExprCannonFuse.class,Number.class, ExpressionType.COMBINED, "[the] fuse [length] of [the] cannon [with [the] id [of]] %string%");
+        Skript.registerExpression(ExprCannonLoadTime.class,Number.class, ExpressionType.COMBINED, "[the] load[ing] time of [the] cannon [with [the] id [of]] %string%");
+        Skript.registerExpression(ExprCannonMass.class,Number.class, ExpressionType.COMBINED, "[the] mass of [the] cannon [with [the] id [of]] %string%");
+        Skript.registerExpression(ExprCannonPitch.class, Number.class, ExpressionType.COMBINED, "[the] [aiming] pitch of [the] cannon [with [the] id [of]] %string%");
+        Skript.registerExpression(ExprCannonYaw.class, Number.class, ExpressionType.COMBINED, "[the] [aiming] yaw of [the] cannon [with [the] id [of]] %string%");
+        Skript.registerExpression(ExprCannonLimit.class, Number.class, ExpressionType.COMBINED, "[the] cannon limit of %player%", "%player%'s cannon limit");
+        Skript.registerExpression(ExprCannonAmount.class, Number.class, ExpressionType.COMBINED, "[the] (amount|number) of cannons %offlineplayer% has built");
 
         //Events
         Skript.registerEvent("Cannons - Cannon Fire", SkUniversalEvent.class, CannonFireEvent.class, "cannon (fire|shoot)")

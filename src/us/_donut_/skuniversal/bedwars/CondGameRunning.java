@@ -27,7 +27,7 @@ public class CondGameRunning extends Condition {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "Bedwars game " + game.getSingle(e) + " is running";
+        return "Bedwars game " + game.toString(e, b) + " is running";
     }
 
     @Override

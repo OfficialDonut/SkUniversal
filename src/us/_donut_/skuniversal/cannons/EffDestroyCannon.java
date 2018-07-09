@@ -2,7 +2,6 @@ package us._donut_.skuniversal.cannons;
 
 import at.pavlov.cannons.Cannons;
 import at.pavlov.cannons.Enum.BreakCause;
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -32,23 +31,12 @@ public class EffDestroyCannon extends Effect {
         return true;
     }
     @Override
-    public String toString(@Nullable Event e, boolean paramBoolean) {
-        return "destroy the cannon with id " + id.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "destroy the cannon with id " + id.toString(e, b);
     }
 
     @Override
     protected void execute(Event e) {
-        if (id.getSingle(e) != null) {
-            if (breakBlocks.getSingle(e) != null && canExplode.getSingle(e) != null) {
-                if (Cannons.getPlugin().getCannon(UUID.fromString(id.getSingle(e))) != null) {
-                    Cannons.getPlugin().getCannon(UUID.fromString(id.getSingle(e))).destroyCannon(breakBlocks.getSingle(e), canExplode.getSingle(e), BreakCause.Other);
-                }
-            } else {
-                Skript.error("Must provide a boolean, please refer to the syntax");
-            }
-        } else {
-            Skript.error("Must provide a string, please refer to the syntax");
-        }
+        Cannons.getPlugin().getCannon(UUID.fromString(id.getSingle(e))).destroyCannon(breakBlocks.getSingle(e), canExplode.getSingle(e), BreakCause.Other);
     }
-
 }

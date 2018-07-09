@@ -33,7 +33,7 @@ public class ExprAmountInCirculation extends SimpleExpression<Number> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
+    public String toString(@Nullable Event e, boolean b) {
         return "the amount of bitcoins in circulation";
     }
 

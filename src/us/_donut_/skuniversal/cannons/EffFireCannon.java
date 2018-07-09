@@ -2,7 +2,6 @@ package us._donut_.skuniversal.cannons;
 
 import at.pavlov.cannons.Cannons;
 import at.pavlov.cannons.Enum.InteractAction;
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -31,24 +30,12 @@ public class EffFireCannon extends ch.njol.skript.lang.Effect {
         return true;
     }
     @Override
-    public String toString(@Nullable Event e, boolean paramBoolean) {
-        return "fire the cannon with id " + id.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "fire the cannon with id " + id.toString(e, b);
     }
 
     @Override
     protected void execute(Event e) {
-        if (id.getSingle(e) != null) {
-            if (autoLoad.getSingle(e) != null && useAmmo.getSingle(e) != null) {
-                if (Cannons.getPlugin().getCannon(UUID.fromString(id.getSingle(e))) != null) {
-                    Cannons.getPlugin().getFireCannon().fire(Cannons.getPlugin().getCannon(UUID.fromString(id.getSingle(e))), null, autoLoad.getSingle(e), useAmmo.getSingle(e), InteractAction.fireOther);
-                }
-            } else {
-                Skript.error("Must provide a boolean, please refer to the syntax");
-            }
-        } else {
-            Skript.error("Must provide a string, please refer to the syntax");
-        }
+        Cannons.getPlugin().getFireCannon().fire(Cannons.getPlugin().getCannon(UUID.fromString(id.getSingle(e))), null, autoLoad.getSingle(e), useAmmo.getSingle(e), InteractAction.fireOther);
     }
-
-
 }

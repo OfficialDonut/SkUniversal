@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.bedwars;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -29,20 +28,12 @@ public class EffJoinGame extends Effect {
         return true;
     }
     @Override
-    public String toString(@Nullable Event e, boolean paramBoolean) {
-        return "make player " + player.getSingle(e) + " join Bedwars game " + game.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "make player " + player.toString(e, b) + " join Bedwars game " + game.toString(e, b);
     }
 
     @Override
     protected void execute(Event e) {
-        if (player.getSingle(e) != null) {
-            if (GameManager.getGame(game.getSingle(e)) != null) {
-                GameManager.getGame(game.getSingle(e)).join(player.getSingle(e));
-            } else {
-                Skript.error("Must provide a Bedwars game, please refer to the syntax");
-            }
-        } else {
-            Skript.error("Must provide a player, please refer to the syntax");
-        }
+        GameManager.getGame(game.getSingle(e)).join(player.getSingle(e));
     }
 }

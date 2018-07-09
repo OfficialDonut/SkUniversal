@@ -23,6 +23,6 @@ public class BedwarsRegister {
         //Expressions
         Skript.registerExpression(ExprGames.class, String.class, ExpressionType.SIMPLE, "[[the] names of] [all] [the] [existing] Bedwars games");
         Skript.registerExpression(ExprGameOfPlayer.class, String.class, ExpressionType.COMBINED, "[[the] name of] [the] Bedwars game of %player%", "[[the] name of] %player%'s Bedwars game");
-        Skript.registerExpression(ExprPlayers.class, Player.class, ExpressionType.SIMPLE, "[the] players in [the] Bedwars game [(named|with name)] %string%");
+        Skript.registerExpression(ExprPlayers.class, Player.class, ExpressionType.COMBINED, "[the] players in [the] Bedwars game [(named|with name)] %string%");
     }
 }

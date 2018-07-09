@@ -34,13 +34,13 @@ public class ExprBitcoinTopPlayers extends SimpleExpression<OfflinePlayer> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
+    public String toString(@Nullable Event e, boolean b) {
         return "the top bitcoin players";
     }
 
     @Override
     @Nullable
     protected OfflinePlayer[] get(Event e) {
-        return Bitcoin.getAPI().getTopPlayers().toArray(new OfflinePlayer[Bitcoin.getAPI().getTopPlayers().size()]);
+        return Bitcoin.getAPI().getTopPlayers().toArray(new OfflinePlayer[0]);
     }
 }

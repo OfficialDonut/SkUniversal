@@ -11,9 +11,6 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 @Name("AdvancedSurvivalGames - Alive Players")
 @Description("Returns list of the alive players.")
@@ -43,11 +40,6 @@ public class ExprAlivePlayers extends SimpleExpression<Player> {
     @Override
     @Nullable
     protected Player[] get(Event e) {
-        List<Player> alivePlayers = new ArrayList<>();
-        Set<OfflinePlayer> players = Game.getAlivePlayers();
-        for (OfflinePlayer p : players) {
-            alivePlayers.add(p.getPlayer());
-        }
-        return alivePlayers.toArray(new Player[alivePlayers.size()]);
+        return Game.getAlivePlayers().stream().map(OfflinePlayer::getPlayer).toArray(Player[]::new);
     }
 }

@@ -8,17 +8,18 @@ import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import e.Game;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
-import java.util.List;
 
 @Name("AdvancedSurvivalGames - Top Players")
 @Description("Returns names of the top players.")
 @Examples({"loop survival games top players:",
 		"add 1 to {_number}",
-		"send \"%{_number}%- %loop-value%\"",
+		"send \"%{_number}% - %loop-value%\"",
 })
-public class ExprTopPlayers extends SimpleExpression<String> {
+public class ExprTopPlayers extends SimpleExpression<OfflinePlayer> {
 
     @Override
     public boolean isSingle() {
@@ -26,8 +27,8 @@ public class ExprTopPlayers extends SimpleExpression<String> {
     }
 
     @Override
-    public Class<? extends String> getReturnType() {
-        return String.class;
+    public Class<? extends OfflinePlayer> getReturnType() {
+        return OfflinePlayer.class;
     }
 
     @SuppressWarnings("unchecked")
@@ -43,11 +44,7 @@ public class ExprTopPlayers extends SimpleExpression<String> {
 
     @Override
     @Nullable
-    protected String[] get(Event e) {
-        List<String> topPlayers = Game.getTopPlayers();
-        if (topPlayers == null) {
-            return null;
-        }
-        return topPlayers.toArray(new String[topPlayers.size()]);
+    protected OfflinePlayer[] get(Event e) {
+        return Game.getTopPlayers().stream().map(Bukkit::getOfflinePlayer).toArray(OfflinePlayer[]::new);
     }
 }

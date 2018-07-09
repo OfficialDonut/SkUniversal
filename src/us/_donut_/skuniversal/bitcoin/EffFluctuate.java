@@ -23,7 +23,7 @@ public class EffFluctuate extends Effect {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean paramBoolean) {
+    public String toString(@Nullable Event e, boolean b) {
         return "make the bitcoin value fluctuate";
     }
 

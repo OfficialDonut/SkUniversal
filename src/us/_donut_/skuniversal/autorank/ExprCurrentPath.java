@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.autorank;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -38,18 +37,13 @@ public class ExprCurrentPath extends SimpleExpression<String> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "current path of player " + player.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "current path of player " + player.toString(e, b);
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-        if (player.getSingle(e) != null) {
-            return new String[]{Autorank.getInstance().getAPI().getActivePath(player.getSingle(e).getUniqueId()).getDisplayName()};
-        } else{
-            Skript.error("Must provide a player, please refer to the syntax");
-            return null;
-        }
+        return new String[]{Autorank.getInstance().getAPI().getActivePath(player.getSingle(e).getUniqueId()).getDisplayName()};
     }
 }

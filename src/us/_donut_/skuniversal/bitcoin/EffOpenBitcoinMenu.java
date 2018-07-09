@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.bitcoin;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -28,16 +27,12 @@ public class EffOpenBitcoinMenu extends Effect {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean paramBoolean) {
-        return "open bitcoin menu to " + player.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "open bitcoin menu to " + player.toString(e, b);
     }
 
     @Override
     protected void execute(Event e) {
-        if (player.getSingle(e) != null) {
-            Bitcoin.getAPI().openMainMenu(player.getSingle(e));
-        } else {
-            Skript.error("Must provide a player, please refer to the syntax");
-        }
+        Bitcoin.getAPI().openMainMenu(player.getSingle(e));
     }
 }

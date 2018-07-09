@@ -1,7 +1,6 @@
 package us._donut_.skuniversal.cannons;
 
 import at.pavlov.cannons.Cannons;
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -29,17 +28,12 @@ public class CondReadyToFire extends Condition {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "cannon with ID " + id.getSingle(e) + " is ready to fire";
+        return "cannon with ID " + id.toString(e, b) + " is ready to fire";
     }
 
     @Override
     public boolean check(Event e) {
-        if(id.getSingle(e)!=null){
-            return Cannons.getPlugin().getCannon(UUID.fromString(id.getSingle(e))) != null && Cannons.getPlugin().getCannon(UUID.fromString(id.getSingle(e))).isReadyToFire();
-        } else {
-            Skript.error("Must provide a player, please refer to the syntax");
-            return false;
-        }
+        return Cannons.getPlugin().getCannon(UUID.fromString(id.getSingle(e))) != null && Cannons.getPlugin().getCannon(UUID.fromString(id.getSingle(e))).isReadyToFire();
     }
 
 }

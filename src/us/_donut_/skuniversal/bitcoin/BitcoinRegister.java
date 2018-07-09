@@ -20,7 +20,7 @@ public class BitcoinRegister {
         Skript.registerExpression(ExprAmountInCirculation.class, Number.class, ExpressionType.SIMPLE, "[the] [total] (amount|number) of bitcoins [in circulation]");
         Skript.registerExpression(ExprCirculationLimit.class, Number.class, ExpressionType.SIMPLE, "[the] bitcoin circulation limit");
         Skript.registerExpression(ExprBitcoinBalance.class, Number.class, ExpressionType.COMBINED, "[the] bitcoin balance of %offlineplayer%", "%offlineplayer%'s bitcoin balance");
-        Skript.registerExpression(ExprBitcoinsMined.class, Number.class, ExpressionType.SIMPLE, "[the] (amount|number) of bitcoins mined by %offlineplayer%");
-        Skript.registerExpression(ExprBitcoinPuzzlesSolved.class, Number.class, ExpressionType.SIMPLE, "[the] (amount|number) of bitcoin [min(e|ing)] puzzles solved by %offlineplayer%");
+        Skript.registerExpression(ExprBitcoinsMined.class, Number.class, ExpressionType.COMBINED, "[the] (amount|number) of bitcoins mined by %offlineplayer%");
+        Skript.registerExpression(ExprBitcoinPuzzlesSolved.class, Number.class, ExpressionType.COMBINED, "[the] (amount|number) of bitcoin [min(e|ing)] puzzles solved by %offlineplayer%");
     }
 }

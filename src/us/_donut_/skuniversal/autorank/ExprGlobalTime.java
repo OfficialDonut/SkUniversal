@@ -37,8 +37,8 @@ public class ExprGlobalTime extends SimpleExpression<Number> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "global time of player " + player.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "global time of player " + player.toString(e, b);
     }
 
     @Override

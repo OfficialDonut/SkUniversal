@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.advancedban;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -11,12 +10,9 @@ import ch.njol.skript.doc.Name;
 import me.leoko.advancedban.manager.PunishmentManager;
 import me.leoko.advancedban.manager.UUIDManager;
 import me.leoko.advancedban.utils.Punishment;
-import me.leoko.advancedban.utils.PunishmentType;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Name("AdvancedBan - Punishments")
 @Description("Returns the active punishments of a player.")
@@ -43,43 +39,13 @@ public class ExprPunishments extends SimpleExpression<String> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "the punishments of player " + player.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "the punishments of player " + player.toString(e, b);
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-        if(player.getSingle(e)!=null){
-            List<String> punishments = new ArrayList<>();
-            for (Punishment p : PunishmentManager.get().getPunishments(UUIDManager.get().getUUID(player.getSingle(e).getName()), PunishmentType.BAN, true)) {
-                punishments.add(p.getType().getName());
-            }
-            for (Punishment p : PunishmentManager.get().getPunishments(UUIDManager.get().getUUID(player.getSingle(e).getName()), PunishmentType.IP_BAN, true)) {
-                punishments.add(p.getType().getName());
-            }
-            for (Punishment p : PunishmentManager.get().getPunishments(UUIDManager.get().getUUID(player.getSingle(e).getName()), PunishmentType.TEMP_BAN, true)) {
-                punishments.add(p.getType().getName());
-            }
-            for (Punishment p : PunishmentManager.get().getPunishments(UUIDManager.get().getUUID(player.getSingle(e).getName()), PunishmentType.TEMP_IP_BAN, true)) {
-                punishments.add(p.getType().getName());
-            }
-            for (Punishment p : PunishmentManager.get().getPunishments(UUIDManager.get().getUUID(player.getSingle(e).getName()), PunishmentType.MUTE, true)) {
-                punishments.add(p.getType().getName());
-            }
-            for (Punishment p : PunishmentManager.get().getPunishments(UUIDManager.get().getUUID(player.getSingle(e).getName()), PunishmentType.TEMP_MUTE, true)) {
-                punishments.add(p.getType().getName());
-            }
-            for (Punishment p : PunishmentManager.get().getPunishments(UUIDManager.get().getUUID(player.getSingle(e).getName()), PunishmentType.WARNING, true)) {
-                punishments.add(p.getType().getName());
-            }
-            for (Punishment p : PunishmentManager.get().getPunishments(UUIDManager.get().getUUID(player.getSingle(e).getName()), PunishmentType.TEMP_WARNING, true)) {
-                punishments.add(p.getType().getName());
-            }
-            return punishments.toArray(new String[punishments.size()]);
-        }else{
-            Skript.error("Must provide a player, please refer to the syntax");
-            return null;
-        }
+        return PunishmentManager.get().getPunishments(UUIDManager.get().getUUID(player.getSingle(e).getName()), null, true).stream().map(Punishment::getName).toArray(String[]::new);
     }
 }

@@ -11,8 +11,6 @@ import me.MineHome.Bedwars.Game.GameAPI;
 import me.MineHome.Bedwars.Game.GameManager;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Name("Bedwars - Existing Games")
 @Description("Returns a list of all Bedwars games.")
@@ -44,10 +42,6 @@ public class ExprGames extends SimpleExpression<String> {
     @Override
     @Nullable
     protected String[] get(Event e) {
-        List<String> games = new ArrayList<>();
-        for (GameAPI game : GameManager.getGames()) {
-            games.add(game.getName());
-        }
-        return games.toArray(new String[games.size()]);
+        return GameManager.getGames().stream().map(GameAPI::getName).toArray(String[]::new);
     }
 }

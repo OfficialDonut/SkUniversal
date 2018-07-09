@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.bedwars;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -12,7 +11,6 @@ import me.MineHome.Bedwars.Game.GameManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
-import java.util.List;
 
 @Name("Bedwars - Players in Game")
 @Description("Returns a list of all players in a Bedwars game.")
@@ -40,19 +38,13 @@ public class ExprPlayers extends SimpleExpression<Player> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "players in Bedwars game " + game.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "players in Bedwars game " + game.toString(e, b);
     }
 
     @Override
     @Nullable
     protected Player[] get(Event e) {
-        if (GameManager.getGame(game.getSingle(e)) != null) {
-            List<Player> players = GameManager.getGame(game.getSingle(e)).getPlayers();
-            return players.toArray(new Player[players.size()]);
-        } else {
-            Skript.error("Must provide a Bedwars game, please refer to the syntax");
-            return null;
-        }
+        return GameManager.getGame(game.getSingle(e)).getPlayers().toArray(new Player[0]);
     }
 }

@@ -4,8 +4,6 @@ import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.util.SimpleExpression;
-
-import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
@@ -40,18 +38,13 @@ public class ExprBitcoinPuzzlesSolved extends SimpleExpression<Number> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "the amount of bitcoin puzzles solved by player " + player.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "the amount of bitcoin puzzles solved by player " + player.toString(e, b);
     }
 
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        if (player.getSingle(e) != null) {
-            return new Number[]{Bitcoin.getAPI().getPuzzlesSolved(player.getSingle(e).getUniqueId())};
-        } else {
-            Skript.error("Must provide a player, please refer to the syntax");
-            return null;
-        }
+         return new Number[]{Bitcoin.getAPI().getPuzzlesSolved(player.getSingle(e).getUniqueId())};
     }
 }

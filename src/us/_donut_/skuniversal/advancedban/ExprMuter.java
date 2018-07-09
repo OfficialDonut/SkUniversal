@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.advancedban;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -10,6 +9,7 @@ import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import me.leoko.advancedban.manager.PunishmentManager;
 import me.leoko.advancedban.manager.UUIDManager;
+import me.leoko.advancedban.utils.Punishment;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
@@ -39,18 +39,14 @@ public class ExprMuter extends SimpleExpression<String> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "the muter of player " + player.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "the muter of player " + player.toString(e, b);
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-        if (player.getSingle(e) != null) {
-            return new String[]{PunishmentManager.get().getMute(UUIDManager.get().getUUID(player.getSingle(e).getName())).getOperator()};
-        } else {
-            Skript.error("Must provide a player, please refer to the syntax");
-            return null;
-        }
+        Punishment mute = PunishmentManager.get().getMute(UUIDManager.get().getUUID(player.getSingle(e).getName()));
+        return mute == null ? null : new String[]{mute.getOperator()};
     }
 }

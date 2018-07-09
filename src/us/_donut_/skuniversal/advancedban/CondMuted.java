@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.advancedban;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -30,16 +29,11 @@ public class CondMuted extends Condition {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "player" + player.getSingle(e) + " is muted";
+        return "player" + player.toString(e, b) + " is muted";
     }
 
     @Override
     public boolean check(Event e) {
-        if(player.getSingle(e)!=null){
-            return PunishmentManager.get().isMuted(UUIDManager.get().getUUID(player.getSingle(e).getName()));
-        }else{
-            Skript.error("Must provide a player, please refer to the syntax");
-            return false;
-        }
+        return PunishmentManager.get().isMuted(UUIDManager.get().getUUID(player.getSingle(e).getName()));
     }
 }

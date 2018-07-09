@@ -7,12 +7,13 @@ import ch.njol.util.Kleenean;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Name;
 import e.Game;
+import org.bukkit.World;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
 @Name("AdvancedSurvivalGames - Current World")
 @Description("Returns the current playing arena world name.")
-public class ExprCurrentWorld extends SimpleExpression<String> {
+public class ExprCurrentWorld extends SimpleExpression<World> {
 
     @Override
     public boolean isSingle() {
@@ -20,8 +21,8 @@ public class ExprCurrentWorld extends SimpleExpression<String> {
     }
 
     @Override
-    public Class<? extends String> getReturnType() {
-        return String.class;
+    public Class<? extends World> getReturnType() {
+        return World.class;
     }
 
     @SuppressWarnings("unchecked")
@@ -37,7 +38,7 @@ public class ExprCurrentWorld extends SimpleExpression<String> {
 
     @Override
     @Nullable
-    protected String[] get(Event e) {
-        return new String[]{Game.getCurrentArenaWorld().getName()};
+    protected World[] get(Event e) {
+        return new World[]{Game.getCurrentArenaWorld()};
     }
 }

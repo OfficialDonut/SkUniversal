@@ -11,9 +11,6 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 @Name("AdvancedSurvivalGames - Spectators")
 @Description("Returns list of all game spectators.")
@@ -43,11 +40,6 @@ public class ExprSpectators extends SimpleExpression<Player> {
     @Override
     @Nullable
     protected Player[] get(Event e) {
-        List<Player> spectators = new ArrayList<>();
-        Set<OfflinePlayer> players = Game.getSpectators();
-        for (OfflinePlayer p : players) {
-            spectators.add(p.getPlayer());
-        }
-        return spectators.toArray(new Player[spectators.size()]);
+        return Game.getSpectators().stream().map(OfflinePlayer::getPlayer).toArray(Player[]::new);
     }
 }

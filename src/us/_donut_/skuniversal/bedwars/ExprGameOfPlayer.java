@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.bedwars;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
@@ -8,6 +7,7 @@ import ch.njol.util.Kleenean;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
+import me.MineHome.Bedwars.Game.GameAPI;
 import me.MineHome.Bedwars.Game.GameManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -38,18 +38,14 @@ public class ExprGameOfPlayer extends SimpleExpression<String> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "Bedwars game of player " + player.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "Bedwars game of player " + player.toString(e, b);
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-        if (player.getSingle(e) != null) {
-            return new String[]{GameManager.getGame(player.getSingle(e)).getName()};
-        } else {
-            Skript.error("Must provide a player, please refer to the syntax");
-            return null;
-        }
+        GameAPI game = GameManager.getGame(player.getSingle(e));
+        return game == null ? null : new String[]{GameManager.getGame(player.getSingle(e)).getName()};
     }
 }

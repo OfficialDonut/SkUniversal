@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.advancedsurvivalgames;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -29,16 +28,11 @@ public class CondTeam extends Condition {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "player " + player.getSingle(e)+ " has survival games team";
+        return "player " + player.toString(e, b) + " has survival games team";
     }
 
     @Override
     public boolean check(Event e) {
-        if (player.getSingle(e) != null) {
-            return Game.getPlayerManager().getSGPlayer(player.getSingle(e)).hasTeam();
-        } else {
-            Skript.error("Must provide a player, please refer to the syntax");
-            return false;
-        }
+        return Game.getPlayerManager().getSGPlayer(player.getSingle(e)).hasTeam();
     }
 }
