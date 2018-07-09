@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.parties;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -39,19 +38,14 @@ public class ExprPartyOfPlayer extends SimpleExpression<String> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "party of player " + player.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "party of player " + player.toString(e, b);
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-        if (player.getSingle(e) != null) {
-            ThePlayer partyPlayer = Parties.getInstance().getPlayerHandler().getThePlayer(player.getSingle(e));
-            return new String[]{Parties.getInstance().getPlayerHandler().getPartyFromThePlayer(partyPlayer).getName()};
-        } else {
-            Skript.error("Must provide a player, please refer to the syntax");
-            return null;
-        }
+        ThePlayer partyPlayer = Parties.getInstance().getPlayerHandler().getThePlayer(player.getSingle(e));
+        return new String[]{Parties.getInstance().getPlayerHandler().getPartyFromThePlayer(partyPlayer).getName()};
     }
 }

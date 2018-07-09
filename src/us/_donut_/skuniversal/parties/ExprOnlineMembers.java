@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.parties;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -8,12 +7,10 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import com.alessiodp.parties.Parties;
 import com.alessiodp.parties.utils.api.PartiesAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
-import java.util.List;
 
 @Name("Parties - Party Online Members")
 @Description("Returns the online members of a party.")
@@ -40,20 +37,13 @@ public class ExprOnlineMembers extends SimpleExpression<Player> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "online members of party named " + name.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "online members of party named " + name.toString(e, b);
     }
 
     @Override
     @Nullable
     protected Player[] get(Event e) {
-        if (name.getSingle(e) != null) {
-            PartiesAPI parties = new PartiesAPI();
-            List<Player> players = parties.getPartyOnlinePlayers(name.getSingle(e));
-            return players.toArray(new Player[players.size()]);
-        } else {
-            Skript.error("Must provide a string, please refer to the syntax");
-            return null;
-        }
+        return new PartiesAPI().getPartyOnlinePlayers(name.getSingle(e)).toArray(new Player[0]);
     }
 }

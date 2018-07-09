@@ -7,7 +7,6 @@ import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import com.intellectualcrafters.plot.api.PlotAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
@@ -28,12 +27,11 @@ public class CondInPlot extends Condition {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "player is in plot";
+        return "player " + player.toString(e, b) + " is in plot";
     }
 
     @Override
     public boolean check(Event e) {
-        PlotAPI plot = new PlotAPI();
-        return plot.isInPlot(player.getSingle(e));
+        return PlotSquaredRegister.plotAPI.isInPlot(player.getSingle(e));
     }
 }

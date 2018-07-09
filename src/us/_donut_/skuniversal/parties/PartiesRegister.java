@@ -19,7 +19,7 @@ public class PartiesRegister {
         Skript.registerEffect(EffAddToParty.class, "add %player% to [the] party [(named|with name)] %string%");
 
         //Expressions
-        Skript.registerExpression(ExprLeader.class, OfflinePlayer.class, ExpressionType.SIMPLE, "[the] leader of [the] party [(named|with name)] %string%");
+        Skript.registerExpression(ExprLeader.class, OfflinePlayer.class, ExpressionType.COMBINED, "[the] leader of [the] party [(named|with name)] %string%");
         Skript.registerExpression(ExprPartyOfPlayer.class,String.class, ExpressionType.COMBINED, "[the] party [name] of %offlineplayer%", "%offlineplayer%'s party [name]");
         Skript.registerExpression(ExprMembers.class, OfflinePlayer.class, ExpressionType.COMBINED, "[the] members of [the] party [(named|with name)] %string%", "[the] party [(named|with name)] %string%'s members");
         Skript.registerExpression(ExprOnlineMembers.class, Player.class, ExpressionType.COMBINED, "[the] online members of [the] party [(named|with name)] %string%", "[the] party [(named|with name)] %string%'s online members");

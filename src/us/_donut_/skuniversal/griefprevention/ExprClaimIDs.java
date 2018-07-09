@@ -16,6 +16,7 @@ import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Name("GriefPrevention - Claim IDs")
 @Description("Returns the claim IDs of claims.")
@@ -84,41 +85,24 @@ public class ExprClaimIDs extends SimpleExpression<Number> {
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        List<Claim> allClaims = new ArrayList<>(GriefPrevention.instance.dataStore.getClaims());
+        List<Claim> claims = new ArrayList<>(GriefPrevention.instance.dataStore.getClaims());
         for (Claim claim : GriefPrevention.instance.dataStore.getClaims()) {
-            allClaims.addAll(claim.children);
-        }
-        List<Claim> claimsThatAreCorrectType = new ArrayList<>();
-        for (Claim claim : allClaims) {
-            if (claimType.equalsIgnoreCase("normal") && !claim.isAdminClaim() && claim.parent == null) {
-                claimsThatAreCorrectType.add(claim);
-            }
-            if (claimType.equalsIgnoreCase("admin") && claim.isAdminClaim()) {
-                claimsThatAreCorrectType.add(claim);
-            }
-            if (claimType.equalsIgnoreCase("sub-claim") && claim.parent != null) {
-                claimsThatAreCorrectType.add(claim);
-            }
-            if (claimType.equalsIgnoreCase("all")) {
-                claimsThatAreCorrectType.add(claim);
-            }
-        }
-        List<Number> claimIDs = new ArrayList<>();
-        for (Claim claim : claimsThatAreCorrectType) {
-            if (location != null) {
-                if (claim.contains(location.getSingle(e), true, false)) {
-                    claimIDs.add(claim.getID());
-                }
-            } else if (player != null) {
-                if (claim.ownerID.equals(player.getSingle(e).getUniqueId())) {
-                    claimIDs.add(claim.getID());
-                }
-            } else {
-                claimIDs.add(claim.getID());
-            }
+            claims.addAll(claim.children);
         }
 
-        return claimIDs.toArray(new Number[claimIDs.size()]);
+        if (claimType.equalsIgnoreCase("normal"))
+            claims = claims.stream().filter(claim -> !claim.isAdminClaim() && claim.parent == null).collect(Collectors.toList());
+        else if (claimType.equalsIgnoreCase("admin"))
+            claims = claims.stream().filter(Claim::isAdminClaim).collect(Collectors.toList());
+        else if (claimType.equalsIgnoreCase("sub-claim"))
+            claims = claims.stream().filter(claim -> claim.parent != null).collect(Collectors.toList());
+
+        if (location != null)
+            claims = claims.stream().filter(claim -> claim.contains(location.getSingle(e), true, false)).collect(Collectors.toList());
+        else if (player != null)
+            claims = claims.stream().filter(claim -> claim.ownerID.equals(player.getSingle(e).getUniqueId())).collect(Collectors.toList());
+
+        return claims.stream().map(Claim::getID).toArray(Number[]::new);
     }
 
 }

@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.griefprevention;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -8,7 +7,7 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import me.ryanhamshire.GriefPrevention.GriefPrevention;
+import me.ryanhamshire.GriefPrevention.Claim;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
@@ -37,19 +36,15 @@ public class ExprClaimHeight extends SimpleExpression<Number> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "height of claim with id " + id.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "height of claim with id " + id.toString(e, b);
     }
 
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        if (id.getSingle(e) != null) {
-            return new Number[]{GriefPrevention.instance.dataStore.getClaim(id.getSingle(e).longValue()).getHeight()};
-        } else {
-            Skript.error("Must provide a number, please refer to the syntax");
-            return null;
-        }
+        Claim claim = GriefPreventionRegister.getClaim(id.getSingle(e).longValue());
+        return claim == null ? null : new Number[]{claim.getHeight()};
     }
 
 }

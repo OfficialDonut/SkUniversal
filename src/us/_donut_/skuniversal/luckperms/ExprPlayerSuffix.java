@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.luckperms;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -9,6 +8,7 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import me.lucko.luckperms.LuckPerms;
+import me.lucko.luckperms.api.User;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
@@ -39,19 +39,15 @@ public class ExprPlayerSuffix extends SimpleExpression<String> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "luckperms suffix of player";
+    public String toString(@Nullable Event e, boolean b) {
+        return "luckperms suffix of player " + player.toString(e, b);
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-        if (player.getSingle(e) != null) {
-            return new String[]{LuckPerms.getApi().getUser(player.getSingle(e).getUniqueId()).getCachedData().getMetaData(LuckPerms.getApi().getContextsForPlayer(player.getSingle(e))).getSuffix()};
-        } else {
-            Skript.error("Must provide a player, please refer to the syntax");
-            return null;
-        }
+        User user = LuckPerms.getApi().getUser(player.getSingle(e).getUniqueId());
+        return user == null ? null : new String[]{user.getCachedData().getMetaData(LuckPerms.getApi().getContextsForPlayer(player.getSingle(e))).getSuffix()};
     }
 
 }

@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.griefprevention;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -10,6 +9,7 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
+import me.ryanhamshire.GriefPrevention.Claim;
 import me.ryanhamshire.GriefPrevention.GriefPrevention;
 import org.bukkit.event.Event;
 
@@ -40,19 +40,15 @@ public class ExprExplosionStatus extends SimpleExpression<Boolean> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "explosion status of claim with id " + id.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "explosion status of claim with id " + id.toString(e, b);
     }
 
     @Override
     @Nullable
     protected Boolean[] get(Event e) {
-        if (id.getSingle(e) != null) {
-            return new Boolean[]{GriefPrevention.instance.dataStore.getClaim(id.getSingle(e).longValue()).areExplosivesAllowed};
-        } else {
-            Skript.error("Must provide a number, please refer to the syntax");
-            return null;
-        }
+        Claim claim = GriefPreventionRegister.getClaim(id.getSingle(e).longValue());
+        return claim == null ? null : new Boolean[]{claim.areExplosivesAllowed};
     }
 
     @Override

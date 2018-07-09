@@ -38,7 +38,7 @@ public class ExprTagger extends SimpleExpression<Player> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
+    public String toString(@Nullable Event e, boolean b) {
         return "the tagger";
     }
 

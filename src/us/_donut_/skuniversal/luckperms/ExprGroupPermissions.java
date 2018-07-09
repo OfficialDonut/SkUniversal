@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.luckperms;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -16,8 +15,6 @@ import me.lucko.luckperms.api.Node;
 import org.bukkit.event.Event;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Name("LuckPerms - Permissions of Group")
 @Description("Returns the permissions of a group.")
@@ -44,28 +41,22 @@ public class ExprGroupPermissions extends SimpleExpression<String> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "luckperms permissions of group";
+    public String toString(@Nullable Event e, boolean b) {
+        return "luckperms permissions of group " + group.toString(e, b);
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-        if (group.getSingle(e) != null) {
-            List<String> perms = new ArrayList<>();
-            for (Node node : LuckPerms.getApi().getGroup(group.getSingle(e)).getPermissions()) {
-                perms.add(node.getPermission());
-            }
-            return perms.toArray(new String[perms.size()]);
-        } else {
-            Skript.error("Must provide a string, please refer to the syntax");
-            return null;
-        }
+        Group lpGroup = LuckPerms.getApi().getGroup(group.getSingle(e));
+        return lpGroup == null ? null : lpGroup.getPermissions().stream().map(Node::getPermission).toArray(String[]::new);
     }
 
     @Override
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){
         Group groupBeingChanged = LuckPerms.getApi().getGroup(group.getSingle(e));
+        if (groupBeingChanged == null)
+            return;
         if (mode == Changer.ChangeMode.RESET) {
             groupBeingChanged.clearNodes();
         } else if (mode == Changer.ChangeMode.DELETE) {

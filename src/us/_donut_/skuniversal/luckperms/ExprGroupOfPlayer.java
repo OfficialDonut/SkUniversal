@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.luckperms;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -42,25 +41,23 @@ public class ExprGroupOfPlayer extends SimpleExpression<String> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "luckperms group of player";
+    public String toString(@Nullable Event e, boolean b) {
+        return "luckperms group of player " + player.toString(e, b);
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-        if (player.getSingle(e) != null) {
-            return new String[]{LuckPerms.getApi().getUser(player.getSingle(e).getUniqueId()).getPrimaryGroup()};
-        } else {
-            Skript.error("Must provide a player, please refer to the syntax");
-            return null;
-        }
+        User user = LuckPerms.getApi().getUser(player.getSingle(e).getUniqueId());
+        return user == null ? null : new String[]{user.getPrimaryGroup()};
     }
 
     @Override
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){
         if (mode == Changer.ChangeMode.SET) {
             User user = LuckPerms.getApi().getUser(player.getSingle(e).getUniqueId());
+            if (user == null)
+                return;
             user.setPrimaryGroup((String) delta[0]);
             LuckPerms.getApi().getStorage().saveUser(user);
         }

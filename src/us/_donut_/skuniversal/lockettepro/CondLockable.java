@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.lockettepro;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -30,16 +29,11 @@ public class CondLockable extends Condition {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "block " + block.getSingle(e) + " is lockable";
+        return "block " + block.toString(e, b) + " is lockable";
     }
 
     @Override
     public boolean check(Event e) {
-        if (block.getSingle(e) != null) {
-            return LocketteProAPI.isLockable(block.getSingle(e));
-        } else {
-            Skript.error("Must provide a player, please refer to the syntax");
-            return false;
-        }
+        return LocketteProAPI.isLockable(block.getSingle(e));
     }
 }

@@ -1,7 +1,6 @@
 package us._donut_.skuniversal.minepacks;
 
 import at.pcgamingfreaks.MinePacks.MinePacks;
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -30,22 +29,14 @@ public class EffRemoveItem extends Effect {
         return true;
     }
     @Override
-    public String toString(@Nullable Event e, boolean paramBoolean) {
-        return "remove item " + item.getSingle(e) + " from backpack of player " + player.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "remove item " + item.toString(e, b) + " from backpack of player " + player.toString(e, b);
     }
 
     @Override
     protected void execute(Event e) {
-        if (player.getSingle(e) != null) {
-            if (item != null) {
-                MinePacks mp = MinePacks.getInstance();
-                mp.DB.getBackpack(player.getSingle(e)).getInventory().removeItem((ItemStack) item.getSingle(e));
-                mp.DB.getBackpack(player.getSingle(e)).save();
-            } else {
-                Skript.error("Must provide an item, please refer to the syntax");
-            }
-        } else {
-            Skript.error("Must provide a player, please refer to the syntax");
-        }
+        MinePacks mp = MinePacks.getInstance();
+        mp.DB.getBackpack(player.getSingle(e)).getInventory().removeItem((ItemStack) item.getSingle(e));
+        mp.DB.getBackpack(player.getSingle(e)).save();
     }
 }

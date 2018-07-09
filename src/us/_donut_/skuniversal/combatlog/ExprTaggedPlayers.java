@@ -12,9 +12,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 @Name("CombatLog - Tagged Players")
 @Description("Returns the currently tagged players.")
@@ -38,7 +35,7 @@ public class ExprTaggedPlayers extends SimpleExpression<Player> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
+    public String toString(@Nullable Event e, boolean b) {
         return "the tagged players";
     }
 
@@ -46,10 +43,6 @@ public class ExprTaggedPlayers extends SimpleExpression<Player> {
     @Nullable
     protected Player[] get(Event e) {
         CombatLog cl = (CombatLog) Bukkit.getPluginManager().getPlugin("CombatLog");
-        List<Player> players = new ArrayList<>();
-        for (Map.Entry<String, Long> entry : cl.taggedPlayers.entrySet()) {
-            players.add(Bukkit.getServer().getPlayer(entry.getKey()));
-        }
-        return players.toArray(new Player[players.size()]);
+        return cl.taggedPlayers.keySet().stream().map(Bukkit::getPlayer).toArray(Player[]::new);
     }
 }

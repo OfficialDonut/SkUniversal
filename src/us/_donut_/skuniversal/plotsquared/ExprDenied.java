@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.plotsquared;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -12,15 +11,10 @@ import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import com.intellectualcrafters.plot.api.PlotAPI;
 import com.intellectualcrafters.plot.object.Plot;
-import com.intellectualcrafters.plot.object.PlotId;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 @Name("PlotSquared - Denied Players of Plot")
 @Description("Returns the denied players of a plot.")
@@ -48,54 +42,27 @@ public class ExprDenied extends SimpleExpression<OfflinePlayer> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "denied players of plot with id " + id.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "denied players of plot with id " + id.toString(e, b);
     }
 
     @Override
     @Nullable
     protected OfflinePlayer[] get(Event e) {
-        if (id.getSingle(e) != null) {
-            List<OfflinePlayer> denied = new ArrayList<>();
-            PlotId plotId = PlotId.fromString(id.getSingle(e));
-            if (plotId == null) {
-                Skript.error("Invalid plot ID, please refer to the syntax");
-                return null;
-            } else {
-                for (Plot aPlot : plot.getAllPlots()) {
-                    if (aPlot.getId().equals(plotId)) {
-                        for (UUID p : aPlot.getDenied()) {
-                            denied.add(Bukkit.getOfflinePlayer(p));
-                        }
-                        return denied.toArray(new OfflinePlayer[denied.size()]);
-                    }
-                }
-                Skript.error("Invalid plot ID, please refer to the syntax");
-                return null;
-            }
-        } else {
-            Skript.error("Must provide a location, please refer to the syntax");
-            return null;
-        }
+        Plot plot = PlotSquaredRegister.getPlot(id.getSingle(e));
+        return plot == null ? null : plot.getDenied().stream().map(Bukkit::getOfflinePlayer).toArray(OfflinePlayer[]::new);
     }
 
     @Override
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){
         OfflinePlayer player = (OfflinePlayer) delta[0];
+        Plot plot = PlotSquaredRegister.getPlot(id.getSingle(e));
+        if (plot == null)
+            return;
         if (mode == Changer.ChangeMode.ADD) {
-            PlotId plotId = PlotId.fromString(id.getSingle(e));
-            for (Plot aPlot : plot.getAllPlots()) {
-                if (aPlot.getId().equals(plotId)) {
-                    aPlot.addDenied(player.getUniqueId());
-                }
-            }
+           plot.addDenied(player.getUniqueId());
         } else if (mode == Changer.ChangeMode.REMOVE) {
-            PlotId plotId = PlotId.fromString(id.getSingle(e));
-            for (Plot aPlot : plot.getAllPlots()) {
-                if (aPlot.getId().equals(plotId)) {
-                    aPlot.removeDenied(player.getUniqueId());
-                }
-            }
+            plot.removeDenied(player.getUniqueId());
         }
     }
     @Override

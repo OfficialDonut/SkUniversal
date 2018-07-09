@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.plotsquared;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -8,15 +7,11 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import com.intellectualcrafters.plot.api.PlotAPI;
 import com.intellectualcrafters.plot.flag.Flag;
 import com.intellectualcrafters.plot.object.Plot;
-import com.intellectualcrafters.plot.object.PlotId;
 import org.bukkit.event.Event;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Name("PlotSquared - Plot Flags")
 @Description("Returns the set flags in a plot.")
@@ -43,35 +38,14 @@ public class ExprPlotFlags extends SimpleExpression<String> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "flags of plot of with id " + id.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "flags of plot of with id " + id.toString(e, b);
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-        if (id.getSingle(e) != null) {
-            List<String> flags = new ArrayList<>();
-            PlotAPI plot = new PlotAPI();
-            PlotId plotId = PlotId.fromString(id.getSingle(e));
-            if (plotId == null) {
-                Skript.error("Invalid plot ID, please refer to the syntax");
-                return null;
-            } else {
-                for (Plot aPlot : plot.getAllPlots()) {
-                    if (aPlot.getId().equals(plotId)) {
-                        for (Flag<?> flag : aPlot.getFlags().keySet()) {
-                            flags.add(flag.getName());
-                        }
-                        return flags.toArray(new String[flags.size()]);
-                    }
-                }
-                Skript.error("Invalid plot ID, please refer to the syntax");
-                return null;
-            }
-        } else {
-            Skript.error("Must provide a string, please refer to the syntax");
-            return null;
-        }
+        Plot plot = PlotSquaredRegister.getPlot(id.getSingle(e));
+        return plot == null ? null : plot.getFlags().keySet().stream().map(Flag::getName).toArray(String[]::new);
     }
 }

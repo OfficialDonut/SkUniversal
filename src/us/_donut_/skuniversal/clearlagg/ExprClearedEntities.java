@@ -12,7 +12,6 @@ import me.minebuilders.clearlag.events.EntityRemoveEvent;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
-import java.util.List;
 
 @Name("ClearLagg - Cleared Entities")
 @Description("Returns list of the cleared entities on Removed Entities event.")
@@ -39,17 +38,13 @@ public class ExprClearedEntities extends SimpleExpression<Entity> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
+    public String toString(@Nullable Event e, boolean b) {
         return "the entities cleared";
     }
 
     @Override
     @Nullable
     protected Entity[] get(Event e) {
-        if (((EntityRemoveEvent)e).getEntityList().isEmpty()) {
-            return null;
-        }
-        List<Entity> entities = ((EntityRemoveEvent)e).getEntityList();
-        return entities.toArray(new Entity[entities.size()]);
+        return ((EntityRemoveEvent)e).getEntityList().toArray(new Entity[0]);
     }
 }

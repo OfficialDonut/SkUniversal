@@ -28,12 +28,11 @@ public class CondInParty extends Condition {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "player is in a party";
+        return "player " + player.toString(e, b) + " is in a party";
     }
 
     @Override
     public boolean check(Event e) {
-        PartiesAPI parties = new PartiesAPI();
-        return parties.haveParty(player.getSingle(e).getUniqueId());
+        return new PartiesAPI().haveParty(player.getSingle(e).getUniqueId());
     }
 }

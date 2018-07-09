@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.parties;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -30,21 +29,12 @@ public class EffAddToParty extends Effect {
         return true;
     }
     @Override
-    public String toString(@Nullable Event e, boolean paramBoolean) {
-        return "add player " + player.getSingle(e) + "to party named " + name.getSingle(e) ;
+    public String toString(@Nullable Event e, boolean b) {
+        return "add player " + player.toString(e, b) + "to party named " + name.toString(e, b);
     }
 
     @Override
     protected void execute(Event e) {
-        if (player.getSingle(e) != null) {
-            if (name.getSingle(e) != null) {
-                PartiesAPI parties = new PartiesAPI();
-                parties.addPlayerInParty(player.getSingle(e), name.getSingle(e));
-            } else {
-                Skript.error("Must provide a string, please refer to the syntax");
-            }
-        } else {
-            Skript.error("Must provide a player, please refer to the syntax");
-        }
+        new PartiesAPI().addPlayerInParty(player.getSingle(e), name.getSingle(e));
     }
 }

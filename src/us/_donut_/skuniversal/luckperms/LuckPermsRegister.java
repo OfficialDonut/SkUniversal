@@ -43,7 +43,7 @@ public class LuckPermsRegister {
             }
         }, 0);
 
-        Skript.registerEvent("LuckPerms - Demote Event", SkUniversalEvent.class, BukkitUserPromoteEvent.class, "[LuckPerm[s]] [player] demot(e|ion)")
+        Skript.registerEvent("LuckPerms - Demote Event", SkUniversalEvent.class, BukkitUserDemoteEvent.class, "[LuckPerm[s]] [player] demot(e|ion)")
                 .description("Called when a player is demoted.")
                 .examples("on luckperms demote:", "\tbroadcast \"%event-player% was demoted from %event-string% to %luckperms group of player%!\"");
         EventValues.registerEventValue(BukkitUserDemoteEvent.class, OfflinePlayer.class, new Getter<OfflinePlayer, BukkitUserDemoteEvent>() {

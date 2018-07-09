@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.luckperms;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -33,27 +32,17 @@ public class EffAddPrefix extends Effect {
         return true;
     }
     @Override
-    public String toString(@Nullable Event e, boolean paramBoolean) {
-        return "add prefix with priority to player";
+    public String toString(@Nullable Event e, boolean b) {
+        return "add prefix " + prefix.toString(e, b) + " with priority " + priority.toString(e, b) + " to player " + player.toString(e, b);
     }
 
     @Override
     protected void execute(Event e) {
-        if (prefix.getSingle(e) != null) {
-            if (priority.getSingle(e) != null) {
-                if (player != null) {
-                    User user = LuckPerms.getApi().getUser(player.getSingle(e).getUniqueId());
-                    user.setPermission(LuckPerms.getApi().getNodeFactory().makePrefixNode(priority.getSingle(e).intValue(), prefix.getSingle(e)).build());
-                    LuckPerms.getApi().getStorage().saveUser(user);
-                } else {
-                    Skript.error("Must provide a player, please refer to the syntax");
-                }
-            } else {
-                Skript.error("Must provide a number, please refer to the syntax");
-            }
-        } else {
-            Skript.error("Must provide a string, please refer to the syntax");
-        }
+        User user = LuckPerms.getApi().getUser(player.getSingle(e).getUniqueId());
+        if (user == null)
+            return;
+        user.setPermission(LuckPerms.getApi().getNodeFactory().makePrefixNode(priority.getSingle(e).intValue(), prefix.getSingle(e)).build());
+        LuckPerms.getApi().getStorage().saveUser(user);
     }
 
 }

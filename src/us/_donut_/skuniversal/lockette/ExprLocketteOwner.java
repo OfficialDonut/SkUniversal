@@ -1,4 +1,4 @@
-package us._donut_.skuniversal.griefprevention;
+package us._donut_.skuniversal.lockette;
 
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -7,18 +7,19 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import me.ryanhamshire.GriefPrevention.Claim;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.block.Block;
 import org.bukkit.event.Event;
+import org.yi.acru.bukkit.Lockette.Lockette;
 import javax.annotation.Nullable;
 
-@Name("GriefPrevention - Claim Owner")
-@Description("Returns the owner of a claim.")
-@Examples({"send \"%the owner of the claim with id (id of the basic claim at player)%\""})
-public class ExprOwnerOfClaim extends SimpleExpression<OfflinePlayer> {
+@Name("Lockette - Block Owner")
+@Description("Returns the owner of a block.")
+@Examples({"send \"%owner of the clicked block%\""})
+public class ExprLocketteOwner extends SimpleExpression<OfflinePlayer> {
 
-    private Expression<Number> id;
+    private Expression<Block> block;
 
     @Override
     public boolean isSingle() {
@@ -33,19 +34,18 @@ public class ExprOwnerOfClaim extends SimpleExpression<OfflinePlayer> {
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] e, int i, Kleenean kl, SkriptParser.ParseResult pr) {
-        id = (Expression<Number>) e[0];
+        block = (Expression<Block>) e[0];
         return true;
     }
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "owner of claim with id " + id.toString(e, b);
+        return "owner of block " + block.toString(e, b);
     }
 
     @Override
     @Nullable
     protected OfflinePlayer[] get(Event e) {
-        Claim claim = GriefPreventionRegister.getClaim(id.getSingle(e).longValue());
-        return claim == null ? null : new OfflinePlayer[]{Bukkit.getOfflinePlayer(claim.getOwnerName())};
+        return new OfflinePlayer[]{Bukkit.getOfflinePlayer(Lockette.getProtectedOwnerUUID(block.getSingle(e)))};
     }
 }

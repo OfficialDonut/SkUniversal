@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.luckperms;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -17,8 +16,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Name("LuckPerms - Permissions of Player")
 @Description("Returns the permissions of a player.")
@@ -45,28 +42,22 @@ public class ExprPlayerPermissions extends SimpleExpression<String> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "luckperms permissions of player";
+    public String toString(@Nullable Event e, boolean b) {
+        return "luckperms permissions of player " + player.toString(e, b);
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-        if (player.getSingle(e) != null) {
-            List<String> perms = new ArrayList<>();
-            for (Node node : LuckPerms.getApi().getUser(player.getSingle(e).getUniqueId()).getPermissions()) {
-                perms.add(node.getPermission());
-            }
-            return perms.toArray(new String[perms.size()]);
-        } else {
-            Skript.error("Must provide a player, please refer to the syntax");
-            return null;
-        }
+        User user = LuckPerms.getApi().getUser(player.getSingle(e).getUniqueId());
+        return user == null ? null : user.getPermissions().stream().map(Node::getPermission).toArray(String[]::new);
     }
 
     @Override
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){
         User user = LuckPerms.getApi().getUser(player.getSingle(e).getUniqueId());
+        if (user == null)
+            return;
         if (mode == Changer.ChangeMode.RESET) {
             user.clearNodes();
         } else if (mode == Changer.ChangeMode.DELETE) {

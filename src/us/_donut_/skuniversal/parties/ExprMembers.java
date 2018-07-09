@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.parties;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -13,9 +12,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 @Name("Parties - Party Members")
 @Description("Returns the members of a party.")
@@ -42,24 +38,13 @@ public class ExprMembers extends SimpleExpression<OfflinePlayer> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "members of party named " + name.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "members of party named " + name.toString(e, b);
     }
 
     @Override
     @Nullable
     protected OfflinePlayer[] get(Event e) {
-        if (name.getSingle(e) != null) {
-            PartiesAPI parties = new PartiesAPI();
-            List<UUID> playerUUIDs = parties.getPartyMembers(name.getSingle(e));
-            List<OfflinePlayer> players = new ArrayList<>();
-            for (UUID p : playerUUIDs) {
-                players.add(Bukkit.getOfflinePlayer(p));
-            }
-            return players.toArray(new OfflinePlayer[players.size()]);
-        } else {
-            Skript.error("Must provide a string, please refer to the syntax");
-            return null;
-        }
+        return new PartiesAPI().getPartyMembers(name.getSingle(e)).stream().map(Bukkit::getOfflinePlayer).toArray(OfflinePlayer[]::new);
     }
 }

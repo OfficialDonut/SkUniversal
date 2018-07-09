@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.playerpoints;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -44,19 +43,14 @@ public class ExprPointsBalance extends SimpleExpression<Number> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "the player points balance of player " + player.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "the player points balance of player " + player.toString(e, b);
     }
 
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        if (player.getSingle(e) != null) {
-            return new Number[]{ playerPointsAPI.look(player.getSingle(e).getUniqueId()) };
-        } else {
-            Skript.error("Must provide a player, please refer to the syntax");
-            return null;
-        }
+        return new Number[]{ playerPointsAPI.look(player.getSingle(e).getUniqueId()) };
     }
 
     @Override

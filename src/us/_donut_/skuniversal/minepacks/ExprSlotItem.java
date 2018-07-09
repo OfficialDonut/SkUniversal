@@ -1,7 +1,6 @@
 package us._donut_.skuniversal.minepacks;
 
 import at.pcgamingfreaks.MinePacks.MinePacks;
-import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -20,6 +19,7 @@ import javax.annotation.Nullable;
 @Description("Returns the item in a backpack slot.")
 @Examples({"send \"%the item in slot 5 of backpack of player%\""})
 public class ExprSlotItem extends SimpleExpression<ItemStack> {
+
     private MinePacks mp = MinePacks.getInstance();
     private Expression<Integer> slotNum;
     private Expression<Player> player;
@@ -43,24 +43,14 @@ public class ExprSlotItem extends SimpleExpression<ItemStack> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "item in slot " + slotNum + " of backpack of player " + player.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "item in slot " + slotNum.toString(e, b) + " of backpack of player " + player.toString(e, b);
     }
 
     @Override
     @Nullable
     protected ItemStack[] get(Event e) {
-        if (player.getSingle(e) != null) {
-            if (slotNum != null) {
-                return new ItemStack[]{mp.DB.getBackpack(player.getSingle(e)).getInventory().getItem(slotNum.getSingle(e))};
-            } else {
-                Skript.error("Must provide an integer, please refer to the syntax");
-                return null;
-            }
-        } else {
-            Skript.error("Must provide a player, please refer to the syntax");
-            return null;
-        }
+        return new ItemStack[]{mp.DB.getBackpack(player.getSingle(e)).getInventory().getItem(slotNum.getSingle(e))};
     }
 
     @Override

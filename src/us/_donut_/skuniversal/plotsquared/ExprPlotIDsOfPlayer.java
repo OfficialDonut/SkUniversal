@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.plotsquared;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -8,13 +7,9 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import com.intellectualcrafters.plot.api.PlotAPI;
-import com.intellectualcrafters.plot.object.Plot;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Name("PlotSquared - Plot IDs of Player")
 @Description("Returns the plot IDs of a player.")
@@ -41,24 +36,14 @@ public class ExprPlotIDsOfPlayer extends SimpleExpression<String> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "ids of plots of player " + player.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "ids of plots of player " + player.toString(e, b);
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-        PlotAPI plot = new PlotAPI();
-        if (player.getSingle(e) != null) {
-            List<String> ids = new ArrayList<>();
-            for (Plot aPlot : plot.getPlotSquared().getPlots(player.getSingle(e).getUniqueId())) {
-                ids.add(aPlot.getId().toString());
-            }
-            return ids.toArray(new String[ids.size()]);
-        } else {
-            Skript.error("Must provide a player, please refer to the syntax");
-            return null;
-        }
+        return PlotSquaredRegister.plotAPI.getPlotSquared().getPlots(player.getSingle(e).getUniqueId()).stream().map(plot -> plot.getId().toString()).toArray(String[]::new);
     }
 
 }

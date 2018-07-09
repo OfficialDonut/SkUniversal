@@ -12,8 +12,6 @@ import me.lucko.luckperms.api.Group;
 import org.bukkit.event.Event;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Name("LuckPerms - All Groups")
 @Description("Returns the names of all groups.")
@@ -44,11 +42,7 @@ public class ExprAllGroups extends SimpleExpression<String> {
     @Override
     @Nullable
     protected String[] get(Event e) {
-        List<String> groups = new ArrayList<>();
-        for (Group group : LuckPerms.getApi().getGroups()) {
-            groups.add(group.getName());
-        }
-        return groups.toArray(new String[groups.size()]);
+        return LuckPerms.getApi().getGroups().stream().map(Group::getName).toArray(String[]::new);
     }
 
 }

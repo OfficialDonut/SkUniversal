@@ -4,6 +4,8 @@ import ch.njol.skript.Skript;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.registrations.EventValues;
 import ch.njol.skript.util.Getter;
+import me.ryanhamshire.GriefPrevention.Claim;
+import me.ryanhamshire.GriefPrevention.GriefPrevention;
 import me.ryanhamshire.GriefPrevention.events.*;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -15,16 +17,16 @@ public class GriefPreventionRegister {
 
     public GriefPreventionRegister() {
         //Expressions
-        Skript.registerExpression(ExprClaimIDs.class, Number.class, ExpressionType.SIMPLE, "[[the] ID[s] of] [all [of]] [the] [G[rief]P[revention]] (0¦(basic|normal) |1¦admin |2¦sub[(-| )]|3¦)claim[s] [(4¦at %location%|8¦of %offlineplayer%)]");
-        Skript.registerExpression(ExprClaimType.class, String.class, ExpressionType.SIMPLE, "[the] [claim] type of [G[rief]P[revention]] claim [with id] %number%");
-        Skript.registerExpression(ExprClaimWorld.class, World.class, ExpressionType.SIMPLE, "[the] world of [G[rief]P[revention]] claim [with id] %number%");
-        Skript.registerExpression(ExprExplosionStatus.class, Boolean.class, ExpressionType.SIMPLE, "[the] explosion[s] status of [the] [G[rief]P[revention]] claim [with id] %number%");
-        Skript.registerExpression(ExprTrustedPlayers.class, OfflinePlayer.class, ExpressionType.SIMPLE, "(0¦builder|1¦container|2¦access|3¦manager) trusted [players] (of|on) [G[rief]P[revention]] claim [with id] %number%");
-        Skript.registerExpression(ExprOwnerOfClaim.class, OfflinePlayer.class, ExpressionType.SIMPLE, "[the] owner of [the] [G[rief]P[revention]] claim [with id] %number%");
-        Skript.registerExpression(ExprLesserCorner.class, Location.class, ExpressionType.SIMPLE, "[the] lesser boundary corner [loc[ation]] of [the] [G[rief]P[revention]] claim [with id] %number%");
-        Skript.registerExpression(ExprGreaterCorner.class, Location.class, ExpressionType.SIMPLE, "[the] greater boundary corner [loc[ation]] of [the] [G[rief]P[revention]] claim [with id] %number%");
-        Skript.registerExpression(ExprClaimWidth.class, Number.class, ExpressionType.SIMPLE, "[the] width of [the] [G[rief]P[revention]] claim [with id] %number%");
-        Skript.registerExpression(ExprClaimHeight.class, Number.class, ExpressionType.SIMPLE, "[the] height of [the] [G[rief]P[revention]] claim [with id] %number%");
+        Skript.registerExpression(ExprClaimIDs.class, Number.class, ExpressionType.COMBINED, "[[the] ID[s] of] [all [of]] [the] [G[rief]P[revention]] (0¦(basic|normal) |1¦admin |2¦sub[(-| )]|3¦)claim[s] [(4¦at %location%|8¦of %offlineplayer%)]");
+        Skript.registerExpression(ExprClaimType.class, String.class, ExpressionType.COMBINED, "[the] [claim] type of [G[rief]P[revention]] claim [with id] %number%");
+        Skript.registerExpression(ExprClaimWorld.class, World.class, ExpressionType.COMBINED, "[the] world of [G[rief]P[revention]] claim [with id] %number%");
+        Skript.registerExpression(ExprExplosionStatus.class, Boolean.class, ExpressionType.COMBINED, "[the] explosion[s] status of [the] [G[rief]P[revention]] claim [with id] %number%");
+        Skript.registerExpression(ExprTrustedPlayers.class, OfflinePlayer.class, ExpressionType.COMBINED, "(0¦builder|1¦container|2¦access|3¦manager) trusted [players] (of|on) [G[rief]P[revention]] claim [with id] %number%");
+        Skript.registerExpression(ExprOwnerOfClaim.class, OfflinePlayer.class, ExpressionType.COMBINED, "[the] owner of [the] [G[rief]P[revention]] claim [with id] %number%");
+        Skript.registerExpression(ExprLesserCorner.class, Location.class, ExpressionType.COMBINED, "[the] lesser boundary corner [loc[ation]] of [the] [G[rief]P[revention]] claim [with id] %number%");
+        Skript.registerExpression(ExprGreaterCorner.class, Location.class, ExpressionType.COMBINED, "[the] greater boundary corner [loc[ation]] of [the] [G[rief]P[revention]] claim [with id] %number%");
+        Skript.registerExpression(ExprClaimWidth.class, Number.class, ExpressionType.COMBINED, "[the] width of [the] [G[rief]P[revention]] claim [with id] %number%");
+        Skript.registerExpression(ExprClaimHeight.class, Number.class, ExpressionType.COMBINED, "[the] height of [the] [G[rief]P[revention]] claim [with id] %number%");
         Skript.registerExpression(ExprAccruedClaimBlocks.class, Number.class, ExpressionType.COMBINED, "[the] [G[rief]P[revention]] accrued claim blocks of %offlineplayer%", "%offlineplayer%'s [G[rief]P[revention]] accrued claim blocks");
         Skript.registerExpression(ExprClaimBlockLimit.class, Number.class, ExpressionType.COMBINED, "[the] [G[rief]P[revention]] claim block limit of %offlineplayer%", "%offlineplayer%'s [G[rief]P[revention]] claim block limit");
         Skript.registerExpression(ExprRemainingClaimBlocks.class, Number.class, ExpressionType.COMBINED, "[the] remaining [G[rief]P[revention]] claim blocks of %offlineplayer%", "%offlineplayer%'s remaining [G[rief]P[revention]] claim blocks");
@@ -79,4 +81,16 @@ public class GriefPreventionRegister {
         }, 0);
     }
 
+    static Claim getClaim(long id) {
+        Claim claim = GriefPrevention.instance.dataStore.getClaim(id);
+        if (claim != null)
+            return claim;
+        for (Claim aClaim : GriefPrevention.instance.dataStore.getClaims()) {
+            for (Claim childClaim : aClaim.children) {
+                if (childClaim.getID() == id)
+                    return childClaim;
+            }
+        }
+        return null;
+    }
 }

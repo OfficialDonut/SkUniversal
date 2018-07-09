@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.combatlog;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -30,17 +29,12 @@ public class CondTagged extends Condition {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "player " + player.getSingle(e) + " is tagged";
+        return "player " + player.toString(e, b) + " is tagged";
     }
 
     @Override
     public boolean check(Event e) {
-        if (player.getSingle(e) != null) {
-            CombatLog cl = ((CombatLog) Bukkit.getPluginManager().getPlugin("CombatLog"));
-            return !cl.taggedPlayers.isEmpty() && cl.taggedPlayers.containsKey(player.getSingle(e).getName());
-        } else {
-            Skript.error("Must provide a player, please refer to the syntax");
-            return false;
-        }
+        CombatLog cl = ((CombatLog) Bukkit.getPluginManager().getPlugin("CombatLog"));
+        return cl.taggedPlayers.containsKey(player.getSingle(e).getName());
     }
 }

@@ -27,7 +27,7 @@ public class CondPartyExists extends Condition {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "party exists";
+        return "party " + name.toString(e, b) + " exists";
     }
 
     @Override

@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.luckperms;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -42,33 +41,28 @@ public class ExprGroupWeight extends SimpleExpression<Number> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "luckperms weight of group";
+    public String toString(@Nullable Event e, boolean b) {
+        return "luckperms weight of group " + group.toString(e, b);
     }
 
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        if (group.getSingle(e) != null) {
-            if (LuckPerms.getApi().getGroup(group.getSingle(e)).getWeight().isPresent()) {
-                return new Number[]{LuckPerms.getApi().getGroup(group.getSingle(e)).getWeight().getAsInt()};
-            } else {
-                return new Number[]{0};
-            }
-        } else {
-            Skript.error("Must provide a string, please refer to the syntax");
+        Group lpGroup = LuckPerms.getApi().getGroup(group.getSingle(e));
+        if (lpGroup == null)
             return null;
-        }
+        return lpGroup.getWeight().isPresent() ? null : new Number[]{lpGroup.getWeight().getAsInt()};
     }
 
     @Override
     public void change(Event e, Object[] delta, Changer.ChangeMode mode) {
         Group groupBeingChanged = LuckPerms.getApi().getGroup(group.getSingle(e));
+        if (groupBeingChanged == null)
+            return;
         if (mode == Changer.ChangeMode.SET) {
             for (Node node : groupBeingChanged.getPermissions()) {
-                if (node.getPermission().split("\\.")[0].equalsIgnoreCase("weight")) {
+                if (node.getPermission().split("\\.")[0].equalsIgnoreCase("weight"))
                     groupBeingChanged.unsetPermission(node);
-                }
             }
             groupBeingChanged.setPermission(LuckPerms.getApi().getNodeFactory().newBuilder("weight." + String.valueOf(delta[0])).build());
             LuckPerms.getApi().getStorage().saveGroup(groupBeingChanged);

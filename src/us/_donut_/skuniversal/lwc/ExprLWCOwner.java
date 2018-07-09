@@ -8,16 +8,18 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import com.griefcraft.lwc.LWC;
-import org.bukkit.entity.Player;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.block.Block;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
-@Name("LWC - Prtection Number")
-@Description("Returns the number of protections a player has.")
-@Examples({"send \"%the number of protections of player%\""})
-public class ExprProtectionNumber extends SimpleExpression<Number> {
+@Name("LWC - Owner")
+@Description("Returns the owner of a block.")
+@Examples({"send \"%the owner of the clicked block%\""})
+public class ExprLWCOwner extends SimpleExpression<OfflinePlayer> {
 
-    private Expression<Player> player;
+    private Expression<Block> block;
 
     @Override
     public boolean isSingle() {
@@ -25,25 +27,26 @@ public class ExprProtectionNumber extends SimpleExpression<Number> {
     }
 
     @Override
-    public Class<? extends Number> getReturnType() {
-        return Number.class;
+    public Class<? extends OfflinePlayer> getReturnType() {
+        return OfflinePlayer.class;
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] e, int i, Kleenean kl, SkriptParser.ParseResult pr) {
-        player = (Expression<Player>) e[0];
+        block = (Expression<Block>) e[0];
         return true;
     }
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "number of protections of player " + player.toString(e, b);
+        return "the owner of block " + block.toString(e, b);
     }
 
     @Override
     @Nullable
-    protected Number[] get(Event e) {
-        return new Number[]{LWC.getInstance().getPhysicalDatabase().getProtectionCount(player.getSingle(e).getName())};
+    protected OfflinePlayer[] get(Event e) {
+        String[] playerNameAndUUID = LWC.getInstance().findProtection(block.getSingle(e)).getFormattedOwnerPlayerName().split(" ");
+        return new OfflinePlayer[]{Bukkit.getOfflinePlayer(playerNameAndUUID[0])};
     }
 }

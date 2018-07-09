@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.parties;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -42,20 +41,14 @@ public class ExprLeader extends SimpleExpression<OfflinePlayer> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "leader of party named " + name.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "leader of party named " + name.toString(e, b);
     }
 
     @Override
     @Nullable
     protected OfflinePlayer[] get(Event e) {
-        if (name.getSingle(e) != null) {
-            PartiesAPI parties = new PartiesAPI();
-            return new OfflinePlayer[]{Bukkit.getOfflinePlayer(parties.getPartyLeader(name.getSingle(e)))};
-        } else {
-            Skript.error("Must provide a string, please refer to the syntax");
-            return null;
-        }
+        return new OfflinePlayer[]{Bukkit.getOfflinePlayer(new PartiesAPI().getPartyLeader(name.getSingle(e)))};
     }
 
     @Override

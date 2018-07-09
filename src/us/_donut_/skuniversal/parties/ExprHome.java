@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.parties;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -41,20 +40,14 @@ public class ExprHome extends SimpleExpression<Location> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "home location of party named " + name.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "home location of party named " + name.toString(e, b);
     }
 
     @Override
     @Nullable
     protected Location[] get(Event e) {
-        if (name.getSingle(e) != null) {
-            PartiesAPI parties = new PartiesAPI();
-            return new Location[]{parties.getPartyHome(name.getSingle(e))};
-        } else {
-            Skript.error("Must provide a string, please refer to the syntax");
-            return null;
-        }
+        return new Location[]{new PartiesAPI().getPartyHome(name.getSingle(e))};
     }
 
     @Override

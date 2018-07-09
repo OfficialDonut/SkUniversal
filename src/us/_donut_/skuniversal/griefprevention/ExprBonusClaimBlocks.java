@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.griefprevention;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -41,19 +40,14 @@ public class ExprBonusClaimBlocks extends SimpleExpression<Number> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "bonus claim blocks of player " + player.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "bonus claim blocks of player " + player.toString(e, b);
     }
 
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        if (player.getSingle(e) != null) {
-            return new Number[]{GriefPrevention.instance.dataStore.getPlayerData(player.getSingle(e).getUniqueId()).getBonusClaimBlocks()};
-        } else {
-            Skript.error("Must provide a player, please refer to the syntax");
-            return null;
-        }
+        return new Number[]{GriefPrevention.instance.dataStore.getPlayerData(player.getSingle(e).getUniqueId()).getBonusClaimBlocks()};
     }
 
     @Override

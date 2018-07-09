@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.griefprevention;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -8,7 +7,7 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import me.ryanhamshire.GriefPrevention.GriefPrevention;
+import me.ryanhamshire.GriefPrevention.Claim;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
@@ -23,7 +22,7 @@ import java.util.List;
 public class ExprTrustedPlayers extends SimpleExpression<OfflinePlayer> {
 
     private Expression<Number> id;
-    private ArrayList<String> trustedType;
+    private List<String> trustedType;
     private ArrayList<String> builders = new ArrayList<>();
     private ArrayList<String> containers = new ArrayList<>();
     private ArrayList<String> accessors = new ArrayList<>();
@@ -57,24 +56,22 @@ public class ExprTrustedPlayers extends SimpleExpression<OfflinePlayer> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "trusted players of claim with id " + id.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "trusted players of claim with id " + id.toString(e, b);
     }
 
     @Override
     @Nullable
     protected OfflinePlayer[] get(Event e) {
-        if (id.getSingle(e) != null) {
-            GriefPrevention.instance.dataStore.getClaim(id.getSingle(e).longValue()).getPermissions(builders, containers, accessors, managers);
-            List<OfflinePlayer> players = new ArrayList<>();
-            for (String name : trustedType) {
-                players.add(Bukkit.getOfflinePlayer(name));
-            }
-            return players.toArray(new OfflinePlayer[players.size()]);
-        } else {
-            Skript.error("Must provide a number, please refer to the syntax");
+        builders.clear();
+        containers.clear();
+        accessors.clear();
+        managers.clear();
+        Claim claim = GriefPreventionRegister.getClaim(id.getSingle(e).longValue());
+        if (claim == null)
             return null;
-        }
+        claim.getPermissions(builders, containers, accessors, managers);
+        return trustedType.stream().map(Bukkit::getOfflinePlayer).toArray(OfflinePlayer[]::new);
     }
 
 }

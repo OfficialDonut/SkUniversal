@@ -6,13 +6,9 @@ import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.util.Kleenean;
-import com.intellectualcrafters.plot.api.PlotAPI;
-import com.intellectualcrafters.plot.object.Plot;
+import ch.njol.util.Kleenean;;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Name("PlotSquared - All Plot IDs")
 @Description("Returns all plot IDs.")
@@ -43,12 +39,7 @@ public class ExprAllPlotIDs extends SimpleExpression<String> {
     @Override
     @Nullable
     protected String[] get(Event e) {
-        PlotAPI plot = new PlotAPI();
-        List<String> ids = new ArrayList<>();
-        for (Plot aPlot : plot.getAllPlots()) {
-            ids.add(aPlot.getId().toString());
-        }
-        return ids.toArray(new String[ids.size()]);
+        return PlotSquaredRegister.plotAPI.getAllPlots().stream().map(plot -> plot.getId().toString()).toArray(String[]::new);
     }
 
 }

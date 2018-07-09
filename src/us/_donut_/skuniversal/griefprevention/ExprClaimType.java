@@ -1,6 +1,5 @@
 package us._donut_.skuniversal.griefprevention;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -9,7 +8,6 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import me.ryanhamshire.GriefPrevention.Claim;
-import me.ryanhamshire.GriefPrevention.GriefPrevention;
 import org.bukkit.event.Event;
 
 import javax.annotation.Nullable;
@@ -39,25 +37,22 @@ public class ExprClaimType extends SimpleExpression<String> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "type of claim with id " + id.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "type of claim with id " + id.toString(e, b);
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-        if (id.getSingle(e) != null) {
-            Claim claim = GriefPrevention.instance.dataStore.getClaim(id.getSingle(e).longValue());
-            if (claim.isAdminClaim()) {
-                return new String[]{"admin"};
-            } else if (claim.parent != null) {
-                return  new String[]{"sub"};
-            } else {
-                return new String[]{"basic"};
-            }
-        } else {
-            Skript.error("Must provide a number, please refer to the syntax");
+        Claim claim = GriefPreventionRegister.getClaim(id.getSingle(e).longValue());
+        if (claim == null) {
             return null;
+        } else if (claim.isAdminClaim()) {
+            return new String[]{"admin"};
+        } else if (claim.parent != null) {
+            return new String[]{"sub"};
+        } else {
+            return new String[]{"basic"};
         }
     }
 

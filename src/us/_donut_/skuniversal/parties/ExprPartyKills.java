@@ -1,4 +1,4 @@
-package us._donut_.skuniversal.griefprevention;
+package us._donut_.skuniversal.parties;
 
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.Description;
@@ -9,18 +9,18 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
-import me.ryanhamshire.GriefPrevention.GriefPrevention;
-import org.bukkit.OfflinePlayer;
+import com.alessiodp.parties.Parties;
+import com.alessiodp.parties.utils.api.PartiesAPI;
 import org.bukkit.event.Event;
-
 import javax.annotation.Nullable;
 
-@Name("GriefPrevention - Accrued Claim Blocks")
-@Description("Returns the accrued claim blocks of a player.")
-@Examples({"send \"%the accrued claim blocks of player%\""})
-public class ExprAccruedClaimBlocks extends SimpleExpression<Number> {
+@Name("Parties - Party Kills")
+@Description("Returns the amount of kills of a party.")
+@Examples({"send \"%the kills of the party named \"cool\"%\""})
+public class ExprPartyKills extends SimpleExpression<Number> {
 
-    private Expression<OfflinePlayer> player;
+    PartiesAPI parties = new PartiesAPI();
+    private Expression<String> name;
 
     @Override
     public boolean isSingle() {
@@ -35,30 +35,31 @@ public class ExprAccruedClaimBlocks extends SimpleExpression<Number> {
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] e, int i, Kleenean kl, SkriptParser.ParseResult pr) {
-        player = (Expression<OfflinePlayer>) e[0];
+        name = (Expression<String>) e[0];
         return true;
     }
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "accrued claim blocks of player " + player.toString(e, b);
+        return "kills of party named " + name.toString(e, b);
     }
 
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        return new Number[]{GriefPrevention.instance.dataStore.getPlayerData(player.getSingle(e).getUniqueId()).getAccruedClaimBlocks()};
+        return new Number[]{parties.getPartyKills(name.getSingle(e))};
     }
 
     @Override
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){
-        Number blockChange = (Number) delta[0];
+        Number killsChange = (Number) delta[0];
+        Number currentKills = parties.getPartyKills(name.getSingle(e));
         if (mode == Changer.ChangeMode.SET) {
-            GriefPrevention.instance.dataStore.getPlayerData(player.getSingle(e).getUniqueId()).setAccruedClaimBlocks(blockChange.intValue());
+            Parties.getInstance().getPartyHandler().loadParty(name.getSingle(e)).setKills(killsChange.intValue());
         } else if (mode == Changer.ChangeMode.ADD) {
-            GriefPrevention.instance.dataStore.getPlayerData(player.getSingle(e).getUniqueId()).setAccruedClaimBlocks(GriefPrevention.instance.dataStore.getPlayerData(player.getSingle(e).getUniqueId()).getAccruedClaimBlocks() + blockChange.intValue());
+            Parties.getInstance().getPartyHandler().loadParty(name.getSingle(e)).setKills(currentKills.intValue()+killsChange.intValue());
         } else if (mode == Changer.ChangeMode.REMOVE) {
-            GriefPrevention.instance.dataStore.getPlayerData(player.getSingle(e).getUniqueId()).setAccruedClaimBlocks(GriefPrevention.instance.dataStore.getPlayerData(player.getSingle(e).getUniqueId()).getAccruedClaimBlocks() - blockChange.intValue());
+            Parties.getInstance().getPartyHandler().loadParty(name.getSingle(e)).setKills(currentKills.intValue()-killsChange.intValue());;
         }
     }
     @Override
@@ -68,5 +69,4 @@ public class ExprAccruedClaimBlocks extends SimpleExpression<Number> {
         }
         return null;
     }
-
 }

@@ -1,7 +1,6 @@
 package us._donut_.skuniversal.minepacks;
 
 import at.pcgamingfreaks.MinePacks.MinePacks;
-import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
@@ -13,9 +12,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @Name("MinePacks - Backpack Items")
 @Description("Returns the items in a backpack.")
@@ -42,20 +38,14 @@ public class ExprBackpackItems extends SimpleExpression<ItemStack> {
     }
 
     @Override
-    public String toString(@Nullable Event e, boolean arg1) {
-        return "contents of backpack of player " + player.getSingle(e);
+    public String toString(@Nullable Event e, boolean b) {
+        return "contents of backpack of player " + player.toString(e, b);
     }
 
     @Override
     @Nullable
     protected ItemStack[] get(Event e) {
-        if (player.getSingle(e) != null) {
-            MinePacks mp = MinePacks.getInstance();
-            List<ItemStack> items = new ArrayList<>(Arrays.asList(mp.DB.getBackpack(player.getSingle(e)).getInventory().getStorageContents()));
-            return items.toArray(new ItemStack[items.size()]);
-        } else {
-            Skript.error("Must provide a player, please refer to the syntax");
-            return null;
-        }
+        MinePacks mp = MinePacks.getInstance();
+        return mp.DB.getBackpack(player.getSingle(e)).getInventory().getStorageContents();
     }
 }
