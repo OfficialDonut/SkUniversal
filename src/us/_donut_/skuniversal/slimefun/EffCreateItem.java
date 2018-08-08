@@ -5,7 +5,7 @@ import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
-import ch.njol.skript.events.bukkit.ScriptEvent;
+import ch.njol.skript.events.bukkit.SkriptStartEvent;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -14,6 +14,7 @@ import me.mrCookieSlime.Slimefun.Lists.Categories;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
+import org.bukkit.Material;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 
@@ -34,8 +35,8 @@ public class EffCreateItem extends Effect {
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] e, int i, Kleenean kl, SkriptParser.ParseResult p) {
-        if (!ScriptLoader.isCurrentEvent(ScriptEvent.class)) {
-            Skript.error("You can not use Slimefun create item expression in any event but on script load.");
+        if (!ScriptLoader.isCurrentEvent(SkriptStartEvent.class)) {
+            Skript.error("You can not use Slimefun create item effect in any event but on skript load.");
             return false;
         }
         item = (Expression<ItemStack>) e[0];
@@ -53,18 +54,23 @@ public class EffCreateItem extends Effect {
     @Override
     protected void execute(Event e) {
         Category actualCategory;
+        RecipeType actualRecipeType;
+        ItemStack[] actualRecipe = recipe.getArray(e);
         try {
             actualCategory = (Category) Categories.class.getField(category.getSingle(e)).get(Category.class);
         } catch (NoSuchFieldException | IllegalAccessException exc) {
-            actualCategory = Categories.MISC;
+            actualCategory = SlimefunRegister.customCategories.getOrDefault(category.getSingle(e).toLowerCase(), Categories.MISC);
         }
-        RecipeType actualRecipeType;
         try {
             actualRecipeType = (RecipeType) RecipeType.class.getField(recipeType.getSingle(e)).get(RecipeType.class);
         } catch (NoSuchFieldException | IllegalAccessException exc) {
             actualRecipeType = RecipeType.ENHANCED_CRAFTING_TABLE;
         }
-        SlimefunItem slimefunItem = new SlimefunItem(actualCategory, item.getSingle(e), id.getSingle(e), actualRecipeType, recipe.getArray(e));
-        slimefunItem.register();
+        for (int i = 0; i < actualRecipe.length; i++) {
+            if (actualRecipe[i].getType() == Material.AIR) {
+                actualRecipe[i] = null;
+            }
+        }
+        new SlimefunItem(actualCategory, item.getSingle(e), id.getSingle(e), actualRecipeType, actualRecipe).register();
     }
 }

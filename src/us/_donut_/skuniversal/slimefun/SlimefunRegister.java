@@ -5,18 +5,26 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.registrations.EventValues;
 import ch.njol.skript.util.Getter;
 import me.mrCookieSlime.Slimefun.Events.ResearchUnlockEvent;
+import me.mrCookieSlime.Slimefun.Objects.Category;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import us._donut_.skuniversal.SkUniversalEvent;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SlimefunRegister {
+
+    static Map<String, Category> customCategories = new HashMap<>();
 
     public SlimefunRegister() {
         //Conditions
         Skript.registerCondition(CondHasResearch.class, "%offlineplayer% has [unlocked] [the] [Slimefun] research [with id] %integer%");
 
         //Effects
-        Skript.registerEffect(EffCreateItem.class, "create [a] [new] Slimefun item %itemstack% with id %string% in category %string% with recipe %itemstacks% with recipe type %string%");
+        Skript.registerEffect(EffCreateCategory.class, "create [a] [new] [Slimefun] category [(named|with name)] %string% with [menu] item %itemstack% with (level|priority) %integer%");
+        Skript.registerEffect(EffCreateLockedCategory.class, "create [a] [new] locked [Slimefun] category [(named|with name)] %string% with [menu] item %itemstack% with (level|priority) %integer% with required categor(y|ies) %strings%");
+        Skript.registerEffect(EffCreateItem.class, "create [a] [new] [Slimefun] item %itemstack% with id %string% in category %string% with recipe %itemstacks% with recipe type %string%");
         Skript.registerEffect(EffCreateResearch.class, "create [a] [new] [Slimefun] research with id %integer% (named|with name) %string% with (cost|level) %integer%");
         Skript.registerEffect(EffAddResearch.class, "add [the] [Slimefun] research [with id] %integer% to [the] [Slimefun] [item] [(named|with name)] %string%");
         Skript.registerEffect(EffUnlockResearch.class, "unlock [the] [Slimefun] research [with id] %integer% for %player%");
