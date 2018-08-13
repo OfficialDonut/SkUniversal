@@ -11,14 +11,15 @@ import com.nisovin.shopkeepers.api.ShopkeepersAPI;
 import com.nisovin.shopkeepers.api.shopkeeper.Shopkeeper;
 import org.bukkit.Location;
 import org.bukkit.event.Event;
+
 import javax.annotation.Nullable;
 
-@Name("Shopkeepers - Shopkeeper Location")
-@Description("Returns the location of a shopkeeper.")
-@Examples({"send \"%the location of the shopkeeper with id 1\""})
-public class ExprKeeperLoc extends SimpleExpression<Location> {
+@Name("Shopkeepers - Shopkeeper at Location")
+@Description("Returns the ID of the shopkeeper at a location.")
+@Examples({"send \"%the ID of the shopkeeper at player's location\""})
+public class ExprKeeperAtLoc extends SimpleExpression<Integer> {
 
-    private Expression<Integer> id;
+    private Expression<Location> location;
 
     @Override
     public boolean isSingle() {
@@ -26,26 +27,26 @@ public class ExprKeeperLoc extends SimpleExpression<Location> {
     }
 
     @Override
-    public Class<? extends Location> getReturnType() {
-        return Location.class;
+    public Class<? extends Integer> getReturnType() {
+        return Integer.class;
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] e, int i, Kleenean kl, SkriptParser.ParseResult pr) {
-        id = (Expression<Integer>) e[0];
+        location = (Expression<Location>) e[0];
         return true;
     }
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "location of shopkeeper with ID " + id.toString(e, b);
+        return "ID of shopkeeper at " + location.toString(e, b);
     }
 
     @Override
     @Nullable
-    protected Location[] get(Event e) {
-        Shopkeeper shopkeeper = ShopkeepersAPI.getShopkeeperRegistry().getShopkeeperById(id.getSingle(e));
-        return new Location[]{shopkeeper == null ? null : shopkeeper.getLocation()};
+    protected Integer[] get(Event e) {
+        Shopkeeper shopkeeper = ShopkeepersAPI.getShopkeeperRegistry().getShopkeepersAtLocation(location.getSingle(e)).get(0);
+        return new Integer[]{shopkeeper == null ? null : shopkeeper.getId()};
     }
 }

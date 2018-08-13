@@ -27,11 +27,13 @@ public class LuckPermsRegister {
         Skript.registerExpression(ExprGroupWeight.class, Number.class, ExpressionType.COMBINED, "[the] (priority|weight) of [the] [LuckPerm[s]] group [(named|with name)] %string%", "[the] [LuckPerm[s]] group [(named|with name)] %string%'s (priority|weight)");
         Skript.registerExpression(ExprPlayerPrefix.class, String.class, ExpressionType.COMBINED, "[the] [active] [LuckPerm[s]] prefix of %player%", "%player%'s [active] [LuckPerm[s]] prefix");
         Skript.registerExpression(ExprPlayerSuffix.class, String.class, ExpressionType.COMBINED, "[the] [active] [LuckPerm[s]] suffix of %player%", "%player%'s [active] [LuckPerm[s]] suffix");
+        Skript.registerExpression(ExprNewPlayerGroup.class, String.class, ExpressionType.SIMPLE, "[the] new [LuckPerm[s]] group [of player]", "player's new [LuckPerm[s]] group");
+        Skript.registerExpression(ExprOldPlayerGroup.class, String.class, ExpressionType.SIMPLE, "[the] old [LuckPerm[s]] group [of player]", "player's old [LuckPerm[s]] group");
 
         //Events
         Skript.registerEvent("LuckPerms - Promote Event", SkUniversalEvent.class, BukkitUserPromoteEvent.class, "[LuckPerm[s]] [player] promot(e|ion)")
                 .description("Called when a player is promoted.")
-                .examples("on luckperms promote:", "\tbroadcast \"%event-player% was promoted from %event-string% to %luckperms group of player%!\"");
+                .examples("on luckperms promote:", "\tbroadcast \"%event-offlineplayer% was promoted from %event-string% to %luckperms group of player%!\"");
         EventValues.registerEventValue(BukkitUserPromoteEvent.class, OfflinePlayer.class, new Getter<OfflinePlayer, BukkitUserPromoteEvent>() {
             public OfflinePlayer get(BukkitUserPromoteEvent e) {
                 return Bukkit.getOfflinePlayer(e.getPlayer().getUniqueId());
@@ -45,7 +47,7 @@ public class LuckPermsRegister {
 
         Skript.registerEvent("LuckPerms - Demote Event", SkUniversalEvent.class, BukkitUserDemoteEvent.class, "[LuckPerm[s]] [player] demot(e|ion)")
                 .description("Called when a player is demoted.")
-                .examples("on luckperms demote:", "\tbroadcast \"%event-player% was demoted from %event-string% to %luckperms group of player%!\"");
+                .examples("on luckperms demote:", "\tbroadcast \"%event-offlineplayer% was demoted from %event-string% to %luckperms group of player%!\"");
         EventValues.registerEventValue(BukkitUserDemoteEvent.class, OfflinePlayer.class, new Getter<OfflinePlayer, BukkitUserDemoteEvent>() {
             public OfflinePlayer get(BukkitUserDemoteEvent e) {
                 return Bukkit.getOfflinePlayer(e.getPlayer().getUniqueId());
@@ -53,6 +55,20 @@ public class LuckPermsRegister {
         }, 0);
         EventValues.registerEventValue(BukkitUserDemoteEvent.class, String.class, new Getter<String, BukkitUserDemoteEvent>() {
             public String get(BukkitUserDemoteEvent e) {
+                return e.getOldGroup();
+            }
+        }, 0);
+
+        Skript.registerEvent("LuckPerms - Group Change", SkUniversalEvent.class, BukkitGroupChangeEvent.class, "[LuckPerm[s]] [player] group change")
+                .description("Called when a player's group changes.")
+                .examples("on luckperms group change:", "\tbroadcast \"group of %event-offlineplayer% changed from %old group% to %new group%!\"");
+        EventValues.registerEventValue(BukkitGroupChangeEvent.class, OfflinePlayer.class, new Getter<OfflinePlayer, BukkitGroupChangeEvent>() {
+            public OfflinePlayer get(BukkitGroupChangeEvent e) {
+                return Bukkit.getOfflinePlayer(e.getPlayer().getUniqueId());
+            }
+        }, 0);
+        EventValues.registerEventValue(BukkitGroupChangeEvent.class, String.class, new Getter<String, BukkitGroupChangeEvent>() {
+            public String get(BukkitGroupChangeEvent e) {
                 return e.getOldGroup();
             }
         }, 0);

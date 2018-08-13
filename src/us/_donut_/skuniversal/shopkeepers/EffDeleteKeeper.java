@@ -7,7 +7,7 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import com.nisovin.shopkeepers.ShopkeepersPlugin;
+import com.nisovin.shopkeepers.api.ShopkeepersAPI;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
@@ -32,6 +32,6 @@ public class EffDeleteKeeper extends Effect {
 
     @Override
     protected void execute(Event e) {
-        ShopkeepersPlugin.getInstance().deleteShopkeeper(ShopkeepersPlugin.getInstance().getShopkeeperByName(keeperName.getSingle(e)));
+        ShopkeepersAPI.getShopkeeperRegistry().getShopkeeperByName(keeperName.getSingle(e)).delete();
     }
 }

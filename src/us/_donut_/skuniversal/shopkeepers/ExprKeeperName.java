@@ -9,17 +9,18 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
-import com.nisovin.shopkeepers.ShopkeepersPlugin;
-import org.bukkit.entity.Entity;
+import com.nisovin.shopkeepers.api.ShopkeepersAPI;
+import com.nisovin.shopkeepers.api.shopkeeper.Shopkeeper;
 import org.bukkit.event.Event;
+
 import javax.annotation.Nullable;
 
-@Name("Shopkeepers - Shopkeeper Name of Entity")
-@Description("Returns the shopkeeper name of an entity.")
-@Examples({"send \"%the shopkeeper name of event-entity\""})
+@Name("Shopkeepers - Shopkeeper Name")
+@Description("Returns the name of a shopkeeper.")
+@Examples({"send \"%the name of the shopkeeper with id 1\""})
 public class ExprKeeperName extends SimpleExpression<String> {
 
-    private Expression<Entity> entity;
+    private Expression<Integer> id;
 
     @Override
     public boolean isSingle() {
@@ -34,25 +35,28 @@ public class ExprKeeperName extends SimpleExpression<String> {
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] e, int i, Kleenean kl, SkriptParser.ParseResult pr) {
-        entity = (Expression<Entity>) e[0];
+        id = (Expression<Integer>) e[0];
         return true;
     }
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "name of keeper " + entity.toString(e, b);
+        return "name of shopkeeper with ID " + id.toString(e, b);
     }
 
     @Override
     @Nullable
     protected String[] get(Event e) {
-        return new String[]{ShopkeepersPlugin.getInstance().getShopkeeperByEntity(entity.getSingle(e)).getName()};
+        Shopkeeper shopkeeper = ShopkeepersAPI.getShopkeeperRegistry().getShopkeeperById(id.getSingle(e));
+        return new String[]{shopkeeper == null ? null : shopkeeper.getName()};
     }
 
     @Override
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){
         if (mode == Changer.ChangeMode.SET) {
-            ShopkeepersPlugin.getInstance().getShopkeeperByEntity(entity.getSingle(e)).setName((String) delta[0]);
+            Shopkeeper shopkeeper = ShopkeepersAPI.getShopkeeperRegistry().getShopkeeperById(id.getSingle(e));
+            if (shopkeeper != null)
+                shopkeeper.setName((String) delta[0]);
         }
     }
 

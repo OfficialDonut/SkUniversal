@@ -9,16 +9,16 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import com.nisovin.shopkeepers.api.ShopkeepersAPI;
 import com.nisovin.shopkeepers.api.shopkeeper.Shopkeeper;
-import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
-@Name("Shopkeepers - Shopkeeper Location")
-@Description("Returns the location of a shopkeeper.")
-@Examples({"send \"%the location of the shopkeeper with id 1\""})
-public class ExprKeeperLoc extends SimpleExpression<Location> {
+@Name("Shopkeepers - Shopkeeper ID of Entity")
+@Description("Returns the shopkeeper ID of an entity.")
+@Examples({"send \"%the shopkeeper ID of event-entity\""})
+public class ExprKeeperEntity extends SimpleExpression<Integer> {
 
-    private Expression<Integer> id;
+    private Expression<Entity> entity;
 
     @Override
     public boolean isSingle() {
@@ -26,26 +26,26 @@ public class ExprKeeperLoc extends SimpleExpression<Location> {
     }
 
     @Override
-    public Class<? extends Location> getReturnType() {
-        return Location.class;
+    public Class<? extends Integer> getReturnType() {
+        return Integer.class;
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] e, int i, Kleenean kl, SkriptParser.ParseResult pr) {
-        id = (Expression<Integer>) e[0];
+        entity = (Expression<Entity>) e[0];
         return true;
     }
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "location of shopkeeper with ID " + id.toString(e, b);
+        return "shopkeeper ID of " + entity.toString(e, b);
     }
 
     @Override
     @Nullable
-    protected Location[] get(Event e) {
-        Shopkeeper shopkeeper = ShopkeepersAPI.getShopkeeperRegistry().getShopkeeperById(id.getSingle(e));
-        return new Location[]{shopkeeper == null ? null : shopkeeper.getLocation()};
+    protected Integer[] get(Event e) {
+        Shopkeeper shopkeeper = ShopkeepersAPI.getShopkeeperRegistry().getShopkeeperByEntity(entity.getSingle(e));
+        return new Integer[]{shopkeeper == null ? null : shopkeeper.getId()};
     }
 }

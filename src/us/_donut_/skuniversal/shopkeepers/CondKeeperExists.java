@@ -7,31 +7,31 @@ import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import com.nisovin.shopkeepers.ShopkeepersPlugin;
+import com.nisovin.shopkeepers.api.ShopkeepersAPI;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
-@Name("Shopkeepers - Does Shopkeeper Exist")
-@Description("Checks if a shopkeeper with a certain name exists.")
-@Examples({"if a shopkeeper named \"cool\" exists:"})
+@Name("Shopkeepers - Shopkeeper Exists")
+@Description("Checks if a shopkeeper with a certain ID exists.")
+@Examples({"if shopkeeper with id 1 exists:"})
 public class CondKeeperExists extends Condition {
 
-    private Expression<String> keeperName;
+    private Expression<Integer> id;
 
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] e, int i, Kleenean kl, SkriptParser.ParseResult pr) {
-        keeperName = (Expression<String>) e[0];
+        id = (Expression<Integer>) e[0];
         return true;
     }
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "keeper name " + keeperName.toString(e, b) + " exists";
+        return "keeper wid ID " + id.toString(e, b) + " exists";
     }
 
     @Override
     public boolean check(Event e) {
-        return ShopkeepersPlugin.getInstance().getAllShopkeepers().stream().anyMatch(shopkeeper -> shopkeeper.getName().equals(keeperName.getSingle(e)));
+        return ShopkeepersAPI.getShopkeeperRegistry().getShopkeeperById(id.getSingle(e)) != null;
     }
 }
