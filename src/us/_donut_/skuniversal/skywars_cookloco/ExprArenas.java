@@ -11,7 +11,6 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
-import java.util.Arrays;
 
 @Name("SkyWars (CookLoco) - All arenas")
 @Description("Returns the names of all skywars arenas.")
@@ -42,6 +41,6 @@ public class ExprArenas extends SimpleExpression<String> {
     @Override
     @Nullable
     protected String[] get(Event e) {
-        return Arrays.stream(ArenaManager.getGames()).map(Arena::getName).toArray(String[]::new);
+        return ArenaManager.getGames().stream().map(Arena::getName).toArray(String[]::new);
     }
 }

@@ -1,4 +1,4 @@
-package us._donut_.skuniversal.skywars_cookloco;;
+package us._donut_.skuniversal.skywars_cookloco;
 
 import ak.CookLoco.SkyWars.events.SkyPlayerDeathEvent;
 import ch.njol.skript.ScriptLoader;

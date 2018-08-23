@@ -53,12 +53,11 @@ public class ExprCoins extends SimpleExpression<Number> {
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){
         Number coinsChange = (Number) delta[0];
         if (mode == Changer.ChangeMode.SET) {
-            int newCoins = coinsChange.intValue() - SkyWarsAPI.getSkyPlayer(player.getSingle(e)).getCoins();
-            SkyWarsAPI.getSkyPlayer(player.getSingle(e)).addCoins(newCoins, false);
+            SkyWarsAPI.getSkyPlayer(player.getSingle(e)).setCoins(coinsChange.intValue());
         } else if (mode == Changer.ChangeMode.ADD) {
-            SkyWarsAPI.getSkyPlayer(player.getSingle(e)).addCoins(coinsChange.intValue(), false);
+            SkyWarsAPI.getSkyPlayer(player.getSingle(e)).setCoins(SkyWarsAPI.getSkyPlayer(player.getSingle(e)).getCoins() + coinsChange.intValue());
         } else if (mode == Changer.ChangeMode.REMOVE) {
-            SkyWarsAPI.getSkyPlayer(player.getSingle(e)).removeCoins(coinsChange.intValue());
+            SkyWarsAPI.getSkyPlayer(player.getSingle(e)).setCoins(SkyWarsAPI.getSkyPlayer(player.getSingle(e)).getCoins() - coinsChange.intValue());
         }
     }
     @Override
