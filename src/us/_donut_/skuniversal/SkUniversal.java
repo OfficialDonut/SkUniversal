@@ -1,6 +1,7 @@
 package us._donut_.skuniversal;
 
 import ch.njol.skript.Skript;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -35,7 +36,7 @@ import java.util.List;
 public class SkUniversal extends JavaPlugin {
 
     private List<String> hookedPlugins = new ArrayList<>();
-    private Boolean serverHasPlugin(String pluginName) { return getServer().getPluginManager().isPluginEnabled(pluginName); }
+    private Boolean serverHasPlugin(String pluginName) { return Bukkit.getPluginManager().getPlugin(pluginName) != null; }
 
     @Override
     public void onEnable() {
