@@ -1,0 +1,16 @@
+name: SkUniversal
+version: 2.5
+author: _Donut_
+main: us._donut_.skuniversal.SkUniversal
+depend: [Skript]
+softdepend: [AdvancedBan, AdvancedSurvivalGames, Autorank, Bedwars, Bitcoin, Cannons, ClearLag, CombatLog, GriefPrevention, Lockette, LockettePro, LuckPerms, LWC, MinePacks, Parties, PlayerPoints, PlotSquared, PrisonMines, PvPLevels, Shopkeepers, ShopChest, SkyWars, Slimefun]
+commands:
+  skuniversal:
+    description: The main SkUniversal command.
+    usage: /skuniversal
+    permission: skuniversal.info
+    permission-message: You don't have permission to use this command!
+permissions:
+  skuniversal.info:
+    description: Allows the use of /skuniversal
+    default: op
