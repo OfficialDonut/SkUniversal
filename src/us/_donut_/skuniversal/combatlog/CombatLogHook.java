@@ -10,6 +10,7 @@ import me.iiSnipez.CombatLog.Events.PlayerUntagEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import us._donut_.skuniversal.SkUniversalEvent;
+
 public class CombatLogHook {
 
     public static CombatLog combatLog = ((CombatLog) Bukkit.getPluginManager().getPlugin("CombatLog"));
