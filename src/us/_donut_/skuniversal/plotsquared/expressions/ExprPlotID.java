@@ -21,7 +21,7 @@ import static us._donut_.skuniversal.plotsquared.PlotSquaredHook.*;
 public class ExprPlotID extends SimpleExpression<String> {
 
     static {
-        Skript.registerExpression(ExprPlotID.class, String.class, ExpressionType.COMBINED, "[the] [ID of [the]] PlotSquared] plot at %location%");
+        Skript.registerExpression(ExprPlotID.class, String.class, ExpressionType.COMBINED, "[the] [ID of [the]] [PlotSquared] plot at %location%");
     }
 
     private Expression<Location> loc;
