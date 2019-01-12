@@ -43,6 +43,6 @@ public class CondInPlot extends Condition {
     @Override
     public boolean check(Event e) {
         if (player.getSingle(e) == null) return isNegated();
-        return plotAPI.isInPlot(player.getSingle(e)) != isNegated();
+        return (plotAPI.wrapPlayer(player.getSingle(e).getUniqueId()).getCurrentPlot() != null) == isNegated();
     }
 }

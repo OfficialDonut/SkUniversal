@@ -1,9 +1,11 @@
 package us._donut_.skuniversal.luckperms.expressions;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
 import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
@@ -20,7 +22,9 @@ import static us._donut_.skuniversal.luckperms.LuckPermsHook.*;
 public class ExprPlayerSuffix extends SimpleExpression<String> {
 
     static {
-
+        Skript.registerExpression(ExprPlayerPrefix.class, String.class, ExpressionType.COMBINED,
+                "[the] [active] [LuckPerm[s]] suffix of %player%",
+                "%player%'s [active] [LuckPerm[s]] suffix");
     }
 
     private Expression<Player> player;

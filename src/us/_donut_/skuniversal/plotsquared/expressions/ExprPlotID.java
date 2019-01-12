@@ -9,6 +9,7 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import com.github.intellectualsites.plotsquared.plot.object.Plot;
 import org.bukkit.Location;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
@@ -52,7 +53,12 @@ public class ExprPlotID extends SimpleExpression<String> {
     @Nullable
     protected String[] get(Event e) {
         if (loc.getSingle(e) == null) return null;
-        return new String[]{plotAPI.getPlot(loc.getSingle(e)).getId().toString()};
+        for (Plot plot : plotAPI.getAllPlots()) {
+            if (plot.getArea().contains((int) loc.getSingle(e).getX(), (int) loc.getSingle(e).getZ())) {
+                return new String[]{plot.getId().toString()};
+            }
+        }
+        return null;
     }
 
 }

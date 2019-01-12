@@ -24,8 +24,8 @@ public class ExprPointsBalance extends SimpleExpression<Number> {
 
     static {
         Skript.registerExpression(ExprPointsBalance.class, Number.class, ExpressionType.COMBINED,
-                "[the] [Player][ ]Point[s] (bal[ance]|points) of %offlineplayer%",
-                "%offlineplayer%'s [Player][ ]Point[s] (bal[ance]|points)");
+                "[the] [Player Points] (bal[ance]|points) of %offlineplayer%",
+                "%offlineplayer%'s [Player Points] (bal[ance]|points)");
     }
 
     private Expression<OfflinePlayer> player;

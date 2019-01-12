@@ -9,7 +9,7 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import com.intellectualcrafters.plot.object.Plot;
+import com.github.intellectualsites.plotsquared.plot.object.Plot;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.Event;
@@ -55,7 +55,7 @@ public class ExprHomeLocation extends SimpleExpression<Location> {
     protected Location[] get(Event e) {
         Plot plot;
         if (id.getSingle(e) == null || (plot = getPlot(id.getSingle(e))) == null) return null;
-        com.intellectualcrafters.plot.object.Location home = plot.getHome();
+        com.github.intellectualsites.plotsquared.plot.object.Location home = plot.getHome();
         return new Location[]{new Location(Bukkit.getWorld(home.getWorld()), home.getX(), home.getY(), home.getZ(), home.getYaw(), home.getPitch())};
     }
 
