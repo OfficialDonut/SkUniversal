@@ -11,9 +11,9 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
-import javax.annotation.Nullable;
+import us._donut_.bitcoin.BitcoinAPI;
 
-import static us._donut_.skuniversal.bitcoin.BitcoinHook.*;
+import javax.annotation.Nullable;
 
 @Name("Bitcoin - Amount Mined")
 @Description("Returns the amount of bitcoins mined by a player.")
@@ -52,6 +52,6 @@ public class ExprBitcoinsMined extends SimpleExpression<Number> {
     @Nullable
     protected Number[] get(Event e) {
         if (player.getSingle(e) == null) return null;
-        return new Number[]{bitcoinAPI.getBitcoinsMined(player.getSingle(e).getUniqueId())};
+        return new Number[]{BitcoinAPI.getBitcoinsMined(player.getSingle(e).getUniqueId())};
     }
 }

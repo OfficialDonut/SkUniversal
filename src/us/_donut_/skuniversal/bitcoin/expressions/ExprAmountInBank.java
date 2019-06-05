@@ -12,9 +12,9 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import org.bukkit.event.Event;
-import javax.annotation.Nullable;
+import us._donut_.bitcoin.BitcoinAPI;
 
-import static us._donut_.skuniversal.bitcoin.BitcoinHook.*;
+import javax.annotation.Nullable;
 
 @Name("Bitcoin - Amount In Bank")
 @Description("Returns the amount of bitcoins in the bank.")
@@ -49,18 +49,18 @@ public class ExprAmountInBank extends SimpleExpression<Number> {
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        return new Number[]{bitcoinAPI.getAmountInBank()};
+        return new Number[]{BitcoinAPI.getAmountInBank()};
     }
 
     @Override
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){
         double amount = ((Number) delta[0]).doubleValue();
         if (mode == Changer.ChangeMode.SET) {
-            bitcoinAPI.addToBank(amount - bitcoinAPI.getAmountInBank());
+            BitcoinAPI.addToBank(amount - BitcoinAPI.getAmountInBank());
         } else if (mode == Changer.ChangeMode.ADD) {
-            bitcoinAPI.addToBank(amount);
+            BitcoinAPI.addToBank(amount);
         } else if (mode == Changer.ChangeMode.REMOVE) {
-            bitcoinAPI.removeFromBank(amount);
+            BitcoinAPI.removeFromBank(amount);
         }
     }
 

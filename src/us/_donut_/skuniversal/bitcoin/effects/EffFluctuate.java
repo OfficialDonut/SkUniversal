@@ -9,9 +9,9 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import org.bukkit.event.Event;
-import javax.annotation.Nullable;
+import us._donut_.bitcoin.BitcoinAPI;
 
-import static us._donut_.skuniversal.bitcoin.BitcoinHook.*;
+import javax.annotation.Nullable;
 
 @Name("Bitcoin - Value Fluctuate")
 @Description("Makes the bitcoin value fluctuate.")
@@ -35,6 +35,6 @@ public class EffFluctuate extends Effect {
 
     @Override
     protected void execute(Event e) {
-        bitcoinAPI.makeValueFluctuate();
+        BitcoinAPI.makeValueFluctuate();
     }
 }

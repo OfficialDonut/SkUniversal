@@ -41,9 +41,17 @@ public class SkUniversal extends JavaPlugin {
         if (serverHasPlugin("PvPLevels")) registerSyntaxes("PvPLevels");
         if (serverHasPlugin("Shopkeepers")) registerSyntaxes("Shopkeepers");
         if (serverHasPlugin("ShopChest")) registerSyntaxes("ShopChest");
-        if (serverHasPlugin("SkyWars") && getServer().getPluginManager().getPlugin("SkyWars").getDescription().getAuthors().get(0).equalsIgnoreCase("CookLoco")) registerSyntaxes("SkyWars_CookLoco");
-        if (serverHasPlugin("SkyWars") && getServer().getPluginManager().getPlugin("SkyWars").getDescription().getAuthors().get(0).equalsIgnoreCase("Dabo Ross")) registerSyntaxes("SkyWars_Daboross");
         if (serverHasPlugin("Slimefun")) registerSyntaxes("Slimefun");
+        if (serverHasPlugin("SkyWars")) {
+            List<String> authors = Bukkit.getPluginManager().getPlugin("SkyWars").getDescription().getAuthors();
+            if (authors.size() > 0) {
+                String author = authors.get(0);
+                if (author.equalsIgnoreCase("CookLoco"))
+                    registerSyntaxes("SkyWars_CookLoco");
+                else if (author.equalsIgnoreCase("Dabo Ross"))
+                    registerSyntaxes("SkyWars_Daboross");
+            }
+        }
 
         getLogger().info(hookedPlugins.isEmpty() ? "Did not find any plugins to hook into." : "Hooked Plugins: " + hookedPlugins);
         getLogger().info("Enabled!");

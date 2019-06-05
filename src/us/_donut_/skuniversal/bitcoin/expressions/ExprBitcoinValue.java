@@ -10,9 +10,9 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import org.bukkit.event.Event;
-import javax.annotation.Nullable;
+import us._donut_.bitcoin.BitcoinAPI;
 
-import static us._donut_.skuniversal.bitcoin.BitcoinHook.*;
+import javax.annotation.Nullable;
 
 @Name("Bitcoin - Value")
 @Description("Returns the current bitcoin value.")
@@ -47,6 +47,6 @@ public class ExprBitcoinValue extends SimpleExpression<Number> {
     @Override
     @Nullable
     protected Number[] get(Event e) {
-        return new Number[]{bitcoinAPI.getBitcoinValue()};
+        return new Number[]{BitcoinAPI.getBitcoinValue()};
     }
 }

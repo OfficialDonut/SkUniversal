@@ -9,11 +9,12 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
-import javax.annotation.Nullable;
+import us._donut_.bitcoin.BitcoinAPI;
 
-import static us._donut_.skuniversal.bitcoin.BitcoinHook.*;
+import javax.annotation.Nullable;
 
 @Name("Bitcoin - Top Players")
 @Description("Returns the players in order of highest balance.")
@@ -48,6 +49,6 @@ public class ExprBitcoinTopPlayers extends SimpleExpression<OfflinePlayer> {
     @Override
     @Nullable
     protected OfflinePlayer[] get(Event e) {
-        return bitcoinAPI.getTopPlayers().toArray(new OfflinePlayer[0]);
+        return BitcoinAPI.getTopPlayers().stream().map(Bukkit::getOfflinePlayer).toArray(OfflinePlayer[]::new);
     }
 }

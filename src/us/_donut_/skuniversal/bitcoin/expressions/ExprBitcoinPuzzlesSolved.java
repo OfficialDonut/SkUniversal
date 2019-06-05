@@ -11,9 +11,9 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
-import javax.annotation.Nullable;
+import us._donut_.bitcoin.BitcoinAPI;
 
-import static us._donut_.skuniversal.bitcoin.BitcoinHook.*;
+import javax.annotation.Nullable;
 
 @Name("Bitcoin - Mining Puzzles Solved")
 @Description("Returns the amount of bitcoin mining puzzles solved by a player.")
@@ -52,6 +52,6 @@ public class ExprBitcoinPuzzlesSolved extends SimpleExpression<Number> {
     @Nullable
     protected Number[] get(Event e) {
         if (player.getSingle(e) == null) return null;
-        return new Number[]{bitcoinAPI.getPuzzlesSolved(player.getSingle(e).getUniqueId())};
+        return new Number[]{BitcoinAPI.getPuzzlesSolved(player.getSingle(e).getUniqueId())};
     }
 }

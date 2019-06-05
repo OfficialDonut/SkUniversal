@@ -10,9 +10,9 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-import javax.annotation.Nullable;
+import us._donut_.bitcoin.BitcoinAPI;
 
-import static us._donut_.skuniversal.bitcoin.BitcoinHook.*;
+import javax.annotation.Nullable;
 
 @Name("Bitcoin - Open Main Menu")
 @Description("Opens the bitcoin menu to a player.")
@@ -40,6 +40,6 @@ public class EffOpenBitcoinMenu extends Effect {
     @Override
     protected void execute(Event e) {
         if (player.getSingle(e) == null) return;
-        bitcoinAPI.openMainMenu(player.getSingle(e));
+        BitcoinAPI.openMainMenu(player.getSingle(e));
     }
 }

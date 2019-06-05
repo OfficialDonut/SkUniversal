@@ -10,9 +10,9 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-import javax.annotation.Nullable;
+import us._donut_.bitcoin.BitcoinAPI;
 
-import static us._donut_.skuniversal.bitcoin.BitcoinHook.*;
+import javax.annotation.Nullable;
 
 @Name("Bitcoin - Open Mining Menu")
 @Description("Opens the bitcoin mining menu to a player.")
@@ -40,6 +40,6 @@ public class EffOpenBitcoinMining extends Effect {
     @Override
     protected void execute(Event e) {
         if (player.getSingle(e) == null) return;
-        bitcoinAPI.openMiningInterface(player.getSingle(e));
+        BitcoinAPI.openMiningInterface(player.getSingle(e));
     }
 }
