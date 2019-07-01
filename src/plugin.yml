@@ -1,7 +1,7 @@
 name: SkUniversal
-version: '2.6.5'
-author: _Donut_
-main: us._donut_.skuniversal.SkUniversal
+version: '2.7'
+author: Donut
+main: us.donut.skuniversal.SkUniversal
 depend: [Skript]
 softdepend: [AdvancedBan, AdvancedSurvivalGames, Autorank, Bedwars, Bitcoin, Cannons, ClearLag, CombatLog, GriefPrevention, Lockette, LockettePro, LuckPerms, LWC, MinePacks, Parties, PlayerPoints, PlotSquared, PrisonMines, PvPLevels, Shopkeepers, ShopChest, SkyWars, Slimefun]
 commands:
