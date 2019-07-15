@@ -17,7 +17,7 @@ import static us.donut.skuniversal.prisonmines.PrisonMinesHook.*;
 
 @Name("PrisonMines - Amount mined")
 @Description("Returns the amount of blocks mined in a mine.")
-@Examples({"send \"%the amount of blocks mined in the mine at player%\""})
+@Examples({"send \"%the amount of blocks mined in the mine named (name of mine at player)%\""})
 public class ExprAmountMined extends SimpleExpression<Number> {
 
     static {

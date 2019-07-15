@@ -40,6 +40,6 @@ public class EffReset extends Effect {
     protected void execute(Event e) {
         Mine mine;
         if (name.getSingle(e) == null || (mine = mineAPI.getByName(name.getSingle(e))) == null) return;
-        mine.reset();
+        mine.queueReset(true);
     }
 }

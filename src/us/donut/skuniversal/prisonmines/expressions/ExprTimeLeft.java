@@ -17,7 +17,7 @@ import static us.donut.skuniversal.prisonmines.PrisonMinesHook.*;
 
 @Name("PrisonMines - Time Until Reset")
 @Description("Returns the time left until a mine resets.")
-@Examples({"send \"%the time until the mine at player resets%\""})
+@Examples({"send \"%the time until the mine named (name of mine at player) resets%\""})
 public class ExprTimeLeft extends SimpleExpression<Number> {
 
     static {

@@ -17,7 +17,7 @@ import static us.donut.skuniversal.prisonmines.PrisonMinesHook.*;
 
 @Name("PrisonMines - Percent Mined")
 @Description("Returns the percentage of a mine that has been mined.")
-@Examples({"send \"%the percentage of the blocks mined in the mine at player%\""})
+@Examples({"send \"%the percentage of the blocks mined in the mine named (name of mine at player)%\""})
 public class ExprPercentMined extends SimpleExpression<Number> {
 
     static {

@@ -20,7 +20,7 @@ import static us.donut.skuniversal.prisonmines.PrisonMinesHook.*;
 
 @Name("PrisonMines - Teleport Location")
 @Description("Returns the teleport location of a mine.")
-@Examples({"send \"%the teleport location of the mine at player%\""})
+@Examples({"send \"%the teleport location of the mine named (name of mine at player)%\""})
 public class ExprTeleportLoc extends SimpleExpression<Location> {
 
     static {
