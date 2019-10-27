@@ -9,8 +9,12 @@ import me.lucko.luckperms.api.event.user.track.UserDemoteEvent;
 import me.lucko.luckperms.api.event.user.track.UserPromoteEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.plugin.java.JavaPlugin;
+import us.donut.skuniversal.SkUniversal;
 
 class LuckPermsListener {
+
+    private SkUniversal plugin = JavaPlugin.getPlugin(SkUniversal.class);
 
     LuckPermsListener() {
         EventBus eventBus = LuckPerms.getApi().getEventBus();
@@ -23,14 +27,14 @@ class LuckPermsListener {
         String oldGroup = event.getGroupFrom().orElse(null);
         String newGroup = event.getGroupTo().orElse(null);
         BukkitUserPromoteEvent bukkitUserPromoteEvent = new BukkitUserPromoteEvent(Bukkit.getOfflinePlayer(event.getUser().getUuid()), oldGroup, newGroup);
-        Bukkit.getServer().getPluginManager().callEvent(bukkitUserPromoteEvent);
+        Bukkit.getScheduler().runTask(plugin, () -> Bukkit.getServer().getPluginManager().callEvent(bukkitUserPromoteEvent));
     }
 
     private void onDemote(UserDemoteEvent event) {
         String oldGroup = event.getGroupFrom().orElse(null);
         String newGroup = event.getGroupTo().orElse(null);
         BukkitUserDemoteEvent bukkitUserDemoteEvent = new BukkitUserDemoteEvent(Bukkit.getOfflinePlayer(event.getUser().getUuid()), oldGroup, newGroup);
-        Bukkit.getServer().getPluginManager().callEvent(bukkitUserDemoteEvent);
+        Bukkit.getScheduler().runTask(plugin, () -> Bukkit.getServer().getPluginManager().callEvent(bukkitUserDemoteEvent));
     }
 
     private void onGroupChange(NodeMutateEvent event) {
@@ -47,7 +51,7 @@ class LuckPermsListener {
                     newGroup = node.getGroupName();
             }
             BukkitGroupChangeEvent bukkitGroupChangeEvent = new BukkitGroupChangeEvent(player, oldGroup, newGroup);
-            Bukkit.getServer().getPluginManager().callEvent(bukkitGroupChangeEvent);
+            Bukkit.getScheduler().runTask(plugin, () -> Bukkit.getServer().getPluginManager().callEvent(bukkitGroupChangeEvent));
         }
     }
 
