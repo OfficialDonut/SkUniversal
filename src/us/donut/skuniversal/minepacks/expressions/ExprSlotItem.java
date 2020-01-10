@@ -1,5 +1,7 @@
 package us.donut.skuniversal.minepacks.expressions;
 
+import at.pcgamingfreaks.Minepacks.Bukkit.API.Backpack;
+import at.pcgamingfreaks.Minepacks.Bukkit.API.Callback;
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.doc.Description;
@@ -59,15 +61,23 @@ public class ExprSlotItem extends SimpleExpression<ItemStack> {
     @Nullable
     protected ItemStack[] get(Event e) {
         if (player.getSingle(e) == null || slotNum.getSingle(e) == null) return null;
-        return new ItemStack[]{database.getBackpack(player.getSingle(e)).getInventory().getItem(slotNum.getSingle(e))};
+        Backpack backpack = minePacks.getBackpackCachedOnly(player.getSingle(e));
+        return backpack != null ? new ItemStack[]{backpack.getInventory().getItem(slotNum.getSingle(e))} : null;
     }
 
     @Override
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){
         if (mode == Changer.ChangeMode.SET) {
             if (player.getSingle(e) == null) return;
-            database.getBackpack(player.getSingle(e)).getInventory().setItem(slotNum.getSingle(e), (ItemStack)delta[0]);
-            database.getBackpack(player.getSingle(e)).save();
+            minePacks.getBackpack(player.getSingle(e), new Callback<Backpack>() {
+                @Override
+                public void onResult(Backpack backpack) {
+                    backpack.getInventory().setItem(slotNum.getSingle(e), (ItemStack) delta[0]);
+                    backpack.save();
+                }
+                @Override
+                public void onFail() {}
+            });
         }
     }
 

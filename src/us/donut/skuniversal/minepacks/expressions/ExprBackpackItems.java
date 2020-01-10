@@ -1,5 +1,6 @@
 package us.donut.skuniversal.minepacks.expressions;
 
+import at.pcgamingfreaks.Minepacks.Bukkit.API.Backpack;
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -55,6 +56,7 @@ public class ExprBackpackItems extends SimpleExpression<ItemStack> {
     @Nullable
     protected ItemStack[] get(Event e) {
         if (player.getSingle(e) == null) return null;
-        return database.getBackpack(player.getSingle(e)).getInventory().getStorageContents();
+        Backpack backpack = minePacks.getBackpackCachedOnly(player.getSingle(e));
+        return backpack != null ? backpack.getInventory().getStorageContents() : null;
     }
 }

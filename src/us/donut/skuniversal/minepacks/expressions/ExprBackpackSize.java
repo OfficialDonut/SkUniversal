@@ -1,5 +1,6 @@
 package us.donut.skuniversal.minepacks.expressions;
 
+import at.pcgamingfreaks.Minepacks.Bukkit.API.Backpack;
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -54,6 +55,7 @@ public class ExprBackpackSize extends SimpleExpression<Number> {
     @Nullable
     protected Number[] get(Event e) {
         if (player.getSingle(e) == null) return null;
-        return new Number[]{database.getBackpack(player.getSingle(e)).getSize()};
+        Backpack backpack = minePacks.getBackpackCachedOnly(player.getSingle(e));
+        return backpack != null ? new Number[]{backpack.getSize()} : null;
     }
 }

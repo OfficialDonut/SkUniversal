@@ -1,5 +1,7 @@
 package us.donut.skuniversal.minepacks.effects;
 
+import at.pcgamingfreaks.Minepacks.Bukkit.API.Backpack;
+import at.pcgamingfreaks.Minepacks.Bukkit.API.Callback;
 import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -44,7 +46,14 @@ public class EffAddItem extends Effect {
     @Override
     protected void execute(Event e) {
         if (player.getSingle(e) == null || item.getSingle(e) == null) return;
-        database.getBackpack(player.getSingle(e)).getInventory().addItem(item.getSingle(e));
-        database.getBackpack(player.getSingle(e)).save();
+        minePacks.getBackpack(player.getSingle(e), new Callback<Backpack>() {
+            @Override
+            public void onResult(Backpack backpack) {
+                backpack.getInventory().addItem(item.getSingle(e));
+                backpack.save();
+            }
+            @Override
+            public void onFail() {}
+        });
     }
 }

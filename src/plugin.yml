@@ -1,5 +1,5 @@
 name: SkUniversal
-version: '2.9'
+version: '2.9.5'
 author: Donut
 main: us.donut.skuniversal.SkUniversal
 depend: [Skript]
