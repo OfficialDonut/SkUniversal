@@ -11,7 +11,7 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
-import me.lucko.luckperms.api.User;
+import net.luckperms.api.model.user.User;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
@@ -57,7 +57,7 @@ public class ExprGroupOfPlayer extends SimpleExpression<String> {
     @Nullable
     protected String[] get(Event e) {
         if (player.getSingle(e) == null) return null;
-        User user = luckpermsAPI.getUser(player.getSingle(e).getUniqueId());
+        User user = luckpermsAPI.getUserManager().getUser(player.getSingle(e).getUniqueId());
         return user == null ? null : new String[]{user.getPrimaryGroup()};
     }
 
@@ -65,7 +65,7 @@ public class ExprGroupOfPlayer extends SimpleExpression<String> {
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){
         if (mode == Changer.ChangeMode.SET) {
             if (player.getSingle(e) == null) return;
-            User user = luckpermsAPI.getUser(player.getSingle(e).getUniqueId());
+            User user = luckpermsAPI.getUserManager().getUser(player.getSingle(e).getUniqueId());
             if (user == null) return;
             user.setPrimaryGroup((String) delta[0]);
             luckpermsAPI.getUserManager().saveUser(user);

@@ -1,11 +1,11 @@
 package us.donut.skuniversal.minepacks;
 
-import at.pcgamingfreaks.MinePacks.Database.Database;
-import at.pcgamingfreaks.MinePacks.MinePacks;
+import at.pcgamingfreaks.Minepacks.Bukkit.Database.Database;
+import at.pcgamingfreaks.Minepacks.Bukkit.Minepacks;
 
 public class MinePacksHook {
 
-    public static MinePacks minePacks = MinePacks.getInstance();
-    public static Database database = MinePacks.getInstance().DB;
+    public static Minepacks minePacks = Minepacks.getInstance();
+    public static Database database = minePacks.getDatabase();
 
 }

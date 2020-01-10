@@ -9,7 +9,7 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import me.lucko.luckperms.api.User;
+import net.luckperms.api.model.user.User;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
@@ -55,8 +55,8 @@ public class ExprPlayerSuffix extends SimpleExpression<String> {
     @Nullable
     protected String[] get(Event e) {
         if (player.getSingle(e) == null) return null;
-        User user = luckpermsAPI.getUser(player.getSingle(e).getUniqueId());
-        return user == null ? null : new String[]{user.getCachedData().getMetaData(luckpermsAPI.getContextsForPlayer(player.getSingle(e))).getSuffix()};
+        User user = luckpermsAPI.getUserManager().getUser(player.getSingle(e).getUniqueId());
+        return user == null ? null : new String[]{user.getCachedData().getMetaData(luckpermsAPI.getContextManager().getQueryOptions((player.getSingle(e)))).getSuffix()};
     }
 
 }

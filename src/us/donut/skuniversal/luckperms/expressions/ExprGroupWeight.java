@@ -11,9 +11,10 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
-import me.lucko.luckperms.LuckPerms;
-import me.lucko.luckperms.api.Group;
-import me.lucko.luckperms.api.Node;
+import net.luckperms.api.model.group.Group;
+import net.luckperms.api.node.Node;
+import net.luckperms.api.node.NodeType;
+import net.luckperms.api.node.types.WeightNode;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
@@ -58,7 +59,7 @@ public class ExprGroupWeight extends SimpleExpression<Number> {
     @Nullable
     protected Number[] get(Event e) {
         if (group.getSingle(e) == null) return null;
-        Group lpGroup = LuckPerms.getApi().getGroup(group.getSingle(e));
+        Group lpGroup = luckpermsAPI.getGroupManager().getGroup(group.getSingle(e));
         if (lpGroup == null) return null;
         return lpGroup.getWeight().isPresent() ? null : new Number[]{lpGroup.getWeight().getAsInt()};
     }
@@ -66,13 +67,15 @@ public class ExprGroupWeight extends SimpleExpression<Number> {
     @Override
     public void change(Event e, Object[] delta, Changer.ChangeMode mode) {
         if (group.getSingle(e) == null) return;
-        Group groupBeingChanged = LuckPerms.getApi().getGroup(group.getSingle(e));
+        Group groupBeingChanged = luckpermsAPI.getGroupManager().getGroup(group.getSingle(e));
         if (groupBeingChanged == null) return;
         if (mode == Changer.ChangeMode.SET) {
-            for (Node node : groupBeingChanged.getPermissions()) {
-                if (node.getPermission().split("\\.")[0].equalsIgnoreCase("weight")) groupBeingChanged.unsetPermission(node);
+            for (Node node : groupBeingChanged.getNodes()) {
+                if (node.getType() == NodeType.WEIGHT) {
+                    groupBeingChanged.data().remove(node);
+                }
             }
-            groupBeingChanged.setPermission(LuckPerms.getApi().getNodeFactory().newBuilder("weight." + String.valueOf(delta[0])).build());
+            groupBeingChanged.data().add(WeightNode.builder(((Number) delta[0]).intValue()).build());
             luckpermsAPI.getGroupManager().saveGroup(groupBeingChanged);
         }
     }

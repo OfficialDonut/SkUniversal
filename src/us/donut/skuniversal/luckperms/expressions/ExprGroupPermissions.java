@@ -11,8 +11,10 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
-import me.lucko.luckperms.api.Group;
-import me.lucko.luckperms.api.Node;
+import net.luckperms.api.model.group.Group;
+import net.luckperms.api.node.Node;
+import net.luckperms.api.node.NodeType;
+import net.luckperms.api.node.types.PermissionNode;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
@@ -57,23 +59,23 @@ public class ExprGroupPermissions extends SimpleExpression<String> {
     @Nullable
     protected String[] get(Event e) {
         if (group.getSingle(e) == null) return null;
-        Group lpGroup = luckpermsAPI.getGroup(group.getSingle(e));
-        return lpGroup == null ? null : lpGroup.getPermissions().stream().map(Node::getPermission).toArray(String[]::new);
+        Group lpGroup = luckpermsAPI.getGroupManager().getGroup(group.getSingle(e));
+        return lpGroup == null ? null : lpGroup.getNodes().stream().filter(node -> node.getType() == NodeType.PERMISSION).map(node -> (PermissionNode) node).map(PermissionNode::getPermission).toArray(String[]::new);
     }
 
     @Override
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){
         if (group.getSingle(e) == null) return;
-        Group groupBeingChanged = luckpermsAPI.getGroup(group.getSingle(e));
+        Group groupBeingChanged = luckpermsAPI.getGroupManager().getGroup(group.getSingle(e));
         if (groupBeingChanged == null) return;
         if (mode == Changer.ChangeMode.RESET) {
-            groupBeingChanged.clearNodes();
+            groupBeingChanged.data().clear(node -> node.getType() == NodeType.PERMISSION);
         } else if (mode == Changer.ChangeMode.DELETE) {
-            groupBeingChanged.clearNodes();
+            groupBeingChanged.data().clear(node -> node.getType() == NodeType.PERMISSION);
         } else if (mode == Changer.ChangeMode.ADD) {
-            groupBeingChanged.setPermission(luckpermsAPI.getNodeFactory().newBuilder((String) delta[0]).build());
+            groupBeingChanged.data().add(PermissionNode.builder((String) delta[0]).build());
         } else if (mode == Changer.ChangeMode.REMOVE) {
-            groupBeingChanged.unsetPermission(luckpermsAPI.getNodeFactory().newBuilder((String) delta[0]).build());
+            groupBeingChanged.data().remove(PermissionNode.builder((String) delta[0]).build());
         }
         luckpermsAPI.getGroupManager().saveGroup(groupBeingChanged);
     }

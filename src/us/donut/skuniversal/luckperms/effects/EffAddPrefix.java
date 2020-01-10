@@ -8,7 +8,8 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import me.lucko.luckperms.api.User;
+import net.luckperms.api.model.user.User;
+import net.luckperms.api.node.types.PrefixNode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
@@ -44,9 +45,9 @@ public class EffAddPrefix extends Effect {
     @Override
     protected void execute(Event e) {
         if (prefix.getSingle(e) == null || priority.getSingle(e) == null || player.getSingle(e) == null) return;
-        User user = luckpermsAPI.getUser(player.getSingle(e).getUniqueId());
+        User user = luckpermsAPI.getUserManager().getUser(player.getSingle(e).getUniqueId());
         if (user == null) return;
-        user.setPermission(luckpermsAPI.getNodeFactory().makePrefixNode(priority.getSingle(e).intValue(), prefix.getSingle(e)).build());
+        user.data().add(PrefixNode.builder(prefix.getSingle(e), priority.getSingle(e).intValue()).build());
         luckpermsAPI.getUserManager().saveUser(user);
     }
 

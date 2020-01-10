@@ -3,15 +3,15 @@ package us.donut.skuniversal.luckperms;
 import ch.njol.skript.Skript;
 import ch.njol.skript.registrations.EventValues;
 import ch.njol.skript.util.Getter;
-import me.lucko.luckperms.LuckPerms;
-import me.lucko.luckperms.api.LuckPermsApi;
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import us.donut.skuniversal.SkUniversalEvent;
 
 public class LuckPermsHook {
 
-    public static LuckPermsApi luckpermsAPI = LuckPerms.getApi();
+    public static LuckPerms luckpermsAPI = LuckPermsProvider.get();
 
     static {
         new LuckPermsListener();

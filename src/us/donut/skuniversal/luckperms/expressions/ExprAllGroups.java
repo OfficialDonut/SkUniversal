@@ -9,7 +9,7 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import me.lucko.luckperms.api.Group;
+import net.luckperms.api.model.group.Group;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
@@ -48,7 +48,7 @@ public class ExprAllGroups extends SimpleExpression<String> {
     @Override
     @Nullable
     protected String[] get(Event e) {
-        return luckpermsAPI.getGroups().stream().map(Group::getName).toArray(String[]::new);
+        return luckpermsAPI.getGroupManager().getLoadedGroups().stream().map(Group::getName).toArray(String[]::new);
     }
 
 }

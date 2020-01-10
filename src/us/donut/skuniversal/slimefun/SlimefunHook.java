@@ -3,7 +3,7 @@ package us.donut.skuniversal.slimefun;
 import ch.njol.skript.Skript;
 import ch.njol.skript.registrations.EventValues;
 import ch.njol.skript.util.Getter;
-import me.mrCookieSlime.Slimefun.Events.ResearchUnlockEvent;
+import io.github.thebusybiscuit.slimefun4.api.events.ResearchUnlockEvent;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import org.bukkit.entity.Player;
 import us.donut.skuniversal.SkUniversalEvent;

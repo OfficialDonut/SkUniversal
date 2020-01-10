@@ -11,8 +11,10 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
-import me.lucko.luckperms.api.Node;
-import me.lucko.luckperms.api.User;
+import net.luckperms.api.model.user.User;
+import net.luckperms.api.node.Node;
+import net.luckperms.api.node.NodeType;
+import net.luckperms.api.node.types.PermissionNode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
@@ -58,23 +60,23 @@ public class ExprPlayerPermissions extends SimpleExpression<String> {
     @Nullable
     protected String[] get(Event e) {
         if (player.getSingle(e) == null) return null;
-        User user = luckpermsAPI.getUser(player.getSingle(e).getUniqueId());
-        return user == null ? null : user.getPermissions().stream().map(Node::getPermission).toArray(String[]::new);
+        User user = luckpermsAPI.getUserManager().getUser(player.getSingle(e).getUniqueId());
+        return user == null ? null : user.getNodes().stream().filter(node -> node.getType() == NodeType.PERMISSION).map(node -> (PermissionNode) node).map(PermissionNode::getPermission).toArray(String[]::new);
     }
 
     @Override
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){
         if (player.getSingle(e) == null) return;
-        User user = luckpermsAPI.getUser(player.getSingle(e).getUniqueId());
+        User user = luckpermsAPI.getUserManager().getUser(player.getSingle(e).getUniqueId());
         if (user == null) return;
         if (mode == Changer.ChangeMode.RESET) {
-            user.clearNodes();
+            user.data().clear(node -> node.getType() == NodeType.PERMISSION);
         } else if (mode == Changer.ChangeMode.DELETE) {
-            user.clearNodes();
+            user.data().clear(node -> node.getType() == NodeType.PERMISSION);
         } else if (mode == Changer.ChangeMode.ADD) {
-            user.setPermission(luckpermsAPI.getNodeFactory().newBuilder((String) delta[0]).build());
+            user.data().add(PermissionNode.builder((String) delta[0]).build());
         } else if (mode == Changer.ChangeMode.REMOVE) {
-            user.unsetPermission(luckpermsAPI.getNodeFactory().newBuilder((String) delta[0]).build());
+            user.data().remove(PermissionNode.builder((String) delta[0]).build());
         }
        luckpermsAPI.getUserManager().saveUser(user);
     }
