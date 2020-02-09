@@ -41,6 +41,6 @@ public class EffAddToParty extends Effect {
     @Override
     protected void execute(Event e) {
         if (player.getSingle(e) == null || name.getSingle(e) == null) return;
-        partiesAPI.addPlayerInParty(player.getSingle(e), name.getSingle(e));
+        partiesAPI.getParty(name.getSingle(e)).addMember(partiesAPI.getPartyPlayer(player.getSingle(e).getUniqueId()));
     }
 }

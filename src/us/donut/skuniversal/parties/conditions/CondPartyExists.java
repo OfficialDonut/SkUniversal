@@ -42,6 +42,6 @@ public class CondPartyExists extends Condition {
     @Override
     public boolean check(Event e) {
         if (name.getSingle(e) == null) return isNegated();
-        return partyHandler.existParty(name.getSingle(e)) != isNegated();
+        return (partiesAPI.getParty(name.getSingle(e)) != null) == isNegated();
     }
 }

@@ -12,15 +12,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
-import static us.donut.skuniversal.parties.PartiesHook.*;
+import static us.donut.skuniversal.parties.PartiesHook.partiesAPI;
 
-@Name("Parties - Create Party")
-@Description("Creates a party.")
-@Examples({"create party named \"cool\" with leader player"})
-public class EffCreateParty extends Effect {
+@Name("Parties - Remove Player from Party")
+@Description("Removes a player from a party.")
+@Examples({"remove player from the party named \"cool\""})
+public class EffRemoveFromParty extends Effect {
 
     static {
-        Skript.registerEffect(EffCreateParty.class, "(create|make) [a] party [(named|with name)] %string% with leader %player%");
+        Skript.registerEffect(EffAddToParty.class, "remove %player% to [the] party [(named|with name)] %string%");
     }
 
     private Expression<Player> player;
@@ -29,18 +29,18 @@ public class EffCreateParty extends Effect {
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] e, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult p) {
-        name = (Expression<String>) e[0];
-        player = (Expression<Player>) e[1];
+        player = (Expression<Player>) e[0];
+        name = (Expression<String>) e[1];
         return true;
     }
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "create party named " + name.toString(e, b) + " with leader " + player.toString(e, b);
+        return "remove player " + player.toString(e, b) + "from party named " + name.toString(e, b);
     }
 
     @Override
     protected void execute(Event e) {
         if (player.getSingle(e) == null || name.getSingle(e) == null) return;
-        partiesAPI.createParty(name.getSingle(e), partiesAPI.getPartyPlayer(player.getSingle(e).getUniqueId()));
+        partiesAPI.getParty(name.getSingle(e)).removeMember(partiesAPI.getPartyPlayer(player.getSingle(e).getUniqueId()));
     }
 }

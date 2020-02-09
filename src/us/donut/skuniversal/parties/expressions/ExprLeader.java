@@ -16,6 +16,8 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
+import java.util.UUID;
+
 import static us.donut.skuniversal.parties.PartiesHook.*;
 
 @Name("Parties - Party Leader")
@@ -57,7 +59,8 @@ public class ExprLeader extends SimpleExpression<OfflinePlayer> {
     @Nullable
     protected OfflinePlayer[] get(Event e) {
         if (name.getSingle(e) == null) return null;
-        return new OfflinePlayer[]{Bukkit.getOfflinePlayer(partiesAPI.getPartyLeader(name.getSingle(e)))};
+        UUID leader = partiesAPI.getParty(name.getSingle(e)).getLeader();
+        return leader == null ? null : new OfflinePlayer[]{Bukkit.getOfflinePlayer(leader)};
     }
 
     @Override
@@ -65,7 +68,7 @@ public class ExprLeader extends SimpleExpression<OfflinePlayer> {
         OfflinePlayer newLeader = (OfflinePlayer) delta[0];
         if (name.getSingle(e) == null) return;
         if (mode == Changer.ChangeMode.SET) {
-            partyHandler.loadParty(name.getSingle(e)).setLeader(newLeader.getUniqueId());
+            partiesAPI.getParty(name.getSingle(e)).changeLeader(partiesAPI.getPartyPlayer(newLeader.getUniqueId()));
         }
     }
 

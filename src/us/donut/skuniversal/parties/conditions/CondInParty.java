@@ -43,6 +43,6 @@ public class CondInParty extends Condition {
     @Override
     public boolean check(Event e) {
         if (player.getSingle(e) == null) return isNegated();
-        return partiesAPI.haveParty(player.getSingle(e).getUniqueId()) != isNegated();
+        return (partiesAPI.getParty(partiesAPI.getPartyPlayer(player.getSingle(e).getUniqueId()).getPartyName()) != null) == isNegated();
     }
 }

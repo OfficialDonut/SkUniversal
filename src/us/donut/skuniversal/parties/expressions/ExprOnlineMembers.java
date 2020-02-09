@@ -9,6 +9,7 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
@@ -54,6 +55,9 @@ public class ExprOnlineMembers extends SimpleExpression<Player> {
     @Nullable
     protected Player[] get(Event e) {
         if (name.getSingle(e) == null) return null;
-        return partiesAPI.getPartyOnlinePlayers(name.getSingle(e)).toArray(new Player[0]);
+        return partiesAPI.getParty(name.getSingle(e)).getOnlineMembers(true)
+                .stream()
+                .map(partyPlayer -> Bukkit.getPlayer(partyPlayer.getPlayerUUID()))
+                .toArray(Player[]::new);
     }
 }

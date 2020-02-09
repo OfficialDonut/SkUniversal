@@ -9,7 +9,6 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import com.alessiodp.parties.objects.ThePlayer;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
@@ -55,7 +54,6 @@ public class ExprPartyOfPlayer extends SimpleExpression<String> {
     @Nullable
     protected String[] get(Event e) {
         if (player.getSingle(e) == null) return null;
-        ThePlayer partyPlayer = playerHandler.getThePlayer(player.getSingle(e));
-        return new String[]{playerHandler.getPartyFromThePlayer(partyPlayer).getName()};
+        return new String[]{partiesAPI.getPartyPlayer(player.getSingle(e).getUniqueId()).getPartyName()};
     }
 }

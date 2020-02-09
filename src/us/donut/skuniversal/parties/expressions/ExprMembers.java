@@ -55,6 +55,6 @@ public class ExprMembers extends SimpleExpression<OfflinePlayer> {
     @Nullable
     protected OfflinePlayer[] get(Event e) {
         if (name.getSingle(e) == null) return null;
-        return partiesAPI.getPartyMembers(name.getSingle(e)).stream().map(Bukkit::getOfflinePlayer).toArray(OfflinePlayer[]::new);
+        return partiesAPI.getParty(name.getSingle(e)).getMembers().stream().map(Bukkit::getOfflinePlayer).toArray(OfflinePlayer[]::new);
     }
 }

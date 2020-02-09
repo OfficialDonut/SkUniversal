@@ -16,10 +16,10 @@ import static us.donut.skuniversal.parties.PartiesHook.*;
 @Name("Parties - Remove Party")
 @Description("Removes a party.")
 @Examples({"remove the party named \"cool\""})
-public class EffRemoveParty extends Effect {
+public class EffDeleteParty extends Effect {
 
     static {
-        Skript.registerEffect(EffRemoveParty.class, "(delete|remove) [the] party [(named|with name)] %string%");
+        Skript.registerEffect(EffDeleteParty.class, "(delete|remove) [the] party [(named|with name)] %string%");
     }
 
     private Expression<String> name;
@@ -38,6 +38,6 @@ public class EffRemoveParty extends Effect {
     @Override
     protected void execute(Event e) {
         if (name.getSingle(e) == null) return;
-        partiesAPI.deleteParty(name.getSingle(e));
+        partiesAPI.getParty(name.getSingle(e)).delete();
     }
 }

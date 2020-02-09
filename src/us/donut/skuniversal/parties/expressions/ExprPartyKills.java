@@ -56,20 +56,20 @@ public class ExprPartyKills extends SimpleExpression<Number> {
     @Nullable
     protected Number[] get(Event e) {
         if (name.getSingle(e) == null) return null;
-        return new Number[]{partiesAPI.getPartyKills(name.getSingle(e))};
+        return new Number[]{partiesAPI.getParty(name.getSingle(e)).getKills()};
     }
 
     @Override
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){
         if (name.getSingle(e) == null) return;
         int killsChange = ((Number) delta[0]).intValue();
-        Number currentKills = partiesAPI.getPartyKills(name.getSingle(e));
+        Number currentKills = partiesAPI.getParty(name.getSingle(e)).getKills();
         if (mode == Changer.ChangeMode.SET) {
-            partyHandler.loadParty(name.getSingle(e)).setKills(killsChange);
+            partiesAPI.getParty(name.getSingle(e)).setKills(killsChange);
         } else if (mode == Changer.ChangeMode.ADD) {
-            partyHandler.loadParty(name.getSingle(e)).setKills(currentKills.intValue()+killsChange);
+            partiesAPI.getParty(name.getSingle(e)).setKills(currentKills.intValue() + killsChange);
         } else if (mode == Changer.ChangeMode.REMOVE) {
-           partyHandler.loadParty(name.getSingle(e)).setKills(currentKills.intValue()-killsChange);
+           partiesAPI.getParty(name.getSingle(e)).setKills(currentKills.intValue() - killsChange);
         }
     }
     @Override
