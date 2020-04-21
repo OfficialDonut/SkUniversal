@@ -9,19 +9,19 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import com.github.intellectualsites.plotsquared.plot.object.Plot;
+import com.plotsquared.core.plot.Plot;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
 import static us.donut.skuniversal.plotsquared.PlotSquaredHook.*;
 
-@Name("PlotSquared - Plot Biome")
-@Description("Returns the biome of a plot.")
-@Examples({"send \"%the biome of the plot with id (id of plot at player)%\""})
-public class ExprPlotBiome extends SimpleExpression<String> {
+@Name("PlotSquared - Plot Rating")
+@Description("Returns the rating of a plot.")
+@Examples({"send \"%the rating of the plot with id (id of plot at player)%\""})
+public class ExprPlotRating extends SimpleExpression<Number> {
 
     static {
-        Skript.registerExpression(ExprPlotBiome.class, String.class, ExpressionType.COMBINED, "[the] biome of [the] [PlotSquared] plot [with ID] %string%");
+        Skript.registerExpression(ExprPlotRating.class, Number.class, ExpressionType.COMBINED, "[the] [av(erage|g)] rating of [the] [PlotSquared] plot [with ID] %string%");
     }
 
     private Expression<String> id;
@@ -32,8 +32,8 @@ public class ExprPlotBiome extends SimpleExpression<String> {
     }
 
     @Override
-    public Class<? extends String> getReturnType() {
-        return String.class;
+    public Class<? extends Number> getReturnType() {
+        return Number.class;
     }
 
     @SuppressWarnings("unchecked")
@@ -45,14 +45,14 @@ public class ExprPlotBiome extends SimpleExpression<String> {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "biome of plot with id " + id.toString(e, b);
+        return "rating of plot with id " + id.toString(e, b);
     }
 
     @Override
     @Nullable
-    protected String[] get(Event e) {
+    protected Number[] get(Event e) {
         Plot plot;
         if (id.getSingle(e) == null || (plot = getPlot(id.getSingle(e))) == null) return null;
-        return new String[]{plot.getBiome()};
+        return Double.isNaN(plot.getAverageRating()) ? null : new Number[]{plot.getAverageRating()};
     }
 }

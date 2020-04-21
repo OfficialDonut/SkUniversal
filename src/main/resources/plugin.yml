@@ -1,5 +1,5 @@
 name: SkUniversal
-version: '2.10'
+version: '2.10.5'
 author: Donut
 main: us.donut.skuniversal.SkUniversal
 depend: [Skript]
@@ -9,7 +9,6 @@ commands:
     description: The main SkUniversal command.
     usage: /skuniversal
     permission: skuniversal.info
-    permission-message: You don't have permission to use this command!
 permissions:
   skuniversal.info:
     description: Allows the use of /skuniversal

@@ -30,14 +30,14 @@ class LuckPermsListener {
         String oldGroup = event.getGroupFrom().orElse(null);
         String newGroup = event.getGroupTo().orElse(null);
         BukkitUserPromoteEvent bukkitUserPromoteEvent = new BukkitUserPromoteEvent(Bukkit.getOfflinePlayer(event.getUser().getUniqueId()), oldGroup, newGroup);
-        Bukkit.getScheduler().runTask(plugin, () -> Bukkit.getServer().getPluginManager().callEvent(bukkitUserPromoteEvent));
+        Bukkit.getScheduler().runTask(plugin, () -> Bukkit.getPluginManager().callEvent(bukkitUserPromoteEvent));
     }
 
     private void onDemote(UserDemoteEvent event) {
         String oldGroup = event.getGroupFrom().orElse(null);
         String newGroup = event.getGroupTo().orElse(null);
         BukkitUserDemoteEvent bukkitUserDemoteEvent = new BukkitUserDemoteEvent(Bukkit.getOfflinePlayer(event.getUser().getUniqueId()), oldGroup, newGroup);
-        Bukkit.getScheduler().runTask(plugin, () -> Bukkit.getServer().getPluginManager().callEvent(bukkitUserDemoteEvent));
+        Bukkit.getScheduler().runTask(plugin, () -> Bukkit.getPluginManager().callEvent(bukkitUserDemoteEvent));
     }
 
     private void onGroupChange(NodeMutateEvent event) {
@@ -54,7 +54,7 @@ class LuckPermsListener {
                     newGroup = ((InheritanceNode) node).getGroupName();
             }
             BukkitGroupChangeEvent bukkitGroupChangeEvent = new BukkitGroupChangeEvent(player, oldGroup, newGroup);
-            Bukkit.getScheduler().runTask(plugin, () -> Bukkit.getServer().getPluginManager().callEvent(bukkitGroupChangeEvent));
+            Bukkit.getScheduler().runTask(plugin, () -> Bukkit.getPluginManager().callEvent(bukkitGroupChangeEvent));
         }
     }
 

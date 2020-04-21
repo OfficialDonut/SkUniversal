@@ -77,23 +77,20 @@ public class SkUniversal extends JavaPlugin {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (cmd.getName().equalsIgnoreCase("skuniversal")) {
-            sender.sendMessage("");
-            sender.sendMessage("§5§l§nSkUniversal v" + getDescription().getVersion());
-            sender.sendMessage("");
-            sender.sendMessage("§6Hooked plugins:");
-            sender.sendMessage(hookedPlugins.isEmpty() ? "§eNone" : "§e" + hookedPlugins);
-            sender.sendMessage("");
-            sender.sendMessage("§6Plugin page:");
-            sender.sendMessage("§ehttps://www.spigotmc.org/resources/skuniversal.45392/");
-            sender.sendMessage("");
-            sender.sendMessage("§6Documentation:");
-            sender.sendMessage("§ehttps://github.com/OfficialDonut/SkUniversal/wiki");
-            sender.sendMessage("");
-            sender.sendMessage("§6Discord channel:");
-            sender.sendMessage("§ehttps://discord.gg/UBGQhn8");
-            return true;
-        }
-        return false;
+        sender.sendMessage("");
+        sender.sendMessage("§5§l§nSkUniversal v" + getDescription().getVersion());
+        sender.sendMessage("");
+        sender.sendMessage("§6Hooked plugins:");
+        sender.sendMessage(hookedPlugins.isEmpty() ? "§eNone" : "§e" + hookedPlugins);
+        sender.sendMessage("");
+        sender.sendMessage("§6Plugin page:");
+        sender.sendMessage("§ehttps://www.spigotmc.org/resources/skuniversal.45392/");
+        sender.sendMessage("");
+        sender.sendMessage("§6Documentation:");
+        sender.sendMessage("§ehttps://github.com/OfficialDonut/SkUniversal/wiki");
+        sender.sendMessage("");
+        sender.sendMessage("§6Discord channel:");
+        sender.sendMessage("§ehttps://discord.gg/UBGQhn8");
+        return true;
     }
 }

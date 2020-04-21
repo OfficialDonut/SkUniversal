@@ -9,7 +9,7 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import com.github.intellectualsites.plotsquared.plot.object.Plot;
+import com.plotsquared.core.plot.Plot;
 import org.bukkit.Location;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
@@ -52,8 +52,7 @@ public class ExprPlotID extends SimpleExpression<String> {
     protected String[] get(Event e) {
         Location location = loc.getSingle(e);
         if (location == null) return null;
-        com.github.intellectualsites.plotsquared.plot.object.Location plotLoc = new com.github.intellectualsites.plotsquared.plot.object.Location(
-                location.getWorld().getName(), location.getBlockX(), location.getBlockY(), location.getBlockZ());
+        com.plotsquared.core.location.Location plotLoc = new com.plotsquared.core.location.Location(location.getWorld().getName(), location.getBlockX(), location.getBlockY(), location.getBlockZ());
         Plot plot = plotLoc.getPlot();
         return plot == null ? null : new String[]{plot.getId().toString()};
     }

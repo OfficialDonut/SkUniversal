@@ -9,32 +9,33 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import com.github.intellectualsites.plotsquared.plot.flag.Flag;
-import com.github.intellectualsites.plotsquared.plot.object.Plot;
+import com.plotsquared.core.plot.Plot;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
 import static us.donut.skuniversal.plotsquared.PlotSquaredHook.*;
 
-@Name("PlotSquared - Plot Flags")
-@Description("Returns the set flags in a plot.")
-@Examples({"send \"%the flags of the plot with id (id of plot at player)%\""})
-public class ExprPlotFlags extends SimpleExpression<String> {
+@Name("PlotSquared - Plot Home")
+@Description("Returns the home location of a plot.")
+@Examples({"send \"%the home location of the plot with id (id of plot at player)%\""})
+public class ExprHomeLocation extends SimpleExpression<Location> {
 
     static {
-        Skript.registerExpression(ExprPlotFlags.class, String.class, ExpressionType.COMBINED, "[the] [set] flags of [the] [PlotSquared] plot [with ID] %string%");
+        Skript.registerExpression(ExprHomeLocation.class, Location.class, ExpressionType.COMBINED, "[the] home loc[ation] of [the] [PlotSquared] plot [with ID] %string%");
     }
 
     private Expression<String> id;
 
     @Override
     public boolean isSingle() {
-        return false;
+        return true;
     }
 
     @Override
-    public Class<? extends String> getReturnType() {
-        return String.class;
+    public Class<? extends Location> getReturnType() {
+        return Location.class;
     }
 
     @SuppressWarnings("unchecked")
@@ -46,14 +47,16 @@ public class ExprPlotFlags extends SimpleExpression<String> {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "flags of plot of with id " + id.toString(e, b);
+        return "home location of plot with ID " + id.toString(e, b);
     }
 
     @Override
     @Nullable
-    protected String[] get(Event e) {
+    protected Location[] get(Event e) {
         Plot plot;
         if (id.getSingle(e) == null || (plot = getPlot(id.getSingle(e))) == null) return null;
-        return plot.getFlags().keySet().stream().map(Flag::getName).toArray(String[]::new);
+        com.plotsquared.core.location.Location home = plot.getHomeSynchronous();
+        return new Location[]{new Location(Bukkit.getWorld(home.getWorld()), home.getX(), home.getY(), home.getZ(), home.getYaw(), home.getPitch())};
     }
+
 }

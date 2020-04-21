@@ -9,21 +9,19 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import com.github.intellectualsites.plotsquared.plot.object.Plot;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
+import com.plotsquared.core.plot.Plot;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
 import static us.donut.skuniversal.plotsquared.PlotSquaredHook.*;
 
-@Name("PlotSquared - Plot Home")
-@Description("Returns the home location of a plot.")
-@Examples({"send \"%the home location of the plot with id (id of plot at player)%\""})
-public class ExprHomeLocation extends SimpleExpression<Location> {
+@Name("PlotSquared - Plot Biome")
+@Description("Returns the biome of a plot.")
+@Examples({"send \"%the biome of the plot with id (id of plot at player)%\""})
+public class ExprPlotBiome extends SimpleExpression<String> {
 
     static {
-        Skript.registerExpression(ExprHomeLocation.class, Location.class, ExpressionType.COMBINED, "[the] home loc[ation] of [the] [PlotSquared] plot [with ID] %string%");
+        Skript.registerExpression(ExprPlotBiome.class, String.class, ExpressionType.COMBINED, "[the] biome of [the] [PlotSquared] plot [with ID] %string%");
     }
 
     private Expression<String> id;
@@ -34,8 +32,8 @@ public class ExprHomeLocation extends SimpleExpression<Location> {
     }
 
     @Override
-    public Class<? extends Location> getReturnType() {
-        return Location.class;
+    public Class<? extends String> getReturnType() {
+        return String.class;
     }
 
     @SuppressWarnings("unchecked")
@@ -47,16 +45,14 @@ public class ExprHomeLocation extends SimpleExpression<Location> {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "home location of plot with ID " + id.toString(e, b);
+        return "biome of plot with id " + id.toString(e, b);
     }
 
     @Override
     @Nullable
-    protected Location[] get(Event e) {
+    protected String[] get(Event e) {
         Plot plot;
         if (id.getSingle(e) == null || (plot = getPlot(id.getSingle(e))) == null) return null;
-        com.github.intellectualsites.plotsquared.plot.object.Location home = plot.getHome();
-        return new Location[]{new Location(Bukkit.getWorld(home.getWorld()), home.getX(), home.getY(), home.getZ(), home.getYaw(), home.getPitch())};
+        return new String[]{plot.getBiomeSynchronous().toString()};
     }
-
 }

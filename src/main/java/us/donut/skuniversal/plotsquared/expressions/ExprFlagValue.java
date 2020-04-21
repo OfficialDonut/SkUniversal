@@ -9,8 +9,8 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import com.github.intellectualsites.plotsquared.plot.flag.Flags;
-import com.github.intellectualsites.plotsquared.plot.object.Plot;
+import com.plotsquared.core.plot.Plot;
+import com.plotsquared.core.plot.flag.GlobalFlagContainer;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
@@ -56,6 +56,6 @@ public class ExprFlagValue extends SimpleExpression<Object> {
     protected Object[] get(Event e) {
         Plot plot;
         if (id.getSingle(e) == null || flag.getSingle(e) == null || (plot = getPlot(id.getSingle(e))) == null) return null;
-        return new Object[]{plot.getFlags().get(Flags.getFlag(flag.getSingle(e)))};
+        return new Object[]{plot.getFlag(GlobalFlagContainer.getInstance().getFlagFromString(flag.getSingle(e)))};
     }
 }

@@ -11,7 +11,7 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
-import com.github.intellectualsites.plotsquared.plot.object.Plot;
+import com.plotsquared.core.plot.Plot;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
@@ -19,13 +19,13 @@ import javax.annotation.Nullable;
 
 import static us.donut.skuniversal.plotsquared.PlotSquaredHook.*;
 
-@Name("PlotSquared - Denied Players of Plot")
-@Description("Returns the denied players of a plot.")
-@Examples({"send \"%the denied players of the plot with id (id of plot at player)%\""})
-public class ExprDenied extends SimpleExpression<OfflinePlayer> {
+@Name("PlotSquared - Trusted Players of Plot")
+@Description("Returns the trusted players of a plot.")
+@Examples({"send \"%the trusted players of the plot with id (id of plot at player)%\""})
+public class ExprTrusted extends SimpleExpression<OfflinePlayer>{
 
     static {
-        Skript.registerExpression(ExprDenied.class, OfflinePlayer.class, ExpressionType.COMBINED, "[(all [[of] the]|the)] denied players of [the] [PlotSquared] plot [with ID] %string%");
+        Skript.registerExpression(ExprTrusted.class, OfflinePlayer.class, ExpressionType.COMBINED, "[(all [[of] the]|the)] trusted players of [the] [PlotSquared] plot [with ID] %string%");
     }
 
     private Expression<String> id;
@@ -49,7 +49,7 @@ public class ExprDenied extends SimpleExpression<OfflinePlayer> {
 
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "denied players of plot with id " + id.toString(e, b);
+        return "trusted players of plot with id " + id.toString(e, b);
     }
 
     @Override
@@ -57,19 +57,18 @@ public class ExprDenied extends SimpleExpression<OfflinePlayer> {
     protected OfflinePlayer[] get(Event e) {
         Plot plot;
         if (id.getSingle(e) == null || (plot = getPlot(id.getSingle(e))) == null) return null;
-        return plot.getDenied().stream().map(Bukkit::getOfflinePlayer).toArray(OfflinePlayer[]::new);
+        return plot.getTrusted().stream().map(Bukkit::getOfflinePlayer).toArray(OfflinePlayer[]::new);
     }
 
     @Override
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){
-        if (id.getSingle(e) == null) return;
+        Plot plot;
+        if (id.getSingle(e) == null || (plot = getPlot(id.getSingle(e))) == null) return;
         OfflinePlayer player = (OfflinePlayer) delta[0];
-        Plot plot = getPlot(id.getSingle(e));
-        if (plot == null) return;
         if (mode == Changer.ChangeMode.ADD) {
-           plot.addDenied(player.getUniqueId());
+            plot.addTrusted(player.getUniqueId());
         } else if (mode == Changer.ChangeMode.REMOVE) {
-            plot.removeDenied(player.getUniqueId());
+           plot.removeTrusted(player.getUniqueId());
         }
     }
     @Override
