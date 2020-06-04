@@ -12,7 +12,6 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import com.alessiodp.parties.api.interfaces.HomeLocation;
-import com.alessiodp.parties.common.parties.objects.HomeLocationImpl;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.Event;
@@ -64,17 +63,85 @@ public class ExprHome extends SimpleExpression<Location> {
     }
 
     @Override
-    public void change(Event e, Object[] delta, Changer.ChangeMode mode){
-        Location newLoc = (Location) delta[0];
+    public void change(Event e, Object[] delta, Changer.ChangeMode mode) {
         if (name.getSingle(e) == null) return;
         if (mode == Changer.ChangeMode.SET) {
-            partiesAPI.getParty(name.getSingle(e)).setHome(new HomeLocationImpl(newLoc.getWorld().getName(), newLoc.getX(), newLoc.getY(), newLoc.getZ(), newLoc.getYaw(), newLoc.getPitch()));
+            partiesAPI.getParty(name.getSingle(e)).setHome(new HomeLocationImpl((Location) delta[0]));
         }
     }
 
     @Override
     public Class<?>[] acceptChange(final Changer.ChangeMode mode) {
         return (mode == Changer.ChangeMode.SET) ? CollectionUtils.array(Location.class) : null;
+    }
+
+    private static class HomeLocationImpl implements HomeLocation {
+
+        private Location loc;
+
+        public HomeLocationImpl(Location loc) {
+            this.loc = loc.clone();
+        }
+
+        @Override
+        public String getWorld() {
+            return loc.getWorld().getName();
+        }
+
+        @Override
+        public void setWorld(String s) {
+            loc.setWorld(Bukkit.getWorld(s));
+        }
+
+        @Override
+        public double getX() {
+            return loc.getX();
+        }
+
+        @Override
+        public void setX(double v) {
+            loc.setX(v);
+        }
+
+        @Override
+        public double getY() {
+            return loc.getY();
+        }
+
+        @Override
+        public void setY(double v) {
+            loc.setY(v);
+        }
+
+        @Override
+        public double getZ() {
+            return loc.getZ();
+        }
+
+        @Override
+        public void setZ(double v) {
+            loc.setZ(v);
+        }
+
+        @Override
+        public float getYaw() {
+            return loc.getYaw();
+        }
+
+        @Override
+        public void setYaw(float v) {
+            loc.setYaw(v);
+        }
+
+        @Override
+        public float getPitch() {
+            return loc.getPitch();
+        }
+
+        @Override
+        public void setPitch(float v) {
+            loc.setPitch(v);
+        }
     }
 }
 
