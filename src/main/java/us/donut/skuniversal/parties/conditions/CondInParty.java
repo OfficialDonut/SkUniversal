@@ -8,6 +8,7 @@ import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
+import com.alessiodp.parties.api.interfaces.PartyPlayer;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
@@ -43,6 +44,10 @@ public class CondInParty extends Condition {
     @Override
     public boolean check(Event e) {
         if (player.getSingle(e) == null) return isNegated();
-        return (partiesAPI.getParty(partiesAPI.getPartyPlayer(player.getSingle(e).getUniqueId()).getPartyName()) != null) == isNegated();
+        PartyPlayer pp = partiesAPI.getPartyPlayer(player.getSingle(e).getUniqueId());
+        return (pp != null
+                && pp.getPartyName() != null
+                && !pp.getPartyName().isEmpty() // Backward compatibility
+        ) == isNegated();
     }
 }
