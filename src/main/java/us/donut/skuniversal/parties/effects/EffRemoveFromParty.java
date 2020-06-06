@@ -8,6 +8,7 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
+import com.alessiodp.parties.api.interfaces.Party;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
@@ -20,7 +21,7 @@ import static us.donut.skuniversal.parties.PartiesHook.partiesAPI;
 public class EffRemoveFromParty extends Effect {
 
     static {
-        Skript.registerEffect(EffAddToParty.class, "remove %player% to [the] party [(named|with name)] %string%");
+        Skript.registerEffect(EffRemoveFromParty.class, "remove %player% from [the] party [(named|with name)] %string%");
     }
 
     private Expression<Player> player;
@@ -41,6 +42,8 @@ public class EffRemoveFromParty extends Effect {
     @Override
     protected void execute(Event e) {
         if (player.getSingle(e) == null || name.getSingle(e) == null) return;
-        partiesAPI.getParty(name.getSingle(e)).removeMember(partiesAPI.getPartyPlayer(player.getSingle(e).getUniqueId()));
+        Party party = partiesAPI.getParty(name.getSingle(e));
+        if (party != null)
+            party.removeMember(partiesAPI.getPartyPlayer(player.getSingle(e).getUniqueId()));
     }
 }

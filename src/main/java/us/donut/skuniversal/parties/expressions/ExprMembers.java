@@ -9,6 +9,7 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import com.alessiodp.parties.api.interfaces.Party;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
@@ -18,7 +19,7 @@ import static us.donut.skuniversal.parties.PartiesHook.*;
 
 @Name("Parties - Party Members")
 @Description("Returns the members of a party.")
-@Examples({"send \"%the members of the party named \"cool\"%\""})
+@Examples({"send \"%the members of the party named \"\"cool\"\"%\""})
 public class ExprMembers extends SimpleExpression<OfflinePlayer> {
 
     static {
@@ -55,6 +56,10 @@ public class ExprMembers extends SimpleExpression<OfflinePlayer> {
     @Nullable
     protected OfflinePlayer[] get(Event e) {
         if (name.getSingle(e) == null) return null;
-        return partiesAPI.getParty(name.getSingle(e)).getMembers().stream().map(Bukkit::getOfflinePlayer).toArray(OfflinePlayer[]::new);
+        Party party = partiesAPI.getParty(name.getSingle(e));
+        if (party != null) {
+            return party.getMembers().stream().map(Bukkit::getOfflinePlayer).toArray(OfflinePlayer[]::new);
+        }
+        return new OfflinePlayer[0];
     }
 }

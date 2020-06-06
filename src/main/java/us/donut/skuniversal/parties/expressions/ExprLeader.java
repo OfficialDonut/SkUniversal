@@ -11,6 +11,8 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
+import com.alessiodp.parties.api.interfaces.Party;
+import com.alessiodp.parties.api.interfaces.PartyPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
@@ -22,7 +24,7 @@ import static us.donut.skuniversal.parties.PartiesHook.*;
 
 @Name("Parties - Party Leader")
 @Description("Returns the leader of a party.")
-@Examples({"send \"%the leader of the party named \"cool\"%\""})
+@Examples({"send \"%the leader of the party named \"\"cool\"\"%\""})
 public class ExprLeader extends SimpleExpression<OfflinePlayer> {
 
     static {
@@ -59,8 +61,12 @@ public class ExprLeader extends SimpleExpression<OfflinePlayer> {
     @Nullable
     protected OfflinePlayer[] get(Event e) {
         if (name.getSingle(e) == null) return null;
-        UUID leader = partiesAPI.getParty(name.getSingle(e)).getLeader();
-        return leader == null ? null : new OfflinePlayer[]{Bukkit.getOfflinePlayer(leader)};
+        Party party = partiesAPI.getParty(name.getSingle(e));
+        if (party != null) {
+            if (party.getLeader() != null)
+                return new OfflinePlayer[]{Bukkit.getOfflinePlayer(party.getLeader())};
+        }
+        return null;
     }
 
     @Override
@@ -68,7 +74,12 @@ public class ExprLeader extends SimpleExpression<OfflinePlayer> {
         OfflinePlayer newLeader = (OfflinePlayer) delta[0];
         if (name.getSingle(e) == null) return;
         if (mode == Changer.ChangeMode.SET) {
-            partiesAPI.getParty(name.getSingle(e)).changeLeader(partiesAPI.getPartyPlayer(newLeader.getUniqueId()));
+            Party party = partiesAPI.getParty(name.getSingle(e));
+            if (party != null) {
+                PartyPlayer partyPlayer = partiesAPI.getPartyPlayer(newLeader.getUniqueId());
+                if (partyPlayer != null)
+                    party.changeLeader(partyPlayer);
+            }
         }
     }
 

@@ -48,6 +48,6 @@ public class CondInParty extends Condition {
         return (pp != null
                 && pp.getPartyName() != null
                 && !pp.getPartyName().isEmpty() // Backward compatibility
-        ) == isNegated();
+        ) != isNegated();
     }
 }

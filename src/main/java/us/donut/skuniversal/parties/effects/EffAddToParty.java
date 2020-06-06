@@ -8,6 +8,7 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
+import com.alessiodp.parties.api.interfaces.Party;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
@@ -41,6 +42,8 @@ public class EffAddToParty extends Effect {
     @Override
     protected void execute(Event e) {
         if (player.getSingle(e) == null || name.getSingle(e) == null) return;
-        partiesAPI.getParty(name.getSingle(e)).addMember(partiesAPI.getPartyPlayer(player.getSingle(e).getUniqueId()));
+        Party party = partiesAPI.getParty(name.getSingle(e));
+        if (party != null)
+            party.addMember(partiesAPI.getPartyPlayer(player.getSingle(e).getUniqueId()));
     }
 }
