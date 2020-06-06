@@ -9,6 +9,7 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import com.alessiodp.parties.api.interfaces.PartyPlayer;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
@@ -17,11 +18,11 @@ import static us.donut.skuniversal.parties.PartiesHook.*;
 
 @Name("Parties - Party of Player")
 @Description("Returns the party of a player.")
-@Examples({"send \"%the party of player%\""})
+@Examples({"send the party of player"})
 public class ExprPartyOfPlayer extends SimpleExpression<String> {
 
     static {
-        Skript.registerExpression(ExprPartyOfPlayer.class,String.class, ExpressionType.COMBINED,
+        Skript.registerExpression(ExprPartyOfPlayer.class, String.class, ExpressionType.COMBINED,
                 "[[the] name of] [the] party of %offlineplayer%",
                 "[[the] name of] %offlineplayer%'s party");
     }
@@ -54,6 +55,10 @@ public class ExprPartyOfPlayer extends SimpleExpression<String> {
     @Nullable
     protected String[] get(Event e) {
         if (player.getSingle(e) == null) return null;
-        return new String[]{partiesAPI.getPartyPlayer(player.getSingle(e).getUniqueId()).getPartyName()};
+        PartyPlayer partyPlayer = partiesAPI.getPartyPlayer(player.getSingle(e).getUniqueId());
+        if (partyPlayer != null) {
+            return new String[]{partyPlayer.getPartyName()};
+        }
+        return new String[0];
     }
 }

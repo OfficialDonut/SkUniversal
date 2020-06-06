@@ -12,6 +12,7 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import com.alessiodp.parties.api.interfaces.HomeLocation;
+import com.alessiodp.parties.api.interfaces.Party;
 import com.alessiodp.parties.common.parties.objects.HomeLocationImpl;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -59,8 +60,14 @@ public class ExprHome extends SimpleExpression<Location> {
     @Nullable
     protected Location[] get(Event e) {
         if (name.getSingle(e) == null) return null;
-        HomeLocation homeLoc = partiesAPI.getParty(name.getSingle(e)).getHome();
-        return homeLoc == null ? null : new Location[]{new Location(Bukkit.getWorld(homeLoc.getWorld()), homeLoc.getX(), homeLoc.getY(), homeLoc.getZ())};
+        Party party = partiesAPI.getParty(name.getSingle(e));
+        if (party != null) {
+            HomeLocation homeLoc = party.getHome();
+            if (homeLoc != null) {
+                return new Location[]{new Location(Bukkit.getWorld(homeLoc.getWorld()), homeLoc.getX(), homeLoc.getY(), homeLoc.getZ())};
+            }
+        }
+        return null;
     }
 
     @Override
@@ -68,7 +75,9 @@ public class ExprHome extends SimpleExpression<Location> {
         Location newLoc = (Location) delta[0];
         if (name.getSingle(e) == null) return;
         if (mode == Changer.ChangeMode.SET) {
-            partiesAPI.getParty(name.getSingle(e)).setHome(new HomeLocationImpl(newLoc.getWorld().getName(), newLoc.getX(), newLoc.getY(), newLoc.getZ(), newLoc.getYaw(), newLoc.getPitch()));
+            Party party = partiesAPI.getParty(name.getSingle(e));
+            if (party != null)
+                party.setHome(new HomeLocationImpl(newLoc.getWorld().getName(), newLoc.getX(), newLoc.getY(), newLoc.getZ(), newLoc.getYaw(), newLoc.getPitch()));
         }
     }
 

@@ -9,6 +9,7 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import com.alessiodp.parties.api.interfaces.Party;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -18,7 +19,7 @@ import static us.donut.skuniversal.parties.PartiesHook.*;
 
 @Name("Parties - Party Online Members")
 @Description("Returns the online members of a party.")
-@Examples({"send \"%the online members of the party named \"cool\"%\""})
+@Examples({"send \"%the online members of the party named \"\"cool\"\"%\""})
 public class ExprOnlineMembers extends SimpleExpression<Player> {
 
     static {
@@ -55,9 +56,13 @@ public class ExprOnlineMembers extends SimpleExpression<Player> {
     @Nullable
     protected Player[] get(Event e) {
         if (name.getSingle(e) == null) return null;
-        return partiesAPI.getParty(name.getSingle(e)).getOnlineMembers(true)
-                .stream()
-                .map(partyPlayer -> Bukkit.getPlayer(partyPlayer.getPlayerUUID()))
-                .toArray(Player[]::new);
+        Party party = partiesAPI.getParty(name.getSingle(e));
+        if (party != null) {
+            return party.getOnlineMembers(true)
+                    .stream()
+                    .map(partyPlayer -> Bukkit.getPlayer(partyPlayer.getPlayerUUID()))
+                    .toArray(Player[]::new);
+        }
+        return new Player[0];
     }
 }

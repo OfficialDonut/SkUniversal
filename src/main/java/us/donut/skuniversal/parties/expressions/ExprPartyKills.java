@@ -11,6 +11,7 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
+import com.alessiodp.parties.api.interfaces.Party;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
@@ -18,7 +19,7 @@ import static us.donut.skuniversal.parties.PartiesHook.*;
 
 @Name("Parties - Party Kills")
 @Description("Returns the amount of kills of a party.")
-@Examples({"send \"%the kills of the party named \"cool\"%\""})
+@Examples({"send \"%the kills of the party named \"\"cool\"\"%\""})
 public class ExprPartyKills extends SimpleExpression<Number> {
 
     static {
@@ -56,20 +57,27 @@ public class ExprPartyKills extends SimpleExpression<Number> {
     @Nullable
     protected Number[] get(Event e) {
         if (name.getSingle(e) == null) return null;
-        return new Number[]{partiesAPI.getParty(name.getSingle(e)).getKills()};
+        int number = 0;
+        Party party = partiesAPI.getParty(name.getSingle(e));
+        if (party != null)
+            number = party.getKills();
+        return new Number[]{number};
     }
 
     @Override
     public void change(Event e, Object[] delta, Changer.ChangeMode mode){
         if (name.getSingle(e) == null) return;
         int killsChange = ((Number) delta[0]).intValue();
-        Number currentKills = partiesAPI.getParty(name.getSingle(e)).getKills();
-        if (mode == Changer.ChangeMode.SET) {
-            partiesAPI.getParty(name.getSingle(e)).setKills(killsChange);
-        } else if (mode == Changer.ChangeMode.ADD) {
-            partiesAPI.getParty(name.getSingle(e)).setKills(currentKills.intValue() + killsChange);
-        } else if (mode == Changer.ChangeMode.REMOVE) {
-           partiesAPI.getParty(name.getSingle(e)).setKills(currentKills.intValue() - killsChange);
+        Party party = partiesAPI.getParty(name.getSingle(e));
+        if (party != null) {
+            Number currentKills = partiesAPI.getParty(name.getSingle(e)).getKills();
+            if (mode == Changer.ChangeMode.SET) {
+                party.setKills(killsChange);
+            } else if (mode == Changer.ChangeMode.ADD) {
+                party.setKills(currentKills.intValue() + killsChange);
+            } else if (mode == Changer.ChangeMode.REMOVE) {
+                party.setKills(currentKills.intValue() - killsChange);
+            }
         }
     }
     @Override
