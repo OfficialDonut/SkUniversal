@@ -18,8 +18,6 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
 import javax.annotation.Nullable;
 
-import java.util.UUID;
-
 import static us.donut.skuniversal.parties.PartiesHook.*;
 
 @Name("Parties - Party Leader")

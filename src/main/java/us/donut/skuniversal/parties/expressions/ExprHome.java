@@ -22,7 +22,7 @@ import static us.donut.skuniversal.parties.PartiesHook.*;
 
 @Name("Parties - Party Home")
 @Description("Returns the home location of a party.")
-@Examples({"send \"%the home of the party named \"cool\"%\""})
+@Examples({"send \"%the home of the party named \"\"cool\"\"%\""})
 public class ExprHome extends SimpleExpression<Location> {
 
     static {
