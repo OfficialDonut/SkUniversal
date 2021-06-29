@@ -1,0 +1,24 @@
+plugin-hooks:
+  AdvancedBan: true
+  Autorank: true
+  Bedwars: true
+  Bitcoin: true
+  Cannons: true
+  ClearLag: true
+  CombatLog: true
+  GriefPrevention: true
+  Lockette: true
+  LockettePro: true
+  LuckPerms: true
+  LWC: true
+  MinePacks: true
+  Parties: true
+  PlayerPoints: true
+  PlotSquared: true
+  PrisonMines: true
+  PvPLevels: true
+  Shopkeepers: true
+  ShopChest: true
+  SkyWars_CookLoco: true
+  SkyWars_Daboross: true
+  Slimefun: true
