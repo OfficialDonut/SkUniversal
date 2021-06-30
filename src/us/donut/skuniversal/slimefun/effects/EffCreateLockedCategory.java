@@ -10,9 +10,9 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import me.mrCookieSlime.Slimefun.Lists.Categories;
+import io.github.thebusybiscuit.slimefun4.core.categories.LockedCategory;
 import me.mrCookieSlime.Slimefun.Objects.Category;
-import me.mrCookieSlime.Slimefun.Objects.LockedCategory;
+import org.bukkit.NamespacedKey;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 import us.donut.skuniversal.slimefun.SlimefunHook;
@@ -23,14 +23,14 @@ import java.util.List;
 
 @Name("Slimefun - Create Locked Category")
 @Description("Creates Slimefun locked category (it will not show up in the guide unless you create at least 1 item for it)")
-@Examples("create locked slimefun category named \"Locked Cool Stuff\" with menu item dirt named \"Locked Cool Stuff\" with priority 0 with required categories \"RESOURCES\"")
+@Examples("create locked slimefun category with ID \"cool_locked_stuff\" with menu item dirt named \"Cool Locked Stuff\" with priority 0 with required categories \"RESOURCES\"")
 public class EffCreateLockedCategory extends Effect {
 
     static {
-        Skript.registerEffect(EffCreateLockedCategory.class, "create [a] [new] locked [Slimefun] category [(named|with name)] %string% with [menu] item %itemstack% with (level|priority) %integer% with required categor(y|ies) %strings%");
+        Skript.registerEffect(EffCreateLockedCategory.class, "create [a] [new] locked [Slimefun] category [with ID] %string% with [menu] item %itemstack% with (level|priority|tier) %integer% with required categor(y|ies) %strings%");
     }
 
-    private Expression<String> name;
+    private Expression<String> id;
     private Expression<ItemStack> item;
     private Expression<Integer> level;
     private Expression<String> categories;
@@ -42,7 +42,7 @@ public class EffCreateLockedCategory extends Effect {
             Skript.error("You can not use Slimefun create locked category effect in any event but on skript load.");
             return false;
         }
-        name = (Expression<String>) e[0];
+        id = (Expression<String>) e[0];
         item = (Expression<ItemStack>) e[1];
         level = (Expression<Integer>) e[2];
         categories = (Expression<String>) e[3];
@@ -50,22 +50,19 @@ public class EffCreateLockedCategory extends Effect {
     }
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "create Slimefun category " + name.toString(e, b) + " with item " + item.toString(e, b) + " with level " + level.toString(e, b) + " with required categories " + categories.toString(e, b);
+        return "create Slimefun category " + id.toString(e, b) + " with item " + item.toString(e, b) + " with level " + level.toString(e, b) + " with required categories " + categories.toString(e, b);
     }
 
     @Override
     protected void execute(Event e) {
-        if (name.getSingle(e) == null || item.getSingle(e) == null || level.getSingle(e) == null || categories.getSingle(e) == null) return;
-        List<Category> requiredCategories = new ArrayList<>();
-        for (String categoryString : categories.getArray(e)) {
-            try {
-                requiredCategories.add((Category) Categories.class.getField(categoryString).get(Category.class));
-            } catch (NoSuchFieldException | IllegalAccessException exc) {
-                if (SlimefunHook.customCategories.containsKey(categoryString.toLowerCase())) {
-                    requiredCategories.add(SlimefunHook.customCategories.get(categoryString.toLowerCase()));
-                }
+        if (id.getSingle(e) == null || item.getSingle(e) == null || level.getSingle(e) == null || categories.getSingle(e) == null) return;
+        List<NamespacedKey> requiredCategories = new ArrayList<>();
+        for (String categoryID : categories.getArray(e)) {
+            Category category = SlimefunHook.getCategory(categoryID);
+            if (category != null) {
+                requiredCategories.add(category.getKey());
             }
         }
-        SlimefunHook.customCategories.put(name.getSingle(e).toLowerCase(), new LockedCategory(item.getSingle(e), level.getSingle(e), requiredCategories.toArray(new Category[0])));
+        new LockedCategory(new NamespacedKey(Skript.getInstance(), id.getSingle(e).toLowerCase()), item.getSingle(e), level.getSingle(e), requiredCategories.toArray(new NamespacedKey[0])).register(SlimefunHook.ADDON);
     }
 }

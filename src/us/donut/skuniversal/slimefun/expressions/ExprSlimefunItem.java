@@ -21,10 +21,10 @@ import javax.annotation.Nullable;
 public class ExprSlimefunItem extends SimpleExpression<ItemStack> {
 
     static {
-        Skript.registerExpression(ExprSlimefunItem.class, ItemStack.class, ExpressionType.COMBINED, "[the] Slimefun item [(named|with name)] %string%");
+        Skript.registerExpression(ExprSlimefunItem.class, ItemStack.class, ExpressionType.COMBINED, "[the] Slimefun item [with ID] %string%");
     }
 
-    private Expression<String> name;
+    private Expression<String> id;
 
     @Override
     public boolean isSingle() {
@@ -39,19 +39,19 @@ public class ExprSlimefunItem extends SimpleExpression<ItemStack> {
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] e, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult pr) {
-        name = (Expression<String>) e[0];
+        id = (Expression<String>) e[0];
         return true;
     }
 
     @Override
     public String toString(@Nullable Event e, boolean arg1) {
-        return "the Slimefun item named " + name.getSingle(e);
+        return "the Slimefun item with ID " + id.getSingle(e);
     }
 
     @Override
     @Nullable
     protected ItemStack[] get(Event e) {
-        if (name.getSingle(e) == null) return null;
-        return new ItemStack[]{SlimefunItem.getItem(name.getSingle(e))};
+        if (id.getSingle(e) == null) return null;
+        return new ItemStack[]{SlimefunItem.getByID(id.getSingle(e)).getItem()};
     }
 }

@@ -9,18 +9,19 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import io.github.thebusybiscuit.slimefun4.implementation.SlimefunPlugin;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import org.bukkit.event.Event;
 
 import javax.annotation.Nullable;
 
-@Name("Slimefun - Item Names")
-@Description("Returns the names of all Slimefun items")
-@Examples({"send \"%the names of all Slimefun items%\""})
+@Name("Slimefun - Item IDs")
+@Description("Returns the IDs of all Slimefun items")
+@Examples({"send \"%the IDs of all Slimefun items%\""})
 public class ExprItemNames extends SimpleExpression<String> {
 
     static {
-        Skript.registerExpression(ExprItemNames.class, String.class, ExpressionType.SIMPLE, "[(all [[of] the]|the)] [names of [all] [the]] Slimefun items");
+        Skript.registerExpression(ExprItemNames.class, String.class, ExpressionType.SIMPLE, "[(all [[of] the]|the)] [IDs of [all] [the]] Slimefun items");
     }
 
     @Override
@@ -47,6 +48,6 @@ public class ExprItemNames extends SimpleExpression<String> {
     @Override
     @Nullable
     protected String[] get(Event e) {
-        return SlimefunItem.list().stream().map(SlimefunItem::getID).toArray(String[]::new);
+        return SlimefunPlugin.getRegistry().getAllSlimefunItems().stream().map(SlimefunItem::getId).toArray(String[]::new);
     }
 }

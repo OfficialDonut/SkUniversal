@@ -10,22 +10,23 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import me.mrCookieSlime.Slimefun.Objects.Research;
+import io.github.thebusybiscuit.slimefun4.core.researching.Research;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import org.bukkit.event.Event;
+import us.donut.skuniversal.slimefun.SlimefunHook;
 
 import javax.annotation.Nullable;
 
 @Name("Slimefun - Add Research")
 @Description("Adds Slimefun research to an item.")
-@Examples({"add the slimefun research with id 2048 to the slimefun item named  \"COOL_DIRT\""})
+@Examples({"add the slimefun research with ID \"cool_research\" to the slimefun item \"COOL_DIRT\""})
 public class EffAddResearch extends Effect {
 
     static {
-        Skript.registerEffect(EffAddResearch.class, "add [the] [Slimefun] research [with ID] %integer% to [the] [Slimefun] [item] [(named|with name)] %string%");
+        Skript.registerEffect(EffAddResearch.class, "add [the] [Slimefun] research [with ID] %string% to [the] [Slimefun] [item] [with ID] %string%");
     }
 
-    private Expression<Integer> id;
+    private Expression<String> id;
     private Expression<String> item;
 
     @SuppressWarnings("unchecked")
@@ -35,7 +36,7 @@ public class EffAddResearch extends Effect {
             Skript.error("You can not use Slimefun add research expression in any event but on script load.");
             return false;
         }
-        id = (Expression<Integer>) e[0];
+        id = (Expression<String>) e[0];
         item = (Expression<String>) e[1];
         return true;
     }
@@ -47,8 +48,10 @@ public class EffAddResearch extends Effect {
     @Override
     protected void execute(Event e) {
         if (id.getSingle(e) == null || item.getSingle(e) == null) return;
-        Research research = Research.getByID(id.getSingle(e));
-        research.addItems(SlimefunItem.getByID(item.getSingle(e)));
-        research.register();
+        Research research = SlimefunHook.getResearch(id.getSingle(e));
+        if (research != null) {
+            research.addItems(SlimefunItem.getByID(item.getSingle(e)));
+            research.register();
+        }
     }
 }

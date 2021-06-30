@@ -8,28 +8,29 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import me.mrCookieSlime.Slimefun.Objects.Research;
+import io.github.thebusybiscuit.slimefun4.core.researching.Research;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+import us.donut.skuniversal.slimefun.SlimefunHook;
 
 import javax.annotation.Nullable;
 
 @Name("Slimefun - Unlock Research")
 @Description("Unlocks Slimefun research.")
-@Examples({"unlock the slimefun research with id 2048 for player"})
+@Examples({"unlock the slimefun research with id \"cool_research\" for player"})
 public class EffUnlockResearch extends Effect {
 
     static {
-        Skript.registerEffect(EffUnlockResearch.class, "unlock [the] [Slimefun] research [with ID] %integer% for %player%");
+        Skript.registerEffect(EffUnlockResearch.class, "unlock [the] [Slimefun] research [with ID] %string% for %player%");
     }
 
-    private Expression<Integer> id;
+    private Expression<String> id;
     private Expression<Player> player;
 
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] e, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult p) {
-        id = (Expression<Integer>) e[0];
+        id = (Expression<String>) e[0];
         player = (Expression<Player>) e[1];
         return true;
     }
@@ -41,7 +42,9 @@ public class EffUnlockResearch extends Effect {
     @Override
     protected void execute(Event e) {
         if (id.getSingle(e) == null || player.getSingle(e) == null) return;
-        Research research = Research.getByID(id.getSingle(e));
-        research.unlock(player.getSingle(e), true);
+        Research research = SlimefunHook.getResearch(id.getSingle(e));
+        if (research != null) {
+            research.unlock(player.getSingle(e), true);
+        }
     }
 }

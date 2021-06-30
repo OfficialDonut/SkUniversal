@@ -10,10 +10,9 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import me.mrCookieSlime.Slimefun.Lists.Categories;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
-import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
+import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.Material;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
@@ -59,24 +58,18 @@ public class EffCreateItem extends Effect {
     @Override
     protected void execute(Event e) {
         if (item.getSingle(e) == null || id.getSingle(e) == null || category.getSingle(e) == null || recipe.getSingle(e) == null || recipeType.getSingle(e) == null) return;
-        Category actualCategory;
-        RecipeType actualRecipeType;
-        ItemStack[] actualRecipe = recipe.getArray(e);
+        RecipeType slimefunRecipeType;
         try {
-            actualCategory = (Category) Categories.class.getField(category.getSingle(e)).get(Category.class);
+            slimefunRecipeType = (RecipeType) RecipeType.class.getField(recipeType.getSingle(e)).get(null);
         } catch (NoSuchFieldException | IllegalAccessException exc) {
-            actualCategory = SlimefunHook.customCategories.getOrDefault(category.getSingle(e).toLowerCase(), Categories.MISC);
+            slimefunRecipeType = RecipeType.ENHANCED_CRAFTING_TABLE;
         }
-        try {
-            actualRecipeType = (RecipeType) RecipeType.class.getField(recipeType.getSingle(e)).get(RecipeType.class);
-        } catch (NoSuchFieldException | IllegalAccessException exc) {
-            actualRecipeType = RecipeType.ENHANCED_CRAFTING_TABLE;
-        }
-        for (int i = 0; i < actualRecipe.length; i++) {
-            if (actualRecipe[i].getType() == Material.AIR) {
-                actualRecipe[i] = null;
+        ItemStack[] recipeItems = recipe.getArray(e);
+        for (int i = 0; i < recipeItems.length; i++) {
+            if (recipeItems[i].getType() == Material.AIR) {
+                recipeItems[i] = null;
             }
         }
-        new SlimefunItem(actualCategory, item.getSingle(e), id.getSingle(e), actualRecipeType, actualRecipe).register();
+        new SlimefunItem(SlimefunHook.getCategory(category.getSingle(e).toLowerCase()), new SlimefunItemStack(id.getSingle(e), item.getSingle(e)), slimefunRecipeType, recipeItems).register(SlimefunHook.ADDON);
     }
 }

@@ -9,18 +9,18 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import me.mrCookieSlime.Slimefun.Objects.Research;
+import io.github.thebusybiscuit.slimefun4.implementation.SlimefunPlugin;
 import org.bukkit.event.Event;
 
 import javax.annotation.Nullable;
 
 @Name("Slimefun - All Researches")
-@Description("Returns the ids of all Slimefun researches")
+@Description("Returns the IDs of all Slimefun researches")
 @Examples({"send \"%all slimefun researches%\""})
-public class ExprAllResearches extends SimpleExpression<Number> {
+public class ExprAllResearches extends SimpleExpression<String> {
 
     static {
-        Skript.registerExpression(ExprAllResearches.class, Number.class, ExpressionType.SIMPLE, "[(all [[of] the]|the)] [IDs of all [the]] [Slimefun] researches");
+        Skript.registerExpression(ExprAllResearches.class, String.class, ExpressionType.SIMPLE, "[(all [[of] the]|the)] [IDs of all [the]] [Slimefun] researches");
     }
 
     @Override
@@ -29,8 +29,8 @@ public class ExprAllResearches extends SimpleExpression<Number> {
     }
 
     @Override
-    public Class<? extends Number> getReturnType() {
-        return Number.class;
+    public Class<? extends String> getReturnType() {
+        return String.class;
     }
 
     @SuppressWarnings("unchecked")
@@ -46,7 +46,7 @@ public class ExprAllResearches extends SimpleExpression<Number> {
 
     @Override
     @Nullable
-    protected Number[] get(Event e) {
-        return Research.list().stream().map(Research::getID).toArray(Number[]::new);
+    protected String[] get(Event e) {
+        return SlimefunPlugin.getRegistry().getResearches().stream().map(r -> r.getKey().getKey()).toArray(String[]::new);
     }
 }

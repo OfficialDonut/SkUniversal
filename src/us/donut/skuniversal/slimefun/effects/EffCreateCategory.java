@@ -11,6 +11,7 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.mrCookieSlime.Slimefun.Objects.Category;
+import org.bukkit.NamespacedKey;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 import us.donut.skuniversal.slimefun.SlimefunHook;
@@ -19,14 +20,14 @@ import javax.annotation.Nullable;
 
 @Name("Slimefun - Create Category")
 @Description("Creates Slimefun category (it will not show up in the guide unless you create at least 1 item for it)")
-@Examples("create slimefun category named \"Cool Stuff\" with menu item dirt named \"Cool Stuff\" with priority 0")
+@Examples("create slimefun category with ID \"cool_stuff\" with menu item dirt named \"Cool Stuff\" with priority 0")
 public class EffCreateCategory extends Effect {
 
     static {
-        Skript.registerEffect(EffCreateCategory.class, "create [a] [new] [Slimefun] category [(named|with name)] %string% with [menu] item %itemstack% with (level|priority) %integer%");
+        Skript.registerEffect(EffCreateCategory.class, "create [a] [new] [Slimefun] category [with ID] %string% with [menu] item %itemstack% with (level|priority|tier) %integer%");
     }
 
-    private Expression<String> name;
+    private Expression<String> id;
     private Expression<ItemStack> item;
     private Expression<Integer> level;
 
@@ -37,19 +38,19 @@ public class EffCreateCategory extends Effect {
             Skript.error("You can not use Slimefun create category effect in any event but on skript load.");
             return false;
         }
-        name = (Expression<String>) e[0];
+        id = (Expression<String>) e[0];
         item = (Expression<ItemStack>) e[1];
         level = (Expression<Integer>) e[2];
         return true;
     }
     @Override
     public String toString(@Nullable Event e, boolean b) {
-        return "create Slimefun category " + name.toString(e, b) + " with item " + item.toString(e, b) + " with level " + level.toString(e, b);
+        return "create Slimefun category " + id.toString(e, b) + " with item " + item.toString(e, b) + " with level " + level.toString(e, b);
     }
 
     @Override
     protected void execute(Event e) {
-        if (name.getSingle(e) == null || item.getSingle(e) == null || level.getSingle(e) == null) return;
-        SlimefunHook.customCategories.put(name.getSingle(e).toLowerCase(), new Category(item.getSingle(e), level.getSingle(e)));
+        if (id.getSingle(e) == null || item.getSingle(e) == null || level.getSingle(e) == null) return;
+        new Category(new NamespacedKey(Skript.getInstance(), id.getSingle(e).toLowerCase()), item.getSingle(e), level.getSingle(e)).register(SlimefunHook.ADDON);
     }
 }
