@@ -63,7 +63,7 @@ public class ExprClaimsOfPlayer extends SimpleExpression<Number> {
         if (player.getSingle(e) == null) return null;
         return dataStore.getClaims()
                 .stream()
-                .filter(claim -> claim.ownerID.equals(player.getSingle(e).getUniqueId()))
+                .filter(claim -> player.getSingle(e).getUniqueId().equals(claim.ownerID))
                 .filter(claim -> {
                     switch (claimType) {
                         case "normal":
